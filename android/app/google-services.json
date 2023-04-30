@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "771747765714",
+    "project_id": "diplo-app-22eeb",
+    "storage_bucket": "diplo-app-22eeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771747765714:android:8142657ea6eead51193c0b",
+        "android_client_info": {
+          "package_name": "com.example.android_testing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771747765714-su109vuiek04r0g62gprc7ljsr3buu7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwtpU3WIl6GCUeIR_-zL2nC73TMMu0RXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771747765714-su109vuiek04r0g62gprc7ljsr3buu7j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
