@@ -1,9 +1,13 @@
 import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
+import 'package:android_testing/screens/patientview/chats/single_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:go_router/go_router.dart';
 
+import 'category_selector.dart';
+import 'contact_list.dart';
 import 'favorite_contacts.dart';
 import 'recent_charts.dart';
 
@@ -37,51 +41,31 @@ class ChatApp extends StatelessWidget {
                 children: [
                   FavoriteContacts(),
                   RecentChats(),
+                  FloatingActionButton.extended(
+                    backgroundColor: Styles.c9,
+                    onPressed: () {
+                      // context.go("/single_chat");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => AllContacts(),
+                        ),
+                      );
+                    },
+                    label: Text(
+                      "New chat",
+                      style: Styles.headerStyle4.copyWith(color: Colors.white),
+                    ),
+                    icon: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class CategorySelector extends StatefulWidget {
-  const CategorySelector({
-    super.key,
-  });
-
-  @override
-  State<CategorySelector> createState() => _CategorySelectorState();
-}
-
-class _CategorySelectorState extends State<CategorySelector> {
-  int selectedIndex = 0;
-  final List<String> categories = ['Messages', 'Online', 'Groups'];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 90.0,
-      color: Styles.c6,
-      child: Center(
-        child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: categories.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 30.0),
-                child: (Text(
-                  categories[index],
-                  style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.1),
-                )),
-              );
-            }),
       ),
     );
   }
