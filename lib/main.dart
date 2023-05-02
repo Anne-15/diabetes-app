@@ -1,5 +1,6 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
+import 'package:android_testing/screens/patientview/chats/chats.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,14 +23,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       title: 'Diplo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Styles.backgroundColor),
       ),
-      routerConfig: router,
+      // routerConfig: router,
+      home: ChatApp(),
     );
   }
 }

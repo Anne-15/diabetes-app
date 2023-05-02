@@ -28,4 +28,20 @@ class UserRepository extends GetxController {
       print(error.toString());
     });
   }
+
+  //fetch all the data
+  Future<UserModel> getUserDetails(String fullname) async {
+    final snapshot = await _db
+        .collection("Users")
+        .where("FullName", isEqualTo: fullname)
+        .get();
+    final data = snapshot.docs.map((e) => UserModel.fromFirestore(e)).single;
+    return data;
+  }
+
+  Future<List<UserModel>> allUsers() async {
+    final snapshot = await _db.collection("Users").get();
+    final data = snapshot.docs.map((e) => UserModel.fromFirestore(e)).toList();
+    return data;
+  }
 }

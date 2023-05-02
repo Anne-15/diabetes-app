@@ -1,7 +1,11 @@
+import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+
+import 'favorite_contacts.dart';
+import 'recent_charts.dart';
 
 class ChatApp extends StatelessWidget {
   const ChatApp({super.key});
@@ -23,11 +27,18 @@ class ChatApp extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                  color: Styles.c12,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  )),
+                color: Styles.c12,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+              ),
+              child: Column(
+                children: [
+                  FavoriteContacts(),
+                  RecentChats(),
+                ],
+              ),
             ),
           )
         ],
