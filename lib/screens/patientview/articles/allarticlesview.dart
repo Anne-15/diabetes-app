@@ -91,17 +91,4 @@ class AllArticles extends StatelessWidget {
   }
 }
 
-//  Card(
-//             child: Column(
-//               children: [
-//                 Image.network(
-//                   'https://via.placeholder.com/300x200',
-//                   fit: BoxFit.cover,
-//                 ),
-//                 ListTile(
-//                   title: Text('Title'),
-//                   subtitle: Text('Subtitle'),
-//                 ),
-//               ],
-//             ),
-//           )
+
