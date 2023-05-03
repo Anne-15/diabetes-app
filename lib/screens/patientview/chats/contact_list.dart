@@ -47,10 +47,57 @@ class AllContacts extends StatelessWidget {
                           topRight: Radius.circular(30.0),
                         ),
                       ),
-                      child: ListView.builder(
-                        itemBuilder: (context, index) {
-                          
-                        },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0),
+                        ),
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => SingleChat(),
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    top: 5.0, bottom: 5.0, right: 20.0),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 20.0),
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 25.0,
+                                      backgroundImage: AssetImage(
+                                          'assets/images/profile.png'),
+                                    ),
+                                    SizedBox(width: AppLayout.getWidth(10.0)),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Andrew Smith",
+                                          style: Styles.headerStyle3,
+                                        ),
+                                        SizedBox(
+                                            height: AppLayout.getHeight(5.0)),
+                                        Text(
+                                          "An apple a day keeps the doctor away",
+                                          style: Styles.headerStyle4,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
