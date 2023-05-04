@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         // fontFamily: 'Lato',
       ),
       // routerConfig: router,
-      home: DoctorAppointments(),
+      home: DoctorNavBar(),
     );
   }
 }

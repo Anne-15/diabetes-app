@@ -1,7 +1,9 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../screens/doctors view/appointments/appointments.dart';
 import '../screens/doctors view/home/homedoctor.dart';
+import '../screens/doctors view/profile/doctor_profile.dart';
 
 class DoctorNavBar extends StatefulWidget {
   const DoctorNavBar({super.key});
@@ -15,10 +17,10 @@ class _DoctorNavBarState extends State<DoctorNavBar> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeDoctor(),
-    const Text('Appointments'),
+    const DoctorAppointments(),
     const Text('Articles'),
     const Text('Chats'),
-    const Text('Profile')
+    const DoctorProfile()
   ];
 
   void _onClick(int index) {

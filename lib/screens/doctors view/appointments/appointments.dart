@@ -20,6 +20,7 @@ class DoctorAppointments extends StatelessWidget {
           "Appointments",
           style: Styles.headerStyle2,
         ),
+        centerTitle: true,
       ),
       body: Container(
         padding: EdgeInsets.all(30.0),

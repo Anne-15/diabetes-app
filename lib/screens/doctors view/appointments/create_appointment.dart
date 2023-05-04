@@ -73,6 +73,7 @@ class _CreateAppointmentState extends State<CreateAppointment> {
           "Schedule Appointment",
           style: Styles.headerStyle2,
         ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
           child: Container(
