@@ -13,6 +13,7 @@ class DoctorLoginView extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Styles.c6.withOpacity(0.2),
         body: SingleChildScrollView(
           child: Container(
             padding: EdgeInsets.all(50.0),
@@ -33,7 +34,7 @@ class DoctorLoginView extends StatelessWidget {
                 ),
                 SizedBox(height: AppLayout.getHeight(10.0)),
                 Text(
-                  "For doctos/nurses",
+                  "For doctors/nurses",
                   style: Styles.headerStyle4,
                 ),
                 //login form

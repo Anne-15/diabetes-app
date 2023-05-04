@@ -25,28 +25,39 @@ class Styles {
   static Color c12 = const Color(0xffffffff);
   static Color c13 = const Color(0xff21005e);
   static Color c14 = const Color(0xff1e192b);
+
   static TextStyle textStyle = TextStyle(
       fontSize: 16,
       color: textColor,
       fontWeight: FontWeight.w500,
       fontFamily: 'Barlow');
+
   static TextStyle headerStyle1 = TextStyle(
     fontSize: 26,
     color: textColor,
     fontWeight: FontWeight.bold,
+    fontFamily: 'Lato',
   );
-  static TextStyle headerStyle2 =
-      TextStyle(fontSize: 21, color: textColor, fontWeight: FontWeight.bold);
+  static TextStyle headerStyle2 = TextStyle(
+      fontSize: 21,
+      color: textColor,
+      fontWeight: FontWeight.bold,
+      fontFamily: 'Lato');
+
   static TextStyle headerStyle3 = TextStyle(
       fontSize: 18,
-      fontFamily: 'Barlow',
+      fontFamily: 'Lato',
       color: textColor,
       fontWeight: FontWeight.w500);
-  static TextStyle headerStyle4 =
-      TextStyle(fontSize: 14, color: textColor, fontWeight: FontWeight.w500);
-  static TextStyle header1 = TextStyle(
-      fontSize: 25,
-      fontFamily: "Mali",
+  static TextStyle headerStyle4 = TextStyle(
+      fontSize: 14,
       color: textColor,
-      fontWeight: FontWeight.bold);
+      fontWeight: FontWeight.w500,
+      fontFamily: 'Roboto');
+
+  static TextStyle header1 = TextStyle(
+      fontSize: 12,
+      fontFamily: "Open sans",
+      color: textColor,
+      fontWeight: FontWeight.w300);
 }

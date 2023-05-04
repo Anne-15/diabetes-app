@@ -9,12 +9,14 @@ import 'package:android_testing/screens/welcomescreen/welcome_screen.dart';
 import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:go_router/go_router.dart';
 
+import '../screens/doctors view/home/homedoctor.dart';
 import '../screens/doctors view/login/logindoctor.dart';
 import '../screens/doctors view/register/registerdoctor.dart';
 import '../screens/patientview/articles/allarticlesview.dart';
 import '../screens/patientview/articles/writearticle.dart';
 import '../screens/patientview/signin/login.dart';
 import '../screens/patientview/signup/register.dart';
+import '../widgets/navigationbar.dart';
 
 final GoRouter router = GoRouter(routes: [
   //patient's view
@@ -76,6 +78,14 @@ final GoRouter router = GoRouter(routes: [
   GoRoute(
     path: "/doctor_register",
     builder: (context, state) => RegisterDoctorPage(),
+  ),
+  GoRoute(
+    path: "/doctor_home",
+    builder: (context, state) => HomeDoctor(),
+  ),
+  GoRoute(
+    path: "/doctor_navbar",
+    builder: (context, state) => DoctorNavBar(),
   ),
 
   //both users view

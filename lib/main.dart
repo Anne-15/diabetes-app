@@ -1,6 +1,11 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
+import 'package:android_testing/screens/doctors%20view/appointments/appointments.dart';
+import 'package:android_testing/screens/doctors%20view/home/homedoctor.dart';
+import 'package:android_testing/screens/doctors%20view/login/logindoctor.dart';
 import 'package:android_testing/screens/patientview/chats/chats.dart';
+import 'package:android_testing/widgets/bottomnav.dart';
+import 'package:android_testing/widgets/navigationbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,10 +33,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Styles.backgroundColor),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Styles.backgroundColor,
+        ),
+        // fontFamily: 'Lato',
       ),
       // routerConfig: router,
-      home: ChatApp(),
+      home: DoctorAppointments(),
     );
   }
 }

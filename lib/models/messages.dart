@@ -11,6 +11,8 @@ class Messages {
   final Timestamp time;
   final int? messageNum;
 
+  static var to;
+
   const Messages({
     required this.receiverId,
     required this.senderId,

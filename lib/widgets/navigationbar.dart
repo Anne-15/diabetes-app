@@ -1,54 +1,56 @@
-import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+import '../screens/doctors view/home/homedoctor.dart';
+
+class DoctorNavBar extends StatefulWidget {
+  const DoctorNavBar({super.key});
 
   @override
-  State<NavBar> createState() => _NavBarState();
+  State<DoctorNavBar> createState() => _DoctorNavBarState();
 }
 
-class _NavBarState extends State<NavBar> {
+class _DoctorNavBarState extends State<DoctorNavBar> {
+  int _selectedIndex = 0;
+
+  static final List<Widget> _widgetOptions = <Widget>[
+    const HomeDoctor(),
+    const Text('Appointments'),
+    const Text('Articles'),
+    const Text('Chats'),
+    const Text('Profile')
+  ];
+
+  void _onClick(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: SafeArea(
-            child: Container(
-      padding: EdgeInsets.all(12),
-      margin: EdgeInsets.symmetric(horizontal: 24),
-      height: AppLayout.getHeight(55),
-      decoration: BoxDecoration(
-        color: Styles.c4.withOpacity(0.3),
-        borderRadius: BorderRadius.all(Radius.circular(24)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Icon(
-            Icons.home,
-            color: Styles.c1,
-          ),
-          Icon(
-            Icons.newspaper,
-            color: Styles.c1,
-          ),
-          Icon(
-            Icons.schedule,
-            color: Styles.c1,
-          ),
-          Icon(
-            Icons.chat_bubble_outline_rounded,
-            color: Styles.c1,
-          ),
-          Icon(
-            Icons.person_2_rounded,
-            color: Styles.c1,
-          )
-        ],
-      ),
-    )));
+      body: Center(child: _widgetOptions[_selectedIndex]),
+      backgroundColor: Styles.backgroundColor,
+      bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onClick,
+          elevation: 20,
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          selectedItemColor: Styles.c1,
+          unselectedItemColor: const Color(0xFFEDE7F6),
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.schedule_rounded), label: "Appointments"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.newspaper_rounded), label: "Articles"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.chat_bubble_outline_rounded), label: "Chat"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_2_rounded), label: "Profile"),
+          ]),
+    );
   }
 }
