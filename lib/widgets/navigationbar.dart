@@ -2,6 +2,7 @@ import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/doctors view/appointments/appointments.dart';
+import '../screens/doctors view/chats/all_chats.dart';
 import '../screens/doctors view/home/homedoctor.dart';
 import '../screens/doctors view/profile/doctor_profile.dart';
 
@@ -19,7 +20,7 @@ class _DoctorNavBarState extends State<DoctorNavBar> {
     const HomeDoctor(),
     const DoctorAppointments(),
     const Text('Articles'),
-    const Text('Chats'),
+    const AllChats(),
     const DoctorProfile()
   ];
 
