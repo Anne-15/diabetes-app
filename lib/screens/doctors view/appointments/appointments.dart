@@ -17,7 +17,7 @@ class DoctorAppointments extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Appointments",
+          "My Appointments",
           style: Styles.headerStyle2,
         ),
         centerTitle: true,
@@ -29,16 +29,20 @@ class DoctorAppointments extends StatelessWidget {
             Tabs(size: size),
             SizedBox(height: AppLayout.getHeight(15)),
             UpcomingAppointments(),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => CreateAppointment(),
-                  ),
-                );
-              },
-              child: Icon(Icons.add),
+            SizedBox(height: size.height * 0.05),
+            Align(
+              alignment: Alignment.centerRight,
+              child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => CreateAppointment(),
+                    ),
+                  );
+                },
+                child: Icon(Icons.add),
+              ),
             )
           ],
         ),

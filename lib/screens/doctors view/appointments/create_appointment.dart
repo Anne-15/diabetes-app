@@ -217,22 +217,21 @@ class _CreateAppointmentState extends State<CreateAppointment> {
               ),
             ),
             SizedBox(height: 20.0),
-            FloatingActionButton.extended(
-              onPressed: (() {
-                // final article = ArticlesModel(
-                //   title: controller.title.text.trim(),
-                //   date: controller.date.text.trim(),
-                //   body: controller.body.text.trim(),
-                // );
-                // ArticlesController.instance.addArticles(article);
-              }),
-              label: Text(
-                "Send",
-                style: Styles.headerStyle4,
-              ),
-              icon: Icon(
-                Icons.send_rounded,
-                color: Styles.c1,
+            SizedBox(
+              width: double.infinity,
+              child: FloatingActionButton.extended(
+                onPressed: (() {
+                  // final article = ArticlesModel(
+                  //   title: controller.title.text.trim(),
+                  //   date: controller.date.text.trim(),
+                  //   body: controller.body.text.trim(),
+                  // );
+                  // ArticlesController.instance.addArticles(article);
+                }),
+                label: Text(
+                  "Save",
+                  style: Styles.headerStyle4,
+                ),
               ),
             )
           ],

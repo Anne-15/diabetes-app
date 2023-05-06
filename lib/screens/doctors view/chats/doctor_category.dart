@@ -13,7 +13,7 @@ class DoctorCategories extends StatefulWidget {
 
 class _DoctorCategoriesState extends State<DoctorCategories> {
   int selectedIndex = 0;
-  final List<String> categories = ['Messages', 'Online', 'Patients', 'All Contacts'];
+  final List<String> categories = ['Messages', 'Online', 'My Patients'];
 
   @override
   Widget build(BuildContext context) {
