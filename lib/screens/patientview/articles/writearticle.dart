@@ -16,21 +16,16 @@ class MyArticles extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ArticlesController());
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.arrow_back_ios_new_rounded,
-          color: Styles.c1,
-        ),
         title: Text(
           "My Articles",
           style: Styles.headerStyle2,
           // textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        elevation: 0,
-        backgroundColor: Styles.c6.withOpacity(0.2),
+        // elevation: 0,
+        // backgroundColor: Styles.c6.withOpacity(0.2),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -145,7 +140,6 @@ class MyArticles extends StatelessWidget {
                     ),
                   ),
                   FloatingActionButton.extended(
-                    backgroundColor: Styles.c6.withOpacity(0.6),
                     onPressed: (() {
                       final article = ArticlesModel(
                         title: controller.title.text.trim(),

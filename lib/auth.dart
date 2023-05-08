@@ -1,2 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
+String appId = "bd646a6e44124c7ba582edd38d40eb93";
+String token =
+    "007eJxTYDA5wyholfja2HxRta2fmvSyAgHuT9w2G3muxK/hecQiUabAkJRiZmKWaJZqYmJoZJJsnpRoamGUmpJibJFiYpCaZGl8835ESkMgI4PjO3YmRgYIBPE5GVwyC3LyFRwLChgYAJPDHTg=";

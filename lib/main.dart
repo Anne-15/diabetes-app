@@ -3,6 +3,7 @@ import 'package:android_testing/repository/authentication_repository.dart';
 import 'package:android_testing/screens/doctors%20view/appointments/appointments.dart';
 import 'package:android_testing/screens/doctors%20view/home/homedoctor.dart';
 import 'package:android_testing/screens/doctors%20view/login/logindoctor.dart';
+import 'package:android_testing/screens/patientview/articles/allarticlesview.dart';
 import 'package:android_testing/screens/patientview/chats/chats.dart';
 import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:android_testing/widgets/navigationbar.dart';
@@ -41,12 +42,12 @@ class MyApp extends StatelessWidget {
         // fontFamily: 'Lato',
       ),
       // routerConfig: router,
-      routes: {
-        '/': (context) => WelcomeScreen(),
-        '/doctor_register': (context) => RegisterDoctorPage(),
-        '/doctor_nav': (context) => DoctorNavBar(),
-      },
-      // home: WelcomeScreen(),
+      // routes: {
+      //   '/': (context) => WelcomeScreen(),
+      //   '/doctor_register': (context) => RegisterDoctorPage(),
+      //   '/doctor_nav': (context) => DoctorNavBar(),
+      // },
+      home: DoctorAppointments(),
     );
   }
 }

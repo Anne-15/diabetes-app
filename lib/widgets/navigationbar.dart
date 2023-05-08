@@ -5,6 +5,7 @@ import '../screens/doctors view/appointments/appointments.dart';
 import '../screens/doctors view/chats/all_chats.dart';
 import '../screens/doctors view/home/homedoctor.dart';
 import '../screens/doctors view/profile/doctor_profile.dart';
+import '../screens/patientview/articles/allarticlesview.dart';
 
 class DoctorNavBar extends StatefulWidget {
   const DoctorNavBar({super.key});
@@ -19,7 +20,7 @@ class _DoctorNavBarState extends State<DoctorNavBar> {
   static final List<Widget> _widgetOptions = <Widget>[
     const HomeDoctor(),
     const DoctorAppointments(),
-    const Text('Articles'),
+    const AllArticles(),
     const AllChats(),
     const DoctorProfile()
   ];

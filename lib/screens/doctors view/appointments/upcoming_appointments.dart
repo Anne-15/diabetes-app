@@ -1,6 +1,8 @@
 import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
+import 'package:android_testing/screens/doctors%20view/appointments/join_call.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class UpcomingAppointments extends StatelessWidget {
   const UpcomingAppointments({
@@ -45,7 +47,16 @@ class UpcomingAppointments extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  _handleCameraandMic(Permission.camera);
+                  _handleCameraandMic(Permission.microphone);
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => JoinVideoCall(),
+                    ),
+                  );
+                },
                 child: Text(
                   "Join call",
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -55,4 +66,9 @@ class UpcomingAppointments extends StatelessWidget {
           ],
         ));
   }
+}
+
+void _handleCameraandMic(Permission permission) {
+  final status = permission.request();
+  print(status);
 }

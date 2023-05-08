@@ -1,3 +1,4 @@
+import 'package:android_testing/screens/patientview/articles/writearticle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -15,80 +16,95 @@ class AllArticles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final controller = Get.put(GetArticlesController());
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            "Articles",
-            style: Styles.headerStyle1,
-          ),
+        title: Text(
+          "Articles",
+          style: Styles.headerStyle2,
         ),
-        elevation: 0,
-        backgroundColor: Styles.c6.withOpacity(0.2),
+        // elevation: 0,
+        // backgroundColor: Styles.c6.withOpacity(0.2),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.all(30.0),
-          child: FutureBuilder<List<ArticlesModel>>(
-            future: controller.getAllArticles(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (i, index) {
-                      return Column(
-                        children: [
-                          ListTile(
-                            leading: Image(
-                              image: AssetImage("assets/images/image.png"),
-                            ),
-                            title: Text(
-                              snapshot.data![index].title,
-                              style: Styles.headerStyle3,
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  snapshot.data![index].body,
-                                  style: Styles.headerStyle4,
+          child: Column(
+            children: [
+              FutureBuilder<List<ArticlesModel>>(
+                future: controller.getAllArticles(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (i, index) {
+                          return Column(
+                            children: [
+                              ListTile(
+                                leading: Image(
+                                  image: AssetImage("assets/images/image.png"),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                      "Date: ${snapshot.data![index].date}"),
+                                title: Text(
+                                  snapshot.data![index].title,
+                                  style: Styles.headerStyle3,
                                 ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: AppLayout.getHeight(8)),
-                        ],
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      snapshot.data![index].body,
+                                      style: Styles.headerStyle4,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                          "Date: ${snapshot.data![index].date}"),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: AppLayout.getHeight(8)),
+                            ],
+                          );
+                        },
                       );
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  return Center(
-                    child: Text(snapshot.error.toString()),
-                  );
-                } else {
-                  return const Center(
-                    child: Text("Something went wrong"),
-                  );
-                }
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    } else {
+                      return const Center(
+                        child: Text("Nothing to show for now"),
+                      );
+                    }
+                  } else {
+                    return const Center(child: Text("Nothing to show for now"));
+                  }
+                },
+              ),
+              SizedBox(height: size.height * 0.05),
+              Align(
+                alignment: Alignment.centerRight,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MyArticles(),
+                      ),
+                    );
+                  },
+                  child: Icon(Icons.add),
+                ),
+              )
+            ],
           ),
         ),
       ),
     );
   }
 }
-
-
