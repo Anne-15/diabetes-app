@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 
 import 'components/app_router.dart';
 import 'firebase_options.dart';
+import 'screens/doctors view/register/registerdoctor.dart';
+import 'screens/welcomescreen/welcome_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +41,12 @@ class MyApp extends StatelessWidget {
         // fontFamily: 'Lato',
       ),
       // routerConfig: router,
-      home: DoctorNavBar(),
+      routes: {
+        '/': (context) => WelcomeScreen(),
+        '/doctor_register': (context) => RegisterDoctorPage(),
+        '/doctor_nav': (context) => DoctorNavBar(),
+      },
+      // home: WelcomeScreen(),
     );
   }
 }

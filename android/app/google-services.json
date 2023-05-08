@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "771747765714",
-    "project_id": "diplo-app-22eeb",
-    "storage_bucket": "diplo-app-22eeb.appspot.com"
+    "project_number": "521701419256",
+    "project_id": "diabetes-diplo-app",
+    "storage_bucket": "diabetes-diplo-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:771747765714:android:8142657ea6eead51193c0b",
+        "mobilesdk_app_id": "1:521701419256:android:a021a0d5b20634f596b30d",
         "android_client_info": {
           "package_name": "com.example.android_testing"
         }
       },
       "oauth_client": [
         {
-          "client_id": "771747765714-su109vuiek04r0g62gprc7ljsr3buu7j.apps.googleusercontent.com",
+          "client_id": "521701419256-ujjn14ina4cvmotlr2gruapvpv0qdu36.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAwtpU3WIl6GCUeIR_-zL2nC73TMMu0RXk"
+          "current_key": "AIzaSyCy45ySHjN1i3yt6DXMMCxTrLCk9RA8sUw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "771747765714-su109vuiek04r0g62gprc7ljsr3buu7j.apps.googleusercontent.com",
+              "client_id": "521701419256-ujjn14ina4cvmotlr2gruapvpv0qdu36.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

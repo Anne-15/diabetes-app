@@ -1,9 +1,11 @@
+import 'package:android_testing/widgets/navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../components/already_have_an_account.dart';
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
+import '../register/registerdoctor.dart';
 
 class DoctorLoginForm extends StatelessWidget {
   const DoctorLoginForm({
@@ -71,7 +73,16 @@ class DoctorLoginForm extends StatelessWidget {
                     backgroundColor:
                         MaterialStateProperty.all(Styles.primaryColor),
                   ),
-                  onPressed: () => context.go('/navbar'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return DoctorNavBar();
+                        },
+                      ),
+                    );
+                  },
                   child: Text(
                     "SIGN IN",
                     style: TextStyle(color: Colors.white),
@@ -83,7 +94,16 @@ class DoctorLoginForm extends StatelessWidget {
           SizedBox(height: size.height * 0.03),
           AlreadyHaveAnAccount(
             login: true,
-            press: () => context.go('/doctor_register'),
+            press: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return RegisterDoctorPage();
+                  },
+                ),
+              ),
+            },
           ),
         ],
       ),

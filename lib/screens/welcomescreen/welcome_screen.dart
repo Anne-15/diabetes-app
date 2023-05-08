@@ -4,6 +4,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:go_router/go_router.dart';
 
+import '../doctors view/register/registerdoctor.dart';
+
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
@@ -50,7 +52,9 @@ class WelcomeScreen extends StatelessWidget {
                 SizedBox(width: 10.0),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => context.go('/doctor_register'),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/doctor_register');
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(),
                       foregroundColor: Styles.c12,

@@ -7,6 +7,7 @@ import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 import '../../../controllers/get_doctors_controllers.dart';
 import '../../../models/doctormodel.dart';
+import '../login/logindoctor.dart';
 
 class RegisterDoctorForm extends StatelessWidget {
   const RegisterDoctorForm({
@@ -21,7 +22,6 @@ class RegisterDoctorForm extends StatelessWidget {
     final controller = Get.put(DoctorSignupController());
     // ignore: no_leading_underscores_for_local_identifiers
     final _signupkey = GlobalKey();
-
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0),
       child: Form(
@@ -93,6 +93,7 @@ class RegisterDoctorForm extends StatelessWidget {
                             MaterialStateProperty.all(Styles.primaryColor),
                       ),
                       onPressed: () {
+                        //add data to the database
                         final doctors = DoctorUserModel(
                           fullname: controller.fullname.text.trim(),
                           email: controller.email.text.trim(),
@@ -103,7 +104,11 @@ class RegisterDoctorForm extends StatelessWidget {
                         DoctorSignupController.instance
                             .createDoctorUser(doctors);
 
-                        // context.go('/navbar');
+                        //email and password authentication
+                        DoctorSignupController.instance.registerDoctorUser(
+                          controller.email.text.trim(),
+                          controller.password.text.trim(),
+                        );
                       },
                       child: Text(
                         "SIGN IN",
@@ -116,7 +121,16 @@ class RegisterDoctorForm extends StatelessWidget {
               SizedBox(height: size.height * 0.03),
               AlreadyHaveAnAccount(
                 login: false,
-                press: () => context.go('/doctor_login'),
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return DoctorLoginView();
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           )),

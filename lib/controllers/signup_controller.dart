@@ -1,10 +1,8 @@
 import 'package:android_testing/models/usermodel.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
 import 'package:android_testing/repository/user_repository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 
 class SignupController extends GetxController {
   static SignupController get instance => Get.find();

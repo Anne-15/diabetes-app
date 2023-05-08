@@ -1,4 +1,5 @@
 import 'package:android_testing/components/constants.dart';
+import 'package:android_testing/repository/authentication_repository.dart';
 import 'package:android_testing/screens/doctors%20view/profile/update_prof_screen.dart';
 import 'package:android_testing/screens/patientview/profile/components/profilemenu.dart';
 import 'package:android_testing/screens/patientview/profile/updateprofile.dart';
@@ -110,11 +111,14 @@ class DoctorProfile extends StatelessWidget {
               ProfileMenu(
                   title: "About Us", icon: Icons.info_outline, onPress: () {}),
               ProfileMenu(
-                  title: "Logout",
-                  icon: Icons.logout_rounded,
-                  endIcon: false,
-                  // textColor: Styles.c9,
-                  onPress: () {}),
+                title: "Logout",
+                icon: Icons.logout_rounded,
+                endIcon: false,
+                // textColor: Styles.c9,
+                onPress: () {
+                  AuthenticationRepository.instance.logout();
+                },
+              ),
             ],
           ),
         ),

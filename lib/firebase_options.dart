@@ -44,40 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDEn6jPgv941HAxke1RBHonDnvroR0DymQ',
-    appId: '1:771747765714:web:59ed691606430c80193c0b',
-    messagingSenderId: '771747765714',
-    projectId: 'diplo-app-22eeb',
-    authDomain: 'diplo-app-22eeb.firebaseapp.com',
-    storageBucket: 'diplo-app-22eeb.appspot.com',
-    measurementId: 'G-4KP2911RL1',
+    apiKey: 'AIzaSyAuNQ5MbKhc1qsjPIso7Sm-oyaEdMaU_J8',
+    appId: '1:521701419256:web:4e16395d0ed849c496b30d',
+    messagingSenderId: '521701419256',
+    projectId: 'diabetes-diplo-app',
+    authDomain: 'diabetes-diplo-app.firebaseapp.com',
+    storageBucket: 'diabetes-diplo-app.appspot.com',
+    measurementId: 'G-RJMKRGCVPH',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAwtpU3WIl6GCUeIR_-zL2nC73TMMu0RXk',
-    appId: '1:771747765714:android:8142657ea6eead51193c0b',
-    messagingSenderId: '771747765714',
-    projectId: 'diplo-app-22eeb',
-    storageBucket: 'diplo-app-22eeb.appspot.com',
+    apiKey: 'AIzaSyCy45ySHjN1i3yt6DXMMCxTrLCk9RA8sUw',
+    appId: '1:521701419256:android:a021a0d5b20634f596b30d',
+    messagingSenderId: '521701419256',
+    projectId: 'diabetes-diplo-app',
+    storageBucket: 'diabetes-diplo-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAR0gyJEfp_9XZqljAfzXmVhgTGOAq0E_Y',
-    appId: '1:771747765714:ios:a83050d2e7f42f24193c0b',
-    messagingSenderId: '771747765714',
-    projectId: 'diplo-app-22eeb',
-    storageBucket: 'diplo-app-22eeb.appspot.com',
-    iosClientId: '771747765714-et5dsg6jeeqt7ger426pckj63tiv2kbh.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA55Zw7fqJi0pqjSgTDJBY6ow-BUzT_0Dk',
+    appId: '1:521701419256:ios:d3e3493a2347a78996b30d',
+    messagingSenderId: '521701419256',
+    projectId: 'diabetes-diplo-app',
+    storageBucket: 'diabetes-diplo-app.appspot.com',
+    iosClientId: '521701419256-sr12r8dnte9t0q0v592dpictfk71vt9b.apps.googleusercontent.com',
     iosBundleId: 'com.example.androidTesting',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAR0gyJEfp_9XZqljAfzXmVhgTGOAq0E_Y',
-    appId: '1:771747765714:ios:a83050d2e7f42f24193c0b',
-    messagingSenderId: '771747765714',
-    projectId: 'diplo-app-22eeb',
-    storageBucket: 'diplo-app-22eeb.appspot.com',
-    iosClientId: '771747765714-et5dsg6jeeqt7ger426pckj63tiv2kbh.apps.googleusercontent.com',
+    apiKey: 'AIzaSyA55Zw7fqJi0pqjSgTDJBY6ow-BUzT_0Dk',
+    appId: '1:521701419256:ios:d3e3493a2347a78996b30d',
+    messagingSenderId: '521701419256',
+    projectId: 'diabetes-diplo-app',
+    storageBucket: 'diabetes-diplo-app.appspot.com',
+    iosClientId: '521701419256-sr12r8dnte9t0q0v592dpictfk71vt9b.apps.googleusercontent.com',
     iosBundleId: 'com.example.androidTesting',
   );
 }
