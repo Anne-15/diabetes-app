@@ -48,14 +48,14 @@ class UpcomingAppointments extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () async {
-                  _handleCameraandMic(Permission.camera);
-                  _handleCameraandMic(Permission.microphone);
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => JoinVideoCall(),
-                    ),
-                  );
+                  // _handleCameraandMic(Permission.camera);
+                  // _handleCameraandMic(Permission.microphone);
+                  // await Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => JoinVideoCall(),
+                  //   ),
+                  // );
                 },
                 child: Text(
                   "Join call",
@@ -68,7 +68,7 @@ class UpcomingAppointments extends StatelessWidget {
   }
 }
 
-void _handleCameraandMic(Permission permission) {
-  final status = permission.request();
-  print(status);
-}
+// void _handleCameraandMic(Permission permission) {
+//   final status = permission.request();
+//   print(status);
+// }

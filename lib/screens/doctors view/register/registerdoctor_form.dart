@@ -92,7 +92,7 @@ class RegisterDoctorForm extends StatelessWidget {
                         backgroundColor:
                             MaterialStateProperty.all(Styles.primaryColor),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         //add data to the database
                         final doctors = DoctorUserModel(
                           fullname: controller.fullname.text.trim(),
@@ -102,7 +102,7 @@ class RegisterDoctorForm extends StatelessWidget {
                         );
 
                         DoctorSignupController.instance
-                            .createDoctorUser(doctors);
+                            .createDoctorUser(context, doctors);
 
                         //email and password authentication
                         DoctorSignupController.instance.registerDoctorUser(
@@ -121,16 +121,7 @@ class RegisterDoctorForm extends StatelessWidget {
               SizedBox(height: size.height * 0.03),
               AlreadyHaveAnAccount(
                 login: false,
-                press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return DoctorLoginView();
-                      },
-                    ),
-                  );
-                },
+                press: () => context.go('/doctor_login'),
               ),
             ],
           )),

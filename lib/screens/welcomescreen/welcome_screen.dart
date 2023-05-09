@@ -52,9 +52,7 @@ class WelcomeScreen extends StatelessWidget {
                 SizedBox(width: 10.0),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/doctor_register');
-                    },
+                    onPressed: () => context.go('/doctor_register'),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(),
                       foregroundColor: Styles.c12,

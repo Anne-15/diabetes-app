@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 
 import 'components/app_router.dart';
 import 'firebase_options.dart';
+import 'screens/doctors view/chats/all_chats.dart';
 import 'screens/doctors view/register/registerdoctor.dart';
 import 'screens/welcomescreen/welcome_screen.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Diplo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -39,15 +40,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: Styles.backgroundColor,
         ),
-        // fontFamily: 'Lato',
       ),
-      // routerConfig: router,
-      // routes: {
-      //   '/': (context) => WelcomeScreen(),
-      //   '/doctor_register': (context) => RegisterDoctorPage(),
-      //   '/doctor_nav': (context) => DoctorNavBar(),
-      // },
-      home: DoctorAppointments(),
+      routerConfig: router,
+      // home: AllChats(),
     );
   }
 }

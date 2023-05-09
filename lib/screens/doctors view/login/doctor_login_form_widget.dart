@@ -73,16 +73,7 @@ class DoctorLoginForm extends StatelessWidget {
                     backgroundColor:
                         MaterialStateProperty.all(Styles.primaryColor),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DoctorNavBar();
-                        },
-                      ),
-                    );
-                  },
+                  onPressed: () => context.go('/doctor_navbar'),
                   child: Text(
                     "SIGN IN",
                     style: TextStyle(color: Colors.white),
@@ -94,16 +85,7 @@ class DoctorLoginForm extends StatelessWidget {
           SizedBox(height: size.height * 0.03),
           AlreadyHaveAnAccount(
             login: true,
-            press: () => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return RegisterDoctorPage();
-                  },
-                ),
-              ),
-            },
+            press: () => context.go('/doctor_register'),
           ),
         ],
       ),

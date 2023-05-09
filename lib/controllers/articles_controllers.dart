@@ -20,6 +20,6 @@ class ArticlesController extends GetxController {
 
   void addArticles(ArticlesModel article) async {
     await articleRepo.addArticles(article);
-    Get.to(() => '/navbar');
+    await Get.to(() => '/navbar');
   }
 }

@@ -1,8 +1,12 @@
+import 'dart:js';
+
 import 'package:android_testing/models/usermodel.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
 import 'package:android_testing/repository/user_repository.dart';
+import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 class SignupController extends GetxController {
   static SignupController get instance => Get.find();
@@ -30,9 +34,10 @@ class SignupController extends GetxController {
     }
   }
 
-  void createUser(UserModel user) async {
+  void createUser(BuildContext context, UserModel user) async {
     await userRepo.createUser(user);
     //authentication goes here also
     //then go to otp screen
+    await Get.to((context) => BottomBar());
   }
 }

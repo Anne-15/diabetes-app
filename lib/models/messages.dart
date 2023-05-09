@@ -39,8 +39,8 @@ class Messages {
   }
 
   factory Messages.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-  ) {
+      DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options) {
     final data = snapshot.data()!;
     return Messages(
         receiverId: data["receiverId"],

@@ -126,7 +126,7 @@ class SignUpForm extends StatelessWidget {
                           type: controller.type.text.trim(),
                         );
 
-                        SignupController.instance.createUser(user);
+                        SignupController.instance.createUser(context, user);
 
                         // context.go('/navbar');
                       },
