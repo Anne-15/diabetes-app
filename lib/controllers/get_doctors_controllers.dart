@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:android_testing/repository/authentication_repository.dart';
 import 'package:android_testing/widgets/navigationbar.dart';
 import 'package:flutter/material.dart';
@@ -29,11 +27,10 @@ class DoctorSignupController extends GetxController {
     }
   }
 
-  void createDoctorUser(BuildContext context, DoctorUserModel doctor) async {
+  void createDoctorUser(DoctorUserModel doctor) async {
     //add details to the databaase
     await doctorRepo.createDoctorUser(doctor);
     //then go to the home screen
-    // ignore: use_build_context_synchronously
-    await Get.to((context) => DoctorNavBar());
+    await Get.toNamed('/doctor_navbar');
   }
 }

@@ -102,7 +102,7 @@ class RegisterDoctorForm extends StatelessWidget {
                         );
 
                         DoctorSignupController.instance
-                            .createDoctorUser(context, doctors);
+                            .createDoctorUser(doctors);
 
                         //email and password authentication
                         DoctorSignupController.instance.registerDoctorUser(

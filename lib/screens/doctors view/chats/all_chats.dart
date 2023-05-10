@@ -1,16 +1,20 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../../repository/doctors_chat_repository.dart';
 import '../../patientview/chats/contact_list.dart';
 import '../../patientview/chats/favorite_contacts.dart';
 import '../../patientview/chats/recent_charts.dart';
 import 'doctor_category.dart';
+import 'doctor_contacts.dart';
 
-class AllChats extends StatelessWidget {
-  const AllChats({super.key});
+class DoctorChats extends StatelessWidget {
+  const DoctorChats({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final chatrepo = DoctorChatRepository();
+
     return Scaffold(
       backgroundColor: Styles.c6,
       appBar: AppBar(
@@ -41,12 +45,14 @@ class AllChats extends StatelessWidget {
                       backgroundColor: Styles.c9,
                       onPressed: () {
                         // context.go("/single_chat");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => AllContacts(),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (_) => DoctorContacts(
+                        //       item: chatrepo,
+                        //     ),
+                        //   ),
+                        // );
                       },
                       label: Text(
                         "New chat",

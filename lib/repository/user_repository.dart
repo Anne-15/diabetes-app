@@ -1,4 +1,5 @@
 import 'package:android_testing/components/constants.dart';
+import 'package:android_testing/middleware/config.dart';
 import 'package:android_testing/models/usermodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,18 @@ class UserRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
 
   createUser(UserModel user) async {
+    //store the data locally
+    UserModel userProfile = UserModel(
+      fullname: user.fullname,
+      email: user.email,
+      password: user.password,
+      age: user.age,
+      gender: user.gender,
+      type: user.type,
+    );
+    ConfigDataStore.to.savedProfile(userProfile);
+
+    //store the data in firebase
     await _db
         .collection("Users")
         .add(user.toJson())

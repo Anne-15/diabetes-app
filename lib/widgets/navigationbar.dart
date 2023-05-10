@@ -21,7 +21,7 @@ class _DoctorNavBarState extends State<DoctorNavBar> {
     const HomeDoctor(),
     const DoctorAppointments(),
     const AllArticles(),
-    const AllChats(),
+    const DoctorChats(),
     const DoctorProfile()
   ];
 

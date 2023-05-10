@@ -5,6 +5,7 @@ import 'package:android_testing/screens/doctors%20view/home/homedoctor.dart';
 import 'package:android_testing/screens/doctors%20view/login/logindoctor.dart';
 import 'package:android_testing/screens/patientview/articles/allarticlesview.dart';
 import 'package:android_testing/screens/patientview/chats/chats.dart';
+import 'package:android_testing/screens/patientview/chats/single_chart.dart';
 import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:android_testing/widgets/navigationbar.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       title: 'Diplo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -41,8 +42,8 @@ class MyApp extends StatelessWidget {
           seedColor: Styles.backgroundColor,
         ),
       ),
-      routerConfig: router,
-      // home: AllChats(),
+      // routerConfig: router,
+      home: DoctorNavBar(),
     );
   }
 }

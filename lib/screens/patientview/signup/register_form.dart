@@ -117,6 +117,7 @@ class SignUpForm extends StatelessWidget {
                             MaterialStateProperty.all(Styles.primaryColor),
                       ),
                       onPressed: () {
+                        //add data to the database
                         final user = UserModel(
                           fullname: controller.fullname.text.trim(),
                           email: controller.email.text.trim(),
@@ -126,9 +127,13 @@ class SignUpForm extends StatelessWidget {
                           type: controller.type.text.trim(),
                         );
 
-                        SignupController.instance.createUser(context, user);
+                        SignupController.instance.createUser(user);
 
-                        // context.go('/navbar');
+                        //email verification
+                        SignupController.instance.registerUser(
+                          controller.email.text.trim(),
+                          controller.password.text.trim(),
+                        );
                       },
                       child: Text(
                         "SIGN IN",

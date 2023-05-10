@@ -1,5 +1,4 @@
-import 'dart:js';
-
+import 'package:android_testing/middleware/config.dart';
 import 'package:android_testing/models/usermodel.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
 import 'package:android_testing/repository/user_repository.dart';
@@ -34,10 +33,12 @@ class SignupController extends GetxController {
     }
   }
 
-  void createUser(BuildContext context, UserModel user) async {
+  void createUser(UserModel user) async {
+    //add user to the database
     await userRepo.createUser(user);
-    //authentication goes here also
+    //listen to already logged in user
+    await ConfigDataStore.to.savedAlreadyOpen();
     //then go to otp screen
-    await Get.to((context) => BottomBar());
+    await Get.toNamed('/navbar');
   }
 }

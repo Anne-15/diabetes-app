@@ -1,40 +1,24 @@
+import 'package:android_testing/models/usermodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Messages {
-  final String senderId;
-  final String receiverId;
-  final String senderName;
-  final String receiverName;
-  final String senderAvatar;
-  final String receiverAvatar;
+  final String? senderId;
   final String message;
-  final Timestamp time;
-  final int? messageNum;
+  final Timestamp timestamp;
 
   static var to;
 
   const Messages({
-    required this.receiverId,
-    required this.senderId,
-    required this.receiverName,
-    required this.senderName,
-    required this.receiverAvatar,
-    required this.senderAvatar,
+    this.senderId,
     required this.message,
-    required this.time,
-    required this.messageNum,
+    required this.timestamp,
   });
 
   toJson() {
     return {
       "senderId": senderId,
-      "receiverId": receiverId,
-      "senderName": senderName,
-      "receiverName": receiverName,
-      "senderAvatar": senderAvatar,
-      "receiverAvatar": receiverAvatar,
       "message": message,
-      "messageNum": messageNum
+      "timestamp": Timestamp.fromDate(timestamp as DateTime),
     };
   }
 
@@ -43,14 +27,9 @@ class Messages {
       SnapshotOptions? options) {
     final data = snapshot.data()!;
     return Messages(
-        receiverId: data["receiverId"],
-        senderId: data["senderId"],
-        receiverName: data["receiverName"],
-        senderName: data["senderName"],
-        receiverAvatar: data["receiverAvatar"],
-        senderAvatar: data["senderAvatar"],
-        message: data["message"],
-        time: data["time"],
-        messageNum: data["messageNum"]);
+      senderId: data["senderId"],
+      message: data["message"],
+      timestamp: data["timestamp"],
+    );
   }
 }
