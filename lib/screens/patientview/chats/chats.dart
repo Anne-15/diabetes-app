@@ -20,9 +20,8 @@ class ChatApp extends StatelessWidget {
       backgroundColor: Styles.c6,
       appBar: AppBar(
         backgroundColor: Styles.c6,
-        title: Center(
-          child: Text("Chats", style: Styles.header1),
-        ),
+        title: Text("Chats", style: Styles.headerStyle2),
+        centerTitle: true,
         elevation: 0.0,
       ),
       body: Column(

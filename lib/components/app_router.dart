@@ -65,10 +65,10 @@ final GoRouter router = GoRouter(routes: [
     builder: (context, state) => ChatApp(),
   ),
 
-  GoRoute(
-    path: "/single_chat",
-    builder: (context, state) => SingleChat(),
-  ),
+  // GoRoute(
+  //   path: "/single_chat",
+  //   builder: (context, state) => SingleChat(),
+  // ),
 
   //doctor's views
   GoRoute(

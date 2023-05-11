@@ -17,7 +17,7 @@ class FavoriteContacts extends StatelessWidget {
   Widget build(BuildContext context) {
     final controllers = Get.put(GetUsersController());
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         children: [
           Padding(
@@ -41,15 +41,15 @@ class FavoriteContacts extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => SingleChat(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (_) => SingleChat(),
+              //   ),
+              // );
             },
             child: Container(
-              height: AppLayout.getHeight(120),
+              height: AppLayout.getHeight(90),
               // color: Colors.blue,
               child: FutureBuilder<List<UserModel>>(
                 future: controllers.getAllUsers(),
@@ -66,7 +66,7 @@ class FavoriteContacts extends StatelessWidget {
                             child: Column(
                               children: [
                                 CircleAvatar(
-                                  radius: 35.0,
+                                  radius: 25.0,
                                   backgroundImage:
                                       AssetImage("assets/images/profile.png"),
                                 ),

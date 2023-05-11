@@ -55,12 +55,12 @@ class AllContacts extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (_) => SingleChat(),
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (_) => SingleChat(),
+                                //   ),
+                                // );
                               },
                               child: Container(
                                 margin: EdgeInsets.only(
