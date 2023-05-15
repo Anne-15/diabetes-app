@@ -9,9 +9,14 @@ import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 import '../../../controllers/articles_controllers.dart';
 
-class MyArticles extends StatelessWidget {
+class MyArticles extends StatefulWidget {
   const MyArticles({super.key});
 
+  @override
+  State<MyArticles> createState() => _MyArticlesState();
+}
+
+class _MyArticlesState extends State<MyArticles> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ArticlesController());
@@ -19,13 +24,10 @@ class MyArticles extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "My Articles",
+          "My Blogs",
           style: Styles.headerStyle2,
-          // textAlign: TextAlign.center,
         ),
         centerTitle: true,
-        // elevation: 0,
-        // backgroundColor: Styles.c6.withOpacity(0.2),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -34,13 +36,37 @@ class MyArticles extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Share your experiences and journey with others,",
+                "Share your experiences and journey with others.",
                 style: Styles.headerStyle2,
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 15.0),
               Text(
-                "It is also a way to manage and deal with stress along the journey",
+                "It is also a way to manage and deal with stress along the journey and help other people to mange the chronic illness",
                 style: Styles.headerStyle4,
+              ),
+              SizedBox(height: 30.0),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4,
+                          spreadRadius: 0,
+                          offset: Offset(0, 4))
+                    ]),
+                child: TextField(
+                  decoration: InputDecoration(
+                    label: TextButton(
+                      onPressed: () {},
+                      child: Text("Select Image"),
+                    ),
+                    border: InputBorder.none,
+                    icon: Icon(Icons.add_a_photo_outlined, color: Styles.c1),
+                  ),
+                ),
               ),
               SizedBox(height: 20.0),
               Container(
@@ -106,58 +132,24 @@ class MyArticles extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 4,
-                          spreadRadius: 0,
-                          offset: Offset(0, 4))
-                    ]),
-                child: TextField(
-                  decoration: InputDecoration(
-                    label: Text("Image"),
-                    border: InputBorder.none,
-                    icon: Icon(Icons.add_a_photo_outlined, color: Styles.c1),
-                  ),
+              SizedBox(height: 40.0),
+              FloatingActionButton.extended(
+                onPressed: (() {
+                  final article = ArticlesModel(
+                    title: controller.title.text.trim(),
+                    date: controller.date.text.trim(),
+                    body: controller.body.text.trim(),
+                  );
+                  ArticlesController.instance.addArticles(article);
+                }),
+                label: Text(
+                  "Send",
+                  style: Styles.headerStyle4,
                 ),
-              ),
-              SizedBox(height: 20.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FloatingActionButton.extended(
-                    backgroundColor: Colors.white,
-                    onPressed: () {},
-                    label: Text(
-                      "Save draft",
-                      style: Styles.headerStyle4,
-                    ),
-                  ),
-                  FloatingActionButton.extended(
-                    onPressed: (() {
-                      final article = ArticlesModel(
-                        title: controller.title.text.trim(),
-                        date: controller.date.text.trim(),
-                        body: controller.body.text.trim(),
-                      );
-                      ArticlesController.instance.addArticles(article);
-                    }),
-                    label: Text(
-                      "Send",
-                      style: Styles.headerStyle4,
-                    ),
-                    icon: Icon(
-                      Icons.send_rounded,
-                      color: Styles.c1,
-                    ),
-                  )
-                ],
+                icon: Icon(
+                  Icons.send_rounded,
+                  color: Styles.c1,
+                ),
               )
             ],
           ),

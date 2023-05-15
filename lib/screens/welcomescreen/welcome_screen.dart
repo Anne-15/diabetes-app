@@ -1,4 +1,5 @@
 import 'package:android_testing/components/constants.dart';
+import 'package:android_testing/screens/patientview/signin/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -39,7 +40,12 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: () => context.go('/signup'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PatientLogin()));
+                    },
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(),
                       foregroundColor: Styles.c1,
@@ -52,7 +58,7 @@ class WelcomeScreen extends StatelessWidget {
                 SizedBox(width: 10.0),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => context.go('/doctor_register'),
+                    onPressed: () => context.go('/doctor_login'),
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(),
                       foregroundColor: Styles.c12,

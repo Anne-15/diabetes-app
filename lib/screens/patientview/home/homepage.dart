@@ -1,8 +1,10 @@
-import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+
+import '../chats/chats.dart';
+import 'blogs.dart';
+import 'community.dart';
+import 'mydoctor.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -49,56 +51,7 @@ class Home extends StatelessWidget {
               ),
               SizedBox(height: 20.0),
               //Featured articles/reads
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Styles.c6.withOpacity(0.2),
-                ),
-                height: AppLayout.getHeight(130),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //column1 - image
-                    Column(
-                      children: [
-                        Flexible(
-                          child: Image(
-                            image: AssetImage("assets/images/image.png"),
-                          ),
-                        ),
-                      ],
-                    ),
-                    //text - column2
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "How to manage a diabetic environment",
-                          style: Styles.headerStyle4,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: 5.0),
-                        Text(
-                          "Lorem ipsum dolor sit amet",
-                          style: Styles.headerStyle4,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: 30.0),
-                        TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Learn more",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              BlogPosts(),
               SizedBox(height: 40.0),
               //community platform preview
               Text(
@@ -111,59 +64,14 @@ class Home extends StatelessWidget {
                 style: Styles.headerStyle4,
               ),
               SizedBox(height: 15.0),
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Styles.c6,
-                    ),
-                    width: AppLayout.getWidth(50),
-                    height: AppLayout.getHeight(50),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Styles.c6,
-                    ),
-                    width: AppLayout.getWidth(50),
-                    height: AppLayout.getHeight(50),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Styles.c6,
-                    ),
-                    width: AppLayout.getWidth(50),
-                    height: AppLayout.getHeight(50),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Styles.c6,
-                    ),
-                    width: AppLayout.getWidth(50),
-                    height: AppLayout.getHeight(50),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Styles.c6,
-                    ),
-                    width: AppLayout.getWidth(50),
-                    height: AppLayout.getHeight(50),
-                  ),
-                ],
-              ),
+              CommunityPlatform(),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ChatApp()));
+                  },
                   child: Text(
                     "View more",
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -181,49 +89,7 @@ class Home extends StatelessWidget {
                 style: Styles.headerStyle4,
               ),
               SizedBox(height: 10.0),
-              Container(
-                height: AppLayout.getHeight(160),
-                decoration: BoxDecoration(
-                  color: Styles.c6.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.person_2_rounded,
-                          color: Styles.c1,
-                        ),
-                        SizedBox(width: AppLayout.getHeight(30)),
-                        Text("Dr. Agnes"),
-                      ],
-                    ),
-                    SizedBox(height: AppLayout.getHeight(20)),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.local_hospital_outlined,
-                          color: Styles.c1,
-                        ),
-                        SizedBox(width: AppLayout.getHeight(30)),
-                        Text("Nairobi, Hospital"),
-                      ],
-                    ),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          "view scheduled appointments",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
+              MyDoctor()
             ],
           ),
         ),
@@ -231,3 +97,4 @@ class Home extends StatelessWidget {
     );
   }
 }
+

@@ -82,7 +82,7 @@ class AllArticles extends StatelessWidget {
                       );
                     }
                   } else {
-                    return const Center(child: Text("Nothing to show for now"));
+                    return const Center(child: CircularProgressIndicator());
                   }
                 },
               ),
@@ -94,7 +94,7 @@ class AllArticles extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => MyArticles(),
+                        builder: (context) => MyArticles(),
                       ),
                     );
                   },

@@ -52,6 +52,8 @@ dependencies:
   line_awesome_icons: ^1.0.4+2
   google_fonts: ^4.0.3
   shared_preferences: ^2.1.1
+  email_validator: ^2.1.17
+  
 
 dev_dependencies:
   flutter_test:

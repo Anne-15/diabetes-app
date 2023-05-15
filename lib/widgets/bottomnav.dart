@@ -21,6 +21,7 @@ class _BottomBarState extends State<BottomBar> {
   static final List<Widget> _widgetOptions = <Widget>[
     const Home(),
     const MyAppointments(),
+    const Text('My Doctors'),
     const AllArticles(),
     const ChatApp(),
     const MyProfile()
@@ -50,7 +51,9 @@ class _BottomBarState extends State<BottomBar> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.schedule_rounded), label: "Appointments"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.newspaper_rounded), label: "Articles"),
+                icon: Icon(Icons.medical_services), label: "My Doctors"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.medical_information_outlined), label: "Articles"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.chat_bubble_outline_rounded), label: "Chat"),
             BottomNavigationBarItem(

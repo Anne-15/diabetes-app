@@ -1,4 +1,5 @@
 import 'package:android_testing/screens/patientview/profile/profilescreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -10,6 +11,7 @@ class UpdateProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(

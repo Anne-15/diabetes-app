@@ -56,7 +56,9 @@ class RecentChats extends StatelessWidget {
                                 'Wait, this is really awesome though',
                                 style: Styles.textStyle,
                                 overflow: TextOverflow.ellipsis,
+                                
                               ),
+                            
                             ),
                           ],
                         ),

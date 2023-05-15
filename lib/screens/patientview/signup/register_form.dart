@@ -42,7 +42,7 @@ class SignUpForm extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                controller: controller.email,
+                controller: controller.emailAddress,
                 decoration: InputDecoration(
                   label: Text("Email"),
                   prefixIcon: Icon(
@@ -55,6 +55,7 @@ class SignUpForm extends StatelessWidget {
               SizedBox(height: 15.0),
               TextFormField(
                 controller: controller.password,
+                obscureText: true,
                 decoration: InputDecoration(
                   label: Text("Password"),
                   prefixIcon: Icon(
@@ -120,7 +121,7 @@ class SignUpForm extends StatelessWidget {
                         //add data to the database
                         final user = UserModel(
                           fullname: controller.fullname.text.trim(),
-                          email: controller.email.text.trim(),
+                          email: controller.emailAddress.text.trim(),
                           password: controller.password.text.trim(),
                           age: controller.age.text.trim(),
                           gender: controller.gender.text.trim(),
@@ -131,7 +132,7 @@ class SignUpForm extends StatelessWidget {
 
                         //email verification
                         SignupController.instance.registerUser(
-                          controller.email.text.trim(),
+                          controller.emailAddress.text.trim(),
                           controller.password.text.trim(),
                         );
                       },
