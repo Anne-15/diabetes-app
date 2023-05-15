@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // routerConfig: router,
-      home: BottomBar(),
+      home: ChatApp(),
     );
   }
 }

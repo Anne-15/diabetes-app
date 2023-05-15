@@ -33,4 +33,9 @@ class DoctorSignupController extends GetxController {
     //then go to the home screen
     await Get.toNamed('/doctor_navbar');
   }
+
+  //get all the list of users
+  Future<List<DoctorUserModel>> getAllDoctors() async {
+    return await doctorRepo.allDoctors();
+  }
 }

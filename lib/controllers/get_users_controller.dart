@@ -9,7 +9,7 @@ class GetUsersController extends GetxController {
 
   final _articleRepo = Get.put(UserRepository());
 
-//get all the list of articles
+//get all the list of users
   Future<List<UserModel>> getAllUsers() async {
     return await _articleRepo.allUsers();
   }

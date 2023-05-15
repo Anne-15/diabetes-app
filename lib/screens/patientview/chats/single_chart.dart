@@ -1,48 +1,79 @@
-// import 'package:android_testing/models/usermodel.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
-// import 'package:get/get.dart';
+import 'package:android_testing/models/usermodel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 
-// import '../../../components/constants.dart';
-// import '../../../models/messages.dart';
-// import '../../../repository/chats_repository.dart';
+import '../../../components/constants.dart';
+import '../../../models/messages.dart';
+import '../../../repository/chats_repository.dart';
 
-// class SingleChat extends StatefulWidget {
-//   const SingleChat({super.key});
+class SingleChat extends StatefulWidget {
+  const SingleChat({super.key});
 
-//   @override
-//   State<SingleChat> createState() => _SingleChatState();
-// }
+  @override
+  State<SingleChat> createState() => _SingleChatState();
+}
 
-// class _SingleChatState extends State<SingleChat> {
+class _SingleChatState extends State<SingleChat> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Styles.c6,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.arrow_back_ios_new_outlined),
+          iconSize: 30,
+          color: Colors.white,
+        ),
+        backgroundColor: Styles.c6,
+        title: Text(
+          "Contact Name",
+          style: Styles.headerStyle2,
+        ),
+        // centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-//   // late final Chat chat;
-//   late final String chatId;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Styles.c6,
-//       appBar: AppBar(
-//         actions: [
-//           IconButton(
-//             onPressed: () {
-//               // Navigator.pop(context);
-//             },
-//             icon: Icon(Icons.arrow_back_ios_new_outlined),
-//             iconSize: 30,
-//             color: Colors.white,
-//           ),
-//         ],
-//         backgroundColor: Styles.c6,
-//         title: Text(
-//           "Contact Name",
-//           style: Styles.headerStyle2,
-//         ),
-//         // centerTitle: true,
-//       ),
+
+
+
+
+
+
+
+
+
+
+
+
+
 //       body: Column(
 //         children: [
 //           Expanded(

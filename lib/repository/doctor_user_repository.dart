@@ -31,7 +31,7 @@ class DoctorUserRepository extends GetxController {
   }
 
   //fetch the data from the database
-  Future<DoctorUserModel> getUserDetails(String fullname) async {
+  Future<DoctorUserModel> getDoctorDetails(String fullname) async {
     final snapshot = await _db
         .collection("Doctors")
         .where("FullName", isEqualTo: fullname)
@@ -41,8 +41,8 @@ class DoctorUserRepository extends GetxController {
     return data;
   }
 
-  Future<List<DoctorUserModel>> allUsers() async {
-    final snapshot = await _db.collection("Users").get();
+  Future<List<DoctorUserModel>> allDoctors() async {
+    final snapshot = await _db.collection("Doctors").get();
     final data =
         snapshot.docs.map((e) => DoctorUserModel.fromFirestore(e)).toList();
     return data;
