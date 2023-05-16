@@ -8,7 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
-import '../../../controllers/get_articles_controller.dart';
+import '../../../controllers/articles_controllers.dart';
 import '../../../models/addarticles.dart';
 
 class AllArticles extends StatelessWidget {
@@ -17,7 +17,7 @@ class AllArticles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final controller = Get.put(GetArticlesController());
+    final controller = Get.put(ArticlesController());
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -33,6 +33,16 @@ class AllArticles extends StatelessWidget {
           padding: EdgeInsets.all(30.0),
           child: Column(
             children: [
+              Text(
+                "Share your experiences and journey with others.",
+                style: Styles.headerStyle2,
+              ),
+              SizedBox(height: 15.0),
+              Text(
+                "It is also a way to manage and deal with stress along the journey and help other people to mange the chronic illness",
+                style: Styles.headerStyle4,
+              ),
+              SizedBox(height: 30.0),
               FutureBuilder<List<ArticlesModel>>(
                 future: controller.getAllArticles(),
                 builder: (context, snapshot) {
@@ -42,33 +52,51 @@ class AllArticles extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (i, index) {
-                          return Column(
-                            children: [
-                              ListTile(
-                                leading: Image(
-                                  image: AssetImage("assets/images/image.png"),
+                          return Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  10),
+                            ),
+                            child: Column(
+                              children: [
+                                ListTile(
+                                  leading: Image.asset(
+                                    "assets/images/nature.png",
+                                    width: 80,
+                                    height: 80,
+                                  ),
+                                  title: Text(
+                                    snapshot.data![index].title,
+                                    style: Styles.headerStyle2,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        snapshot.data![index].body,
+                                        style: Styles.headerStyle4,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          "Date: ${snapshot.data![index].date}",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                title: Text(
-                                  snapshot.data![index].title,
-                                  style: Styles.headerStyle3,
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      snapshot.data![index].body,
-                                      style: Styles.headerStyle4,
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                          "Date: ${snapshot.data![index].date}"),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: AppLayout.getHeight(8)),
-                            ],
+                                SizedBox(height: AppLayout.getHeight(10)),
+                              ],
+                            ),
                           );
                         },
                       );
@@ -86,7 +114,7 @@ class AllArticles extends StatelessWidget {
                   }
                 },
               ),
-              SizedBox(height: size.height * 0.05),
+              SizedBox(height: size.height * 0.04),
               Align(
                 alignment: Alignment.centerRight,
                 child: FloatingActionButton(
@@ -97,6 +125,7 @@ class AllArticles extends StatelessWidget {
                         builder: (context) => MyArticles(),
                       ),
                     );
+                    
                   },
                   child: Icon(Icons.add),
                 ),

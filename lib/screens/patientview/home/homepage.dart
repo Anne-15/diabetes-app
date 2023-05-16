@@ -49,10 +49,15 @@ class Home extends StatelessWidget {
                 "Featured articles/reads",
                 style: Styles.headerStyle2,
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 5.0),
               //Featured articles/reads
+              Text(
+                "Read about other people's experience and learn",
+                style: Styles.headerStyle4,
+              ),
+              SizedBox(height: 10.0),
               BlogPosts(),
-              SizedBox(height: 40.0),
+              SizedBox(height: 30.0),
               //community platform preview
               Text(
                 "Community Platform",

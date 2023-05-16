@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:android_testing/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -45,5 +47,21 @@ class ArticleRepository extends GetxController {
     final data =
         snapshot.docs.map((e) => ArticlesModel.fromFirestore(e)).toList();
     return data;
+  }
+
+//only get the latest article/blog
+  Future<ArticlesModel> getLatestArticle() async {
+    final snapshot = await _db
+        .collection("Articles")
+        .orderBy("date", descending: true)
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      final data = snapshot.docs.map((e) => ArticlesModel.fromFirestore(e)).single;
+      return data;
+    } else {
+      throw Exception("No articles found");
+    }
   }
 }

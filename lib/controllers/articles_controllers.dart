@@ -20,6 +20,16 @@ class ArticlesController extends GetxController {
 
   void addArticles(ArticlesModel article) async {
     await articleRepo.addArticles(article);
-    await Get.to(() => '/navbar');
+    Get.to(() => BottomBar());
+  }
+
+  //get all the list of articles
+  Future<List<ArticlesModel>> getAllArticles() async {
+    return await articleRepo.allArticles();
+  }
+
+  //get latest article
+  Future<ArticlesModel> getLatestArticle() async {
+    return await articleRepo.getLatestArticle();
   }
 }

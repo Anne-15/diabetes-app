@@ -6,6 +6,7 @@ import 'package:android_testing/screens/doctors%20view/login/logindoctor.dart';
 import 'package:android_testing/screens/patientview/articles/allarticlesview.dart';
 import 'package:android_testing/screens/patientview/chats/chats.dart';
 import 'package:android_testing/screens/patientview/chats/single_chart.dart';
+import 'package:android_testing/screens/patientview/home/homepage.dart';
 import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:android_testing/widgets/navigationbar.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,6 +17,7 @@ import 'components/app_router.dart';
 import 'firebase_options.dart';
 import 'screens/doctors view/chats/all_chats.dart';
 import 'screens/doctors view/register/registerdoctor.dart';
+import 'screens/patientview/articles/writearticle.dart';
 import 'screens/patientview/signup/register.dart';
 import 'screens/welcomescreen/welcome_screen.dart';
 
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // routerConfig: router,
-      home: PatientRegister(),
+      home: BottomBar(),
     );
   }
 }

@@ -15,6 +15,7 @@ class ArticlesModel {
 
   toJson() {
     return {
+      "id": id,
       "title": title,
       "date": date,
       "body": body,
@@ -22,8 +23,7 @@ class ArticlesModel {
   }
 
   factory ArticlesModel.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-    // SnapshotOptions? options,
+    DocumentSnapshot<Map<String, dynamic>> snapshot
   ) {
     final data = snapshot.data()!;
     return ArticlesModel(
