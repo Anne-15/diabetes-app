@@ -7,6 +7,7 @@ import 'package:android_testing/screens/patientview/profile/profilescreen.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/patientview/articles/writearticle.dart';
+import '../screens/patientview/my_doctors/mydoctors.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
@@ -21,7 +22,7 @@ class _BottomBarState extends State<BottomBar> {
   static final List<Widget> _widgetOptions = <Widget>[
     const Home(),
     const MyAppointments(),
-    const Text('My Doctors'),
+    const MyDoctors(),
     const AllArticles(),
     const ChatApp(),
     const MyProfile()
@@ -53,7 +54,8 @@ class _BottomBarState extends State<BottomBar> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.medical_services), label: "My Doctors"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.medical_information_outlined), label: "Articles"),
+                icon: Icon(Icons.medical_information_outlined),
+                label: "Articles"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.chat_bubble_outline_rounded), label: "Chat"),
             BottomNavigationBarItem(
