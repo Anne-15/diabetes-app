@@ -1,12 +1,15 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/controllers/get_doctors_controllers.dart';
 import 'package:android_testing/models/doctormodel.dart';
+import 'package:android_testing/screens/patientview/chats/single_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RecentChats extends StatelessWidget {
+  final List<DoctorUserModel> users;
   const RecentChats({
     super.key,
+    required this.users,
   });
 
   @override
@@ -32,58 +35,69 @@ class RecentChats extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   return ListView.builder(
-                      padding: EdgeInsets.only(left: 30.0),
                       itemCount: snapshot.data!.length,
-                      itemBuilder: (i, index) {
-                        return Container(
-                          margin: EdgeInsets.only(
-                              top: 5.0, bottom: 5.0, right: 20.0),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 25.0,
-                                    backgroundImage:
-                                        AssetImage('assets/images/profile.png'),
-                                  ),
-                                  SizedBox(
-                                    width: 10.0,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        snapshot.data![index].fullname,
-                                        style: Styles.headerStyle4,
-                                      ),
-                                      SizedBox(
-                                        height: 5.0,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.45,
-                                        child: Text(
-                                          snapshot.data![index].hospitalName,
-                                          style: Styles.textStyle,
-                                          overflow: TextOverflow.ellipsis,
+                      itemBuilder: (context, i) {
+                        final user = snapshot.data![i];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SingleChat(user: user),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, right: 20.0),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 25.0,
+                                      backgroundImage: AssetImage(
+                                          'assets/images/profile.png'),
+                                    ),
+                                    SizedBox(
+                                      width: 10.0,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          snapshot.data![i].fullname,
+                                          style: Styles.headerStyle4,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Text('12:45'),
-                                ],
-                              ),
-                            ],
+                                        SizedBox(
+                                          height: 5.0,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.45,
+                                          child: Text(
+                                            snapshot.data![i].hospitalName,
+                                            style: Styles.textStyle,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text('12:45'),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       });

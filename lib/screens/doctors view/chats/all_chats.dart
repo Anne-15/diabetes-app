@@ -38,7 +38,7 @@ class DoctorChats extends StatelessWidget {
               child: Column(
                 children: [
                   FavoriteContacts(),
-                  RecentChats(),
+                  RecentChats(users: [],),
                   Align(
                     alignment: Alignment.centerRight,
                     child: FloatingActionButton.extended(

@@ -1,9 +1,10 @@
 import 'package:android_testing/models/chats.dart';
 import 'package:android_testing/models/messages.dart';
-import 'package:android_testing/models/usermodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+
+import '../models/doctormodel.dart';
 
 class ChatRepository extends GetxController {
   static ChatRepository get instance => Get.find();
@@ -11,11 +12,11 @@ class ChatRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
 
   // Create a new chat
-  Future<void> createChat(UserModel receiver) async {
+  Future<void> createChat(DoctorUserModel receiver) async {
     final chatId = _db.collection('chats').doc().id;
     final senderId = FirebaseAuth.instance.currentUser!.uid;
     final messagesRef =
-        _db.collection('chats').doc(chatId).collection('messages');
+        _db.collection('Chats').doc(chatId).collection('messages');
     await messagesRef.add({
       'message': 'Chat started',
       'senderId': senderId,
@@ -24,22 +25,25 @@ class ChatRepository extends GetxController {
     });
   }
 
-  // Add a new message to an existing chat
-  Future<void> addMessageToChat(Chats chat, String message) async {
+  // Add a new message to a chat
+  Future<void> addMessageToChat(String senderId, String message) async {
     final senderId = FirebaseAuth.instance.currentUser!.uid;
     final messagesRef =
-        _db.collection('chats').doc(chat.id).collection('messages');
+        _db.collection('Chats').doc(senderId).collection('messages');
     await messagesRef.add({
       'message': message,
       'senderId': senderId,
       'timestamp': Timestamp.now(),
     });
+
+    final refUsers = FirebaseFirestore.instance.collection('Doctors');
+    await refUsers.doc(senderId).update({});
   }
 
   // Retrieve all messages for a specific chat
   Stream<List<Messages>> getMessagesForChat(String chatId) {
     final messagesRef = _db
-        .collection('chats')
+        .collection('Chats')
         .doc(chatId)
         .collection('messages')
         .orderBy('timestamp', descending: true);
@@ -57,7 +61,7 @@ class ChatRepository extends GetxController {
   //get last message from the chat
   Future<QuerySnapshot> getLastMessageFromChat(String _chatid) {
     return _db
-        .collection('chats')
+        .collection('Chats')
         .doc(_chatid)
         .collection('messages')
         .orderBy('timestamp', descending: true)

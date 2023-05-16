@@ -39,7 +39,7 @@ class ChatApp extends StatelessWidget {
               child: Column(
                 children: [
                   FavoriteContacts(),
-                  RecentChats(),
+                  RecentChats(users: [],),
                   // FloatingActionButton.extended(
                   //   backgroundColor: Styles.c9,
                   //   onPressed: () {

@@ -16,6 +16,7 @@ import 'components/app_router.dart';
 import 'firebase_options.dart';
 import 'screens/doctors view/chats/all_chats.dart';
 import 'screens/doctors view/register/registerdoctor.dart';
+import 'screens/patientview/signup/register.dart';
 import 'screens/welcomescreen/welcome_screen.dart';
 
 Future<void> main() async {
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // routerConfig: router,
-      home: ChatApp(),
+      home: PatientRegister(),
     );
   }
 }
