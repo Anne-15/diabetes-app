@@ -1,9 +1,10 @@
 import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
+import 'package:android_testing/models/calendar_crud.dart';
 import 'package:android_testing/screens/patientview/appointments/past_app.dart';
 import 'package:flutter/material.dart';
 
-class UpcomingAppointment extends StatelessWidget {
+class UpcomingAppointment extends StatefulWidget {
   const UpcomingAppointment({
     super.key,
     required this.size,
@@ -13,52 +14,23 @@ class UpcomingAppointment extends StatelessWidget {
   final size;
 
   @override
+  State<UpcomingAppointment> createState() => _UpcomingAppointmentState();
+}
+
+class _UpcomingAppointmentState extends State<UpcomingAppointment> {
+  Storage storage = Storage();
+  @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-          vertical: AppLayout.getHeight(20),
-          horizontal: AppLayout.getHeight(15)),
-      height: AppLayout.getHeight(250),
-      width: size.width * .44,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Styles.c2,
-      ),
-      // color: Styles.primaryContainer,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Dr. Agnes\nNairobi Hospital",
-            style: Styles.headerStyle3,
-          ),
-          Text(
-            "Description: Review of the previous checkup",
-            style: Styles.headerStyle4,
-          ),
-          Text(
-            "Time: 8:00 AM TO 9:00AM\nDuration: 1 hour",
-            style: Styles.headerStyle4,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton.extended(
-                backgroundColor: Styles.c1,
-                onPressed: (() {}),
-                label: Text(
-                  "Join",
-                  style: Styles.headerStyle4.copyWith(color: Colors.white),
-                ),
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          )
-        ],
+      padding: EdgeInsets.only(top: 8.0),
+      color: Colors.white,
+      child: StreamBuilder(
+        stream: storage.retrieveEvents(),
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            
+          }
+        },
       ),
     );
   }

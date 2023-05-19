@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -47,4 +48,19 @@ class AppointmentsRepository extends GetxController {
         snapshot.docs.map((e) => AppointmentsModel.fromFirestore(e)).toList();
     return data;
   }
+
+  // Display Form Contents
+  Future<List<DocumentSnapshot>> getForms() async {
+    // Retrieve the form data from the backend
+    // Example: Retrieve from Firebase Firestore
+    final currentUserEmail = FirebaseAuth.instance.currentUser?.email;
+    final snapshot = await FirebaseFirestore.instance
+        .collection('Appointments')
+        .where('receiverEmail', isEqualTo: currentUserEmail)
+        .get();
+
+    return snapshot.docs;
+  }
 }
+
+

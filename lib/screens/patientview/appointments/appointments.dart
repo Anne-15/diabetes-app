@@ -11,16 +11,18 @@ class MyAppointments extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "My Appointments",
+          style: Styles.headerStyle2,
+        ),
+        centerTitle: true,
+      ),
       body: ListView(
         padding: EdgeInsets.symmetric(
             horizontal: AppLayout.getHeight(20),
             vertical: AppLayout.getHeight(20)),
         children: [
-          Gap(AppLayout.getHeight(40)),
-          Text(
-            "Your Appointments",
-            style: Styles.header1,
-          ),
           Gap(AppLayout.getHeight(20)),
           FittedBox(
             child: Container(
@@ -36,9 +38,9 @@ class MyAppointments extends StatelessWidget {
                       borderRadius: BorderRadius.horizontal(
                         left: Radius.circular(AppLayout.getHeight(50)),
                       ),
-                      color: Styles.c2,
+                      color: Styles.c6,
                     ),
-                    child: const Center(child: Text("Upcoming Meetings")),
+                    child: const Center(child: Text("Upcoming Appointments")),
                   ),
                   // past meetings/history
                   Container(
@@ -49,9 +51,9 @@ class MyAppointments extends StatelessWidget {
                       borderRadius: BorderRadius.horizontal(
                         right: Radius.circular(AppLayout.getHeight(50)),
                       ),
-                      color: Styles.c1,
+                      color: Styles.c9,
                     ),
-                    child: const Center(child: Text("History")),
+                    child: const Center(child: Text("History",)),
                   ),
                 ],
               ),
