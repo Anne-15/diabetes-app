@@ -2,6 +2,7 @@ import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/screens/doctors%20view/appointments/tabs.dart';
 import 'package:android_testing/screens/doctors%20view/appointments/upcoming_appointments.dart';
+import 'package:android_testing/screens/patientview/appointments/upcoming_app.dart';
 import 'package:flutter/material.dart';
 
 import 'create_appointment.dart';
@@ -26,7 +27,7 @@ class DoctorAppointments extends StatelessWidget {
           children: [
             Tabs(size: size),
             SizedBox(height: AppLayout.getHeight(15)),
-            UpcomingAppointments(),
+            UpcomingAppointment(size: size),
             SizedBox(height: size.height * 0.05),
             Align(
               alignment: Alignment.centerRight,

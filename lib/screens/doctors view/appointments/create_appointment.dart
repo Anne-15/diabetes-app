@@ -7,7 +7,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 
 import '../../../models/calendar_client.dart';
-import '../../../models/calendar_crud.dart';
+import '../../../repository/calendar_crud.dart';
 import '../../../models/calendar_event_info.dart';
 
 class CreateAppointment extends StatefulWidget {
@@ -221,6 +221,10 @@ class _CreateAppointmentState extends State<CreateAppointment> {
                 decoration: InputDecoration(
                   label: Text("Add title"),
                   border: InputBorder.none,
+                  icon: Icon(
+                    Icons.title_rounded,
+                    color: Styles.c1,
+                  ),
                 ),
               ),
             ),
@@ -382,7 +386,7 @@ class _CreateAppointmentState extends State<CreateAppointment> {
                 decoration: InputDecoration(
                   label: Text("Location"),
                   border: InputBorder.none,
-                  icon: Icon(Icons.notes_outlined, color: Styles.c1),
+                  icon: Icon(Icons.location_city_outlined, color: Styles.c1),
                 ),
               ),
             ),

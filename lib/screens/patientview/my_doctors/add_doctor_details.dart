@@ -1,4 +1,5 @@
 import 'package:android_testing/models/addarticles.dart';
+import 'package:android_testing/models/my_doctors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -8,6 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 import '../../../controllers/articles_controllers.dart';
+import '../../../repository/my_doctors_repository.dart';
 
 class AddDoctorDetails extends StatefulWidget {
   const AddDoctorDetails({super.key});
@@ -17,10 +19,32 @@ class AddDoctorDetails extends StatefulWidget {
 }
 
 class _AddDoctorDetailsState extends State<AddDoctorDetails> {
+  late TextEditingController name;
+  late TextEditingController hospital;
+  late TextEditingController department;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    name = TextEditingController();
+    hospital = TextEditingController();
+    department = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    name.dispose();
+    hospital.dispose();
+    department.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ArticlesController());
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -103,7 +127,7 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
                           offset: Offset(0, 4))
                     ]),
                 child: TextField(
-                  controller: controller.title,
+                  controller: name,
                   decoration: InputDecoration(
                     label: Text("Name"),
                     border: InputBorder.none,
@@ -124,7 +148,7 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
                           offset: Offset(0, 4))
                     ]),
                 child: TextField(
-                  controller: controller.date,
+                  controller: hospital,
                   decoration: InputDecoration(
                     label: Text("Hospital"),
                     border: InputBorder.none,
@@ -145,7 +169,7 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
                           offset: Offset(0, 4))
                     ]),
                 child: TextField(
-                  controller: controller.body,
+                  controller: department,
                   maxLines: null,
                   decoration: InputDecoration(
                     label: Text("Department"),
@@ -157,13 +181,18 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
               SizedBox(
                 width: double.infinity,
                 child: FloatingActionButton.extended(
-                  onPressed: (() {
-                    final article = ArticlesModel(
-                      title: controller.title.text.trim(),
-                      date: controller.date.text.trim(),
-                      body: controller.body.text.trim(),
+                  onPressed: (() async {
+                    final myDoctor = MyDoctorsModel(
+                      fullname: name.text.trim(),
+                      hospital: hospital.text.trim(),
+                      department: department.text.trim(),
                     );
-                    ArticlesController.instance.addArticles(article);
+
+                    await MyDoctorsRepository.instance
+                        .createDoctorUser(myDoctor);
+
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
                   }),
                   label: Text(
                     "Save",

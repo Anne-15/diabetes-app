@@ -48,29 +48,32 @@ class CalendarClient {
     event.end = end;
 
     try {
-      final response = await calendar.events.insert(
+      await calendar.events
+          .insert(
         event,
         calendarId,
         conferenceDataVersion: hasConferenceSupport ? 1 : 0,
-      );
+      )
+          .then((value) {
+        print("Event Status: ${value.status}");
+        if (value.status == "confirmed") {
+          String joiningLink = '';
+          String eventId;
 
-      if (response.status == "confirmed") {
-        String joiningLink = '';
-        String eventId;
+          eventId = value.id;
 
-        eventId = response.id;
+          if (hasConferenceSupport) {
+            joiningLink =
+                "https://meet.google.com/${value.conferenceData.conferenceId}";
+          }
 
-        if (hasConferenceSupport) {
-          joiningLink =
-              "https://meet.google.com/${response.conferenceData.conferenceId}";
+          eventData = {'id': eventId, 'link': joiningLink};
+
+          print('Event added to Google Calendar');
+        } else {
+          print("Unable to add event to Google Calendar");
         }
-
-        eventData = {'id': eventId, 'link': joiningLink};
-
-        print('Event added to Google Calendar');
-      } else {
-        print("Unable to add event to Google Calendar");
-      }
+      });
     } catch (e) {
       print('Error creating event $e');
     }

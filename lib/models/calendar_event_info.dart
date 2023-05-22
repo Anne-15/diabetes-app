@@ -1,5 +1,5 @@
 class EventInfo {
-  final String id;
+  final String? id;
   final String name;
   final String description;
   final String location;
@@ -10,7 +10,7 @@ class EventInfo {
   final int endTimeInEpoch;
 
   EventInfo({
-    required this.id,
+    this.id,
     required this.name,
     required this.description,
     required this.location,
@@ -22,7 +22,7 @@ class EventInfo {
   });
 
   EventInfo.fromMap(Map snapshot)
-      : id = snapshot['id'] ?? '',
+      : id = snapshot['id'],
         name = snapshot['name'] ?? '',
         description = snapshot['desc'],
         location = snapshot['loc'],

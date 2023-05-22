@@ -35,7 +35,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   ).then((value) => Get.put(AuthenticationRepository()));
 
-  // var _clientID = new ClientId(Secret.getId(), "");
+  var _clientID = new ClientId(Secret.getId(), "");
   // const _scopes = const [cal.CalendarApi.CalendarScope];
   // await clientViaUserConsent(_clientID, _scopes, prompt)
   //     .then((AuthClient client) async {
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // routerConfig: router,
-      home: CreateAppointment(),
+      home: BottomBar(),
     );
   }
 }

@@ -19,7 +19,7 @@ class Tabs extends StatelessWidget {
       children: [
         // upcoming meetings
         Container(
-          width: size.width * .44,
+          width: size.width * .43,
           padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(7)),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.horizontal(
@@ -31,7 +31,7 @@ class Tabs extends StatelessWidget {
         ),
         // past meetings/history
         Container(
-          width: size.width * .44,
+          width: size.width * .42,
           padding: EdgeInsets.symmetric(vertical: AppLayout.getHeight(7)),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.horizontal(
