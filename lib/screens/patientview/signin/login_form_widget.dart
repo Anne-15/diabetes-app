@@ -1,3 +1,5 @@
+import 'package:android_testing/screens/patientview/signup/register.dart';
+import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -91,12 +93,17 @@ class LoginForm extends StatelessWidget {
                       backgroundColor:
                           MaterialStateProperty.all(Styles.primaryColor),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       SignupController.instance.signIn(
                         controller.emailAddress.text.trim(),
                         controller.password.text.trim(),
                       );
-                      // context.go('/navbar');
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BottomBar(),
+                        ),
+                      );
                     },
                     child: Text(
                       "SIGN IN",
@@ -109,7 +116,14 @@ class LoginForm extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccount(
               login: true,
-              press: () => context.go('/signup'),
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PatientRegister(),
+                  ),
+                );
+              },
             ),
           ],
         ),

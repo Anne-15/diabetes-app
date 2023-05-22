@@ -1,3 +1,4 @@
+import 'package:android_testing/screens/patientview/signin/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -7,6 +8,7 @@ import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 import '../../../controllers/signup_controller.dart';
 import '../../../models/usermodel.dart';
+import '../../../widgets/bottomnav.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({
@@ -117,7 +119,7 @@ class SignUpForm extends StatelessWidget {
                         backgroundColor:
                             MaterialStateProperty.all(Styles.primaryColor),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         //add data to the database
                         final user = UserModel(
                           fullname: controller.fullname.text.trim(),
@@ -135,6 +137,13 @@ class SignUpForm extends StatelessWidget {
                           controller.emailAddress.text.trim(),
                           controller.password.text.trim(),
                         );
+
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BottomBar(),
+                          ),
+                        );
                       },
                       child: Text(
                         "SIGN IN",
@@ -147,7 +156,14 @@ class SignUpForm extends StatelessWidget {
               SizedBox(height: size.height * 0.03),
               AlreadyHaveAnAccount(
                 login: false,
-                press: () => context.go('/login'),
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PatientLogin(),
+                    ),
+                  );
+                },
               ),
             ],
           )),
