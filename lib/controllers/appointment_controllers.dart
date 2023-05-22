@@ -1,5 +1,3 @@
-import 'package:android_testing/models/usermodel.dart';
-import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

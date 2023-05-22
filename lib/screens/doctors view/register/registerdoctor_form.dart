@@ -7,7 +7,6 @@ import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 import '../../../controllers/get_doctors_controllers.dart';
 import '../../../models/doctormodel.dart';
-import '../login/logindoctor.dart';
 
 class RegisterDoctorForm extends StatelessWidget {
   const RegisterDoctorForm({

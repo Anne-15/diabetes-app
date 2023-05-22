@@ -1,8 +1,6 @@
 import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
-import 'package:android_testing/screens/doctors%20view/appointments/join_call.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class UpcomingAppointments extends StatelessWidget {
   const UpcomingAppointments({

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 import '../../../models/addarticles.dart';
-import '../articles/single_article.dart';
 
 class BlogPosts extends StatelessWidget {
   const BlogPosts({

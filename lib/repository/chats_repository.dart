@@ -1,4 +1,3 @@
-import 'package:android_testing/models/chats.dart';
 import 'package:android_testing/models/messages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,10 +58,10 @@ class ChatRepository extends GetxController {
   }
 
   //get last message from the chat
-  Future<QuerySnapshot> getLastMessageFromChat(String _chatid) {
+  Future<QuerySnapshot> getLastMessageFromChat(String chatid) {
     return _db
         .collection('Chats')
-        .doc(_chatid)
+        .doc(chatid)
         .collection('messages')
         .orderBy('timestamp', descending: true)
         .limit(1)

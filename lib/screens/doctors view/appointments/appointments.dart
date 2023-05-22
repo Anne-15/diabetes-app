@@ -1,7 +1,6 @@
 import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/screens/doctors%20view/appointments/tabs.dart';
-import 'package:android_testing/screens/doctors%20view/appointments/upcoming_appointments.dart';
 import 'package:android_testing/screens/patientview/appointments/upcoming_app.dart';
 import 'package:flutter/material.dart';
 

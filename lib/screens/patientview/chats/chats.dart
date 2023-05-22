@@ -1,13 +1,7 @@
-import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
-import 'package:android_testing/screens/patientview/chats/single_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:go_router/go_router.dart';
 
 import 'category_selector.dart';
-import 'contact_list.dart';
 import 'favorite_contacts.dart';
 import 'recent_charts.dart';
 

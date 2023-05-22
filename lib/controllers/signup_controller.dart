@@ -1,13 +1,9 @@
-import 'package:android_testing/middleware/config.dart';
 import 'package:android_testing/models/usermodel.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
 import 'package:android_testing/repository/user_repository.dart';
-import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
-import 'package:liquid_swipe/Helpers/Helpers.dart';
 
 class SignupController extends GetxController {
   static SignupController get instance => Get.find();
@@ -50,14 +46,5 @@ class SignupController extends GetxController {
       // TODO
       print(e);
     }
-  }
-
-  void createUser(UserModel user) async {
-    //add user to the database
-    await userRepo.createUser(user);
-    //listen to already logged in user
-    await ConfigDataStore.to.savedAlreadyOpen();
-    //then go to otp screen
-    await Get.toNamed('/navbar');
   }
 }

@@ -1,10 +1,8 @@
 import 'package:android_testing/screens/patientview/signup/register.dart';
 import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../components/already_have_an_account.dart';
 import '../../../components/app_layout.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:googleapis/calendar/v3.dart';
 
 class CalendarClient {
@@ -37,12 +36,12 @@ class CalendarClient {
       event.conferenceData = conferenceData;
     }
 
-    EventDateTime start = new EventDateTime();
+    EventDateTime start = EventDateTime();
     start.dateTime = startTime;
     start.timeZone = "GMT+05:30";
     event.start = start;
 
-    EventDateTime end = new EventDateTime();
+    EventDateTime end = EventDateTime();
     end.timeZone = "GMT+05:30";
     end.dateTime = endTime;
     event.end = end;
@@ -102,12 +101,12 @@ class CalendarClient {
     event.attendees = [EventAttendee(email: attendeeEmailList)];
     event.location = location;
 
-    EventDateTime start = new EventDateTime();
+    EventDateTime start = EventDateTime();
     start.dateTime = startTime;
     start.timeZone = "GMT+05:30";
     event.start = start;
 
-    EventDateTime end = new EventDateTime();
+    EventDateTime end = EventDateTime();
     end.timeZone = "GMT+05:30";
     end.dateTime = endTime;
     event.end = end;

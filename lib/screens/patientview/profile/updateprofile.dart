@@ -1,8 +1,6 @@
 import 'package:android_testing/screens/patientview/profile/profilescreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../../components/constants.dart';
 

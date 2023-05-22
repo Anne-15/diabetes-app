@@ -1,5 +1,4 @@
 import 'package:android_testing/repository/authentication_repository.dart';
-import 'package:android_testing/widgets/navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/doctormodel.dart';

@@ -1,14 +1,7 @@
-import 'package:android_testing/models/addarticles.dart';
 import 'package:android_testing/models/my_doctors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
-import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
-import '../../../controllers/articles_controllers.dart';
 import '../../../repository/my_doctors_repository.dart';
 
 class AddDoctorDetails extends StatefulWidget {
@@ -43,7 +36,7 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(

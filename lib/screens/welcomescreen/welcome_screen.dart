@@ -1,11 +1,9 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/screens/patientview/signin/login.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:go_router/go_router.dart';
 
-import '../doctors view/register/registerdoctor.dart';
+import '../../middleware/auth.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -42,9 +40,11 @@ class WelcomeScreen extends StatelessWidget {
                   child: OutlinedButton(
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PatientLogin()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AuthPage(),
+                        ),
+                      );
                     },
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(),

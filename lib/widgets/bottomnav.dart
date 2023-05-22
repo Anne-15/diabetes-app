@@ -6,7 +6,6 @@ import 'package:android_testing/screens/patientview/home/homepage.dart';
 import 'package:android_testing/screens/patientview/profile/profilescreen.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/patientview/articles/writearticle.dart';
 import '../screens/patientview/my_doctors/mydoctors.dart';
 
 class BottomBar extends StatefulWidget {

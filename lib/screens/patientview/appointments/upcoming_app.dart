@@ -1,10 +1,6 @@
-import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/repository/calendar_crud.dart';
-import 'package:android_testing/screens/patientview/appointments/past_app.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../models/calendar_event_info.dart';

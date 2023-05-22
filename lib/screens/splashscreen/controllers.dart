@@ -1,4 +1,3 @@
-import 'package:android_testing/screens/onboarding/onboarding_screen.dart';
 import 'package:get/get.dart';
 
 class SplashScreenController extends GetxController {

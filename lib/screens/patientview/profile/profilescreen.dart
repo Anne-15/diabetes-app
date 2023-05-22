@@ -1,11 +1,7 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/screens/patientview/profile/components/profilemenu.dart';
-import 'package:android_testing/screens/patientview/profile/updateprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class MyProfile extends StatelessWidget {

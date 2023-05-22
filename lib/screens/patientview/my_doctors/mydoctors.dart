@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 
 import '../../../components/app_layout.dart';
@@ -48,6 +46,7 @@ class MyDoctors extends StatelessWidget {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasData) {
                       return ListView.builder(
+                        shrinkWrap: true,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (i, index) {
                           return Container(
@@ -99,7 +98,7 @@ class MyDoctors extends StatelessWidget {
                   }
                 },
               ),
-              SizedBox(),
+              SizedBox(height: AppLayout.getHeight(30)),
               Align(
                 alignment: Alignment.centerRight,
                 child: FloatingActionButton(

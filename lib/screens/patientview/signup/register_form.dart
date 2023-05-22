@@ -1,16 +1,17 @@
 import 'package:android_testing/screens/patientview/signin/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../components/already_have_an_account.dart';
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
-import '../../../controllers/signup_controller.dart';
 import '../../../models/usermodel.dart';
+import '../../../repository/authentication_repository.dart';
+import '../../../repository/user_repository.dart';
 import '../../../widgets/bottomnav.dart';
 
-class SignUpForm extends StatelessWidget {
+class SignUpForm extends StatefulWidget {
   const SignUpForm({
     super.key,
     required this.size,
@@ -19,10 +20,56 @@ class SignUpForm extends StatelessWidget {
   final Size size;
 
   @override
+  State<SignUpForm> createState() => _SignUpFormState();
+}
+
+class _SignUpFormState extends State<SignUpForm> {
+  late TextEditingController fullname;
+  late TextEditingController email;
+  late TextEditingController password;
+  late TextEditingController age;
+  late TextEditingController gender;
+  late TextEditingController type;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fullname = TextEditingController();
+    email = TextEditingController();
+    password = TextEditingController();
+    age = TextEditingController();
+    gender = TextEditingController();
+    type = TextEditingController();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    fullname.dispose();
+    email.dispose();
+    age.dispose();
+    gender.dispose();
+    type.dispose();
+    super.dispose();
+  }
+
+  void registerNewUser(String email, String password) {
+    String? error = AuthenticationRepository.instance
+        .createUserWithEmailAndPassword(email, password) as String?;
+    if (error != null) {
+      Get.showSnackbar(GetSnackBar(
+        message: error.toString(),
+      ));
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SignupController());
     // ignore: no_leading_underscores_for_local_identifiers
     final _signupkey = GlobalKey();
+    RegisterUser registerUser = RegisterUser();
 
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -32,7 +79,7 @@ class SignUpForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                controller: controller.fullname,
+                controller: fullname,
                 decoration: InputDecoration(
                   label: Text("Full Name"),
                   prefixIcon: Icon(
@@ -44,7 +91,7 @@ class SignUpForm extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                controller: controller.emailAddress,
+                controller: email,
                 decoration: InputDecoration(
                   label: Text("Email"),
                   prefixIcon: Icon(
@@ -56,7 +103,7 @@ class SignUpForm extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                controller: controller.password,
+                controller: password,
                 obscureText: true,
                 decoration: InputDecoration(
                   label: Text("Password"),
@@ -73,7 +120,7 @@ class SignUpForm extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                controller: controller.age,
+                controller: age,
                 decoration: InputDecoration(
                   label: Text("Age"),
                   prefixIcon: Icon(
@@ -85,7 +132,7 @@ class SignUpForm extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                controller: controller.gender,
+                controller: gender,
                 decoration: InputDecoration(
                   label: Text("Gender"),
                   prefixIcon: Icon(
@@ -97,7 +144,7 @@ class SignUpForm extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                controller: controller.type,
+                controller: type,
                 decoration: InputDecoration(
                   label: Text("Diabetes Type"),
                   prefixIcon: Icon(
@@ -111,7 +158,7 @@ class SignUpForm extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
-                  width: size.width * 0.6,
+                  width: widget.size.width * 0.6,
                   height: AppLayout.getHeight(40.0),
                   child: ClipRRect(
                     child: TextButton(
@@ -122,27 +169,29 @@ class SignUpForm extends StatelessWidget {
                       onPressed: () async {
                         //add data to the database
                         final user = UserModel(
-                          fullname: controller.fullname.text.trim(),
-                          email: controller.emailAddress.text.trim(),
-                          password: controller.password.text.trim(),
-                          age: controller.age.text.trim(),
-                          gender: controller.gender.text.trim(),
-                          type: controller.type.text.trim(),
+                          fullname: fullname.text.trim(),
+                          email: email.text.trim(),
+                          password: password.text.trim(),
+                          age: age.text.trim(),
+                          gender: gender.text.trim(),
+                          type: type.text.trim(),
                         );
 
-                        SignupController.instance.createUser(user);
-
-                        //email verification
-                        SignupController.instance.registerUser(
-                          controller.emailAddress.text.trim(),
-                          controller.password.text.trim(),
-                        );
-
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => BottomBar(),
-                          ),
+                        await registerUser
+                            .storeUserData(user)
+                            .then((user) => registerNewUser(
+                                  email.text.trim(),
+                                  password.text.trim(),
+                                ))
+                            .whenComplete(
+                          () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BottomBar(),
+                              ),
+                            );
+                          },
                         );
                       },
                       child: Text(
@@ -153,7 +202,7 @@ class SignUpForm extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: size.height * 0.03),
+              SizedBox(height: widget.size.height * 0.03),
               AlreadyHaveAnAccount(
                 login: false,
                 press: () {

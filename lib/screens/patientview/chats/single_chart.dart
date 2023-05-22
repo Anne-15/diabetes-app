@@ -1,16 +1,10 @@
 import 'package:android_testing/controllers/get_doctors_controllers.dart';
-import 'package:android_testing/models/usermodel.dart';
 import 'package:android_testing/screens/patientview/chats/chats.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 
 import '../../../components/constants.dart';
 import '../../../models/doctormodel.dart';
-import '../../../models/messages.dart';
-import '../../../repository/chats_repository.dart';
 import 'new_message.dart';
 
 class SingleChat extends StatefulWidget {

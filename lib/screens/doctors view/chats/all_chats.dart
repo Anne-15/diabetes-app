@@ -2,18 +2,16 @@ import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../../repository/doctors_chat_repository.dart';
-import '../../patientview/chats/contact_list.dart';
 import '../../patientview/chats/favorite_contacts.dart';
 import '../../patientview/chats/recent_charts.dart';
 import 'doctor_category.dart';
-import 'doctor_contacts.dart';
 
 class DoctorChats extends StatelessWidget {
   const DoctorChats({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final chatrepo = DoctorChatRepository();
+    // final chatrepo = DoctorChatRepository();
 
     return Scaffold(
       backgroundColor: Styles.c6,

@@ -1,11 +1,9 @@
-import 'package:android_testing/widgets/navigationbar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../components/already_have_an_account.dart';
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
-import '../register/registerdoctor.dart';
 
 class DoctorLoginForm extends StatelessWidget {
   const DoctorLoginForm({

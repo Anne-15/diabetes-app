@@ -3,8 +3,6 @@ import 'package:android_testing/components/text_constants.dart';
 import 'package:android_testing/screens/onboarding/model_onboarding.dart';
 import 'package:android_testing/screens/onboarding/onboarding_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
 import '../../components/constants.dart';

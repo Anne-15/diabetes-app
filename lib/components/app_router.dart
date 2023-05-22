@@ -1,7 +1,6 @@
 import 'package:android_testing/screens/onboarding/onboarding_screen.dart';
 import 'package:android_testing/screens/patientview/appointments/appointments.dart';
 import 'package:android_testing/screens/patientview/chats/chats.dart';
-import 'package:android_testing/screens/patientview/chats/single_chart.dart';
 import 'package:android_testing/screens/patientview/home/homepage.dart';
 import 'package:android_testing/screens/patientview/profile/profilescreen.dart';
 import 'package:android_testing/screens/patientview/profile/updateprofile.dart';

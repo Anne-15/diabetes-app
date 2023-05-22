@@ -1,13 +1,7 @@
-import 'package:android_testing/models/usermodel.dart';
-import 'package:android_testing/controllers/signup_controller.dart';
 import 'package:android_testing/screens/patientview/signup/register_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../components/already_have_an_account.dart';
-import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 
 class PatientRegister extends StatelessWidget {

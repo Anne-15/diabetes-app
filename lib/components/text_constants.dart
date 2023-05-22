@@ -1,5 +1,4 @@
 //text constants
-import 'package:flutter/material.dart';
 
 const String onboardingtitle = "We value your time and ideas";
 const String subtitle =

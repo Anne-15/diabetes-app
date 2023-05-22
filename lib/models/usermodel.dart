@@ -9,16 +9,17 @@ class UserModel {
   final String gender;
   final String type;
 
-  const UserModel(
-      {this.id,
-      required this.fullname,
-      required this.email,
-      required this.password,
-      required this.age,
-      required this.gender,
-      required this.type});
+  const UserModel({
+    this.id,
+    required this.fullname,
+    required this.email,
+    required this.password,
+    required this.age,
+    required this.gender,
+    required this.type,
+  });
 
-  toJson() {
+  Map<String, dynamic> toJson() {
     return {
       "id": id,
       "FullName": fullname,

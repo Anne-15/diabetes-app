@@ -3,11 +3,7 @@ import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/models/doctormodel.dart';
 import 'package:android_testing/screens/doctors%20view/chats/doctor_category.dart';
 import 'package:android_testing/screens/doctors%20view/chats/individual_chat.dart';
-import 'package:android_testing/screens/patientview/chats/single_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../repository/doctors_chat_repository.dart';
 
@@ -18,8 +14,8 @@ class DoctorContacts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final chatrepo = DoctorChatRepository();
-    chatrepo.goChat(item);
+    // final chatrepo = DoctorChatRepository();
+    // chatrepo.goChat(item);
 
     return Scaffold(
       backgroundColor: Styles.c6,

@@ -1,12 +1,10 @@
 import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/controllers/get_users_controller.dart';
-import 'package:android_testing/models/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../models/usermodel.dart';
-import 'single_chart.dart';
 
 class FavoriteContacts extends StatelessWidget {
   const FavoriteContacts({
@@ -48,7 +46,7 @@ class FavoriteContacts extends StatelessWidget {
               //   ),
               // );
             },
-            child: Container(
+            child: SizedBox(
               height: AppLayout.getHeight(90),
               // color: Colors.blue,
               child: FutureBuilder<List<UserModel>>(

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/my_doctors.dart';
@@ -13,9 +12,4 @@ class GetMyDoctorsControllers extends GetxController {
   Future<List<MyDoctorsModel>> getAllMyDoctors() async {
     return await _mydoctorsRepo.allMyDoctors();
   }
-
-  //get single doctor
-  // Future<MyDoctorsModel> getMyDoctors() async {
-  //   return await _mydoctorsRepo.getMyDoctorDetails(fullname)
-  // }
 }
