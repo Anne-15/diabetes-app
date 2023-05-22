@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 
+import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
+import '../../../controllers/my_doctors_controllers.dart';
+import '../../../models/my_doctors.dart';
 import 'add_doctor_details.dart';
 
 class MyDoctors extends StatelessWidget {
@@ -10,6 +14,8 @@ class MyDoctors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(GetMyDoctorsControllers());
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -28,12 +34,72 @@ class MyDoctors extends StatelessWidget {
                 "My doctor's details",
                 style: Styles.headerStyle2,
               ),
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               Text(
                 "Get in touch with your specialist",
                 style: Styles.headerStyle4,
               ),
               SizedBox(height: 30.0),
+              FutureBuilder<List<MyDoctorsModel>>(
+                future: controller.getAllMyDoctors(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (i, index) {
+                          return Container(
+                            height: AppLayout.getHeight(160),
+                            decoration: BoxDecoration(
+                              color: Styles.c6.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            padding: EdgeInsets.all(20.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.person_2_rounded,
+                                      color: Styles.c1,
+                                    ),
+                                    SizedBox(width: AppLayout.getHeight(30)),
+                                    Text(snapshot.data![index].fullname),
+                                  ],
+                                ),
+                                SizedBox(height: AppLayout.getHeight(20)),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.local_hospital_outlined,
+                                      color: Styles.c1,
+                                    ),
+                                    SizedBox(width: AppLayout.getHeight(30)),
+                                    Text(snapshot.data![index].hospital),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    } else {
+                      return Center(
+                        child: Text("Nothing to show"),
+                      );
+                    }
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
+              ),
+              SizedBox(),
               Align(
                 alignment: Alignment.centerRight,
                 child: FloatingActionButton(
