@@ -1,6 +1,4 @@
 import 'package:android_testing/components/constants.dart';
-import 'package:android_testing/widgets/bottomnav.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

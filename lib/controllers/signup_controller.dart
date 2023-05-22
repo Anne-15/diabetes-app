@@ -1,4 +1,3 @@
-import 'package:android_testing/models/usermodel.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
 import 'package:android_testing/repository/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -176,9 +176,10 @@ class _SignUpFormState extends State<SignUpForm> {
                           gender: gender.text.trim(),
                           type: type.text.trim(),
                         );
-
+                        
+                        final userId = FirebaseAuth.instance.currentUser!;
                         await registerUser
-                            .storeUserData(user)
+                            .storeUserData(userId, user)
                             .then((user) => registerNewUser(
                                   email.text.trim(),
                                   password.text.trim(),
