@@ -53,4 +53,21 @@ class MyDoctorsRepository extends GetxController {
         snapshot.docs.map((e) => MyDoctorsModel.fromFirestore(e)).toList();
     return data;
   }
+
+  //get only one doctor's details
+  Future<MyDoctorsModel> getLatestDoctor() async {
+    final snapshot = await _db
+        .collection("MyDoctors")
+        .orderBy("Hospital", descending: true)
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      final data =
+          snapshot.docs.map((e) => MyDoctorsModel.fromFirestore(e)).single;
+      return data;
+    } else {
+      throw Exception("No Doctors found");
+    }
+  }
 }
