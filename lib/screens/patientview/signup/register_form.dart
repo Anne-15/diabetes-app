@@ -9,7 +9,6 @@ import '../../../components/constants.dart';
 import '../../../models/usermodel.dart';
 import '../../../repository/authentication_repository.dart';
 import '../../../repository/user_repository.dart';
-import '../../../widgets/bottomnav.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -69,7 +68,7 @@ class _SignUpFormState extends State<SignUpForm> {
   Widget build(BuildContext context) {
     // ignore: no_leading_underscores_for_local_identifiers
     final _signupkey = GlobalKey();
-    RegisterUser registerUser = RegisterUser();
+    final registerUser = Get.put(UserRepository());
 
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -185,12 +184,7 @@ class _SignUpFormState extends State<SignUpForm> {
                                 ))
                             .whenComplete(
                           () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BottomBar(),
-                              ),
-                            );
+                            Navigator.pop(context);
                           },
                         );
                       },

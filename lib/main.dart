@@ -1,8 +1,8 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
-import 'package:android_testing/screens/patientview/articles/single_article.dart';
-import 'package:android_testing/screens/patientview/chats/chats.dart';
-import 'package:android_testing/screens/welcomescreen/welcome_screen.dart';
+// import 'package:android_testing/screens/patientview/articles/single_article.dart';
+// import 'package:android_testing/screens/patientview/chats/chats.dart';
+// import 'package:android_testing/screens/welcomescreen/welcome_screen.dart';
 import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
