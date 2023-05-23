@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../components/constants.dart';
 import '../../../repository/chats_repository.dart';
 
 class NewMessage extends StatefulWidget {
   final String senderId;
+  final String receipientId;
   const NewMessage({
     super.key,
-    required this.senderId,
+    required this.senderId, required this.receipientId,
   });
 
   @override
@@ -16,11 +18,13 @@ class NewMessage extends StatefulWidget {
 
 class _NewMessageState extends State<NewMessage> {
   final _controller = TextEditingController();
+
   String message = '';
+  final chats = Get.put(ChatRepository());
 
   getMessages() async {
     FocusScope.of(context).unfocus();
-    await ChatRepository.instance.addMessageToChat(widget.senderId, message);
+    await ChatRepository.instance.addMessageToChat(widget.senderId, widget.receipientId, message);
     _controller.clear();
   }
 
@@ -44,7 +48,7 @@ class _NewMessageState extends State<NewMessage> {
                 border: OutlineInputBorder(
                   borderSide: BorderSide(width: 0),
                   gapPadding: 10.0,
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(25.0),
                 ),
               ),
               onChanged: (value) {
@@ -65,7 +69,7 @@ class _NewMessageState extends State<NewMessage> {
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Styles.c1,
+                color: Styles.c9,
               ),
               child: Icon(
                 Icons.send_outlined,

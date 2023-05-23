@@ -25,10 +25,12 @@ class ChatRepository extends GetxController {
   }
 
   // Add a new message to a chat
-  Future<void> addMessageToChat(String senderId, String message) async {
-    final senderId = FirebaseAuth.instance.currentUser!.uid;
+  Future<void> addMessageToChat(
+      String senderId, String recipientId, String message) async {
+    // ignore: unnecessary_brace_in_string_interps
+    final chatId = '${senderId}_${recipientId}';
     final messagesRef =
-        _db.collection('Chats').doc(senderId).collection('messages');
+        _db.collection('Chats').doc(chatId).collection('messages');
     await messagesRef.add({
       'message': message,
       'senderId': senderId,
@@ -36,11 +38,19 @@ class ChatRepository extends GetxController {
     });
 
     final refUsers = FirebaseFirestore.instance.collection('Doctors');
-    await refUsers.doc(senderId).update({});
+    await refUsers.doc(senderId).update(
+      {
+        'lastMessage': message,
+      },
+    );
   }
 
   // Retrieve all messages for a specific chat
-  Stream<List<Messages>> getMessagesForChat(String chatId) {
+  Stream<List<Messages>> getMessagesForChat(
+    String senderId,
+    String recipientId,
+  ) {
+    final chatId = '${senderId}_$recipientId';
     final messagesRef = _db
         .collection('Chats')
         .doc(chatId)

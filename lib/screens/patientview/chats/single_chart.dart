@@ -1,10 +1,12 @@
 import 'package:android_testing/controllers/get_doctors_controllers.dart';
 import 'package:android_testing/screens/patientview/chats/chats.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../components/constants.dart';
 import '../../../models/doctormodel.dart';
+import 'mesages_list.dart';
 import 'new_message.dart';
 
 class SingleChat extends StatefulWidget {
@@ -20,7 +22,8 @@ class _SingleChatState extends State<SingleChat> {
 
   @override
   Widget build(BuildContext context) {
-    var user;
+    final userid = FirebaseAuth.instance.currentUser!.uid;
+
     return Scaffold(
       backgroundColor: Styles.c6,
       appBar: AppBar(
@@ -30,15 +33,15 @@ class _SingleChatState extends State<SingleChat> {
                 context, MaterialPageRoute(builder: (context) => ChatApp()));
           },
           icon: Icon(Icons.arrow_back_ios_new_outlined),
-          iconSize: 30,
-          color: Colors.white,
+          iconSize: 15,
+          color: Colors.black,
         ),
         backgroundColor: Styles.c6,
         title: Text(
-          "Contact Name",
+          widget.user.fullname,
           style: Styles.headerStyle2,
         ),
-        // centerTitle: true,
+        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -58,8 +61,25 @@ class _SingleChatState extends State<SingleChat> {
                 ),
                 child: Column(
                   children: [
-                    // MyMessages(senderId: user),
-                    NewMessage(senderId: user),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30.0),
+                              topRight: Radius.circular(30.0),
+                            )),
+                        child: MyMessages(
+                          senderId: userid,
+                          recipientId: widget.user.fullname,
+                        ),
+                      ),
+                    ),
+                    NewMessage(
+                      senderId: userid,
+                      receipientId: widget.user.fullname,
+                    ),
                   ],
                 ),
               ),
@@ -70,4 +90,3 @@ class _SingleChatState extends State<SingleChat> {
     );
   }
 }
-

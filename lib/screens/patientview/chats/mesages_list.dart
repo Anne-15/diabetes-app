@@ -1,36 +1,45 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../models/messages.dart';
 import '../../../repository/chats_repository.dart';
 
 class MyMessages extends StatefulWidget {
-  final String chatId;
-  const MyMessages({super.key, required this.chatId});
+  final String senderId;
+  final String recipientId;
+  const MyMessages(
+      {super.key, required this.senderId, required this.recipientId});
 
   @override
   State<MyMessages> createState() => _MyMessagesState();
 }
 
 class _MyMessagesState extends State<MyMessages> {
+  final myChats = Get.put(ChatRepository());
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<Messages>>(
-      stream: ChatRepository.instance.getMessagesForChat(widget.chatId),
+      stream: myChats.getMessagesForChat(widget.senderId, widget.recipientId),
       builder: (context, snapshot) {
         final messages = snapshot.data!;
         return messages.isEmpty
-            ? Text('Say hi...')
+            ? Center(
+                child: Text('Say hi...'),
+              )
+              
             : ListView.builder(
+                physics: BouncingScrollPhysics(),
                 reverse: true,
                 itemCount: messages.length,
                 itemBuilder: (context, index) {
                   final message = messages[index];
                   return MessagesWidget(
                     message: message,
-                    isMe: message.senderId == widget.chatId,
+                    isMe: message.senderId == widget.senderId,
                   );
-                });
+                },
+              );
       },
     );
   }
@@ -54,7 +63,7 @@ class _MessagesWidgetState extends State<MessagesWidget> {
       children: [
         if (!widget.isMe)
           CircleAvatar(
-            radius: 16,
+            radius: 14,
             backgroundImage: AssetImage('assets/images/profile.png'),
           ),
         Container(
@@ -64,15 +73,15 @@ class _MessagesWidgetState extends State<MessagesWidget> {
           decoration: BoxDecoration(
             color: widget.isMe ? Styles.c6 : Styles.c2,
             borderRadius: widget.isMe
-                ? BorderRadius.only(bottomRight: Radius.circular(16))
-                : BorderRadius.only(bottomLeft: Radius.circular(16)),
+                ? BorderRadius.only(topLeft: Radius.circular(16))
+                : BorderRadius.only(topRight: Radius.circular(16)),
           ),
           child: Column(
             crossAxisAlignment:
                 widget.isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
               Text(
-                widget.message as String,
+                widget.message.message,
                 textAlign: widget.isMe ? TextAlign.end : TextAlign.start,
               ),
             ],

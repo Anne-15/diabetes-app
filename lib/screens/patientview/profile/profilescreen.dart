@@ -97,7 +97,9 @@ class MyProfile extends StatelessWidget {
                 icon: Icons.logout_rounded,
                 endIcon: false,
                 // textColor: Styles.c9,
-                onPress: () => FirebaseAuth.instance.signOut(),
+                onPress: () {
+                  FirebaseAuth.instance.signOut();
+                },
               ),
             ],
           ),
