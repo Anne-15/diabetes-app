@@ -26,7 +26,7 @@ class MyDoctorsModel {
     final data = snapshot.data()!;
     return MyDoctorsModel(
       fullname: data["FullName"],
-      hospital: data["hospital"],
+      hospital: data["Hospital"],
       department: data["Department"],
     );
   }

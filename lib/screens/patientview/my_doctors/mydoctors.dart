@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
-import '../../../controllers/my_doctors_controllers.dart';
 import '../../../models/my_doctors.dart';
+import '../../../repository/my_doctors_repository.dart';
 import 'add_doctor_details.dart';
 
 class MyDoctors extends StatelessWidget {
@@ -12,7 +12,7 @@ class MyDoctors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(GetMyDoctorsControllers());
+    final doctorRepo = Get.put(MyDoctorsRepository());
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +41,7 @@ class MyDoctors extends StatelessWidget {
               ),
               SizedBox(height: 30.0),
               FutureBuilder<List<MyDoctorsModel>>(
-                future: controller.getAllMyDoctors(),
+                future: doctorRepo.allMyDoctors(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasData) {
@@ -50,7 +50,7 @@ class MyDoctors extends StatelessWidget {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (i, index) {
                           return Container(
-                            height: AppLayout.getHeight(160),
+                            height: AppLayout.getHeight(120),
                             decoration: BoxDecoration(
                               color: Styles.c6.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(10),
@@ -68,7 +68,7 @@ class MyDoctors extends StatelessWidget {
                                     Text(snapshot.data![index].fullname),
                                   ],
                                 ),
-                                SizedBox(height: AppLayout.getHeight(20)),
+                                SizedBox(height: AppLayout.getHeight(5)),
                                 Row(
                                   children: [
                                     Icon(

@@ -1,9 +1,8 @@
 import 'package:android_testing/models/addarticles.dart';
+import 'package:android_testing/repository/articles_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../components/constants.dart';
-import '../../../controllers/articles_controllers.dart';
 
 class MyArticles extends StatefulWidget {
   const MyArticles({super.key});
@@ -13,10 +12,31 @@ class MyArticles extends StatefulWidget {
 }
 
 class _MyArticlesState extends State<MyArticles> {
+  late TextEditingController title;
+  late TextEditingController date;
+  late TextEditingController body;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    title = TextEditingController();
+    date = TextEditingController();
+    body = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    title.dispose();
+    date.dispose();
+    body.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ArticlesController());
-    Size size = MediaQuery.of(context).size;
+    // Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -99,7 +119,7 @@ class _MyArticlesState extends State<MyArticles> {
                           offset: Offset(0, 4))
                     ]),
                 child: TextField(
-                  controller: controller.title,
+                  controller: title,
                   decoration: InputDecoration(
                     label: Text("Title"),
                     border: InputBorder.none,
@@ -120,7 +140,7 @@ class _MyArticlesState extends State<MyArticles> {
                           offset: Offset(0, 4))
                     ]),
                 child: TextField(
-                  controller: controller.date,
+                  controller: date,
                   decoration: InputDecoration(
                     label: Text("Date"),
                     border: InputBorder.none,
@@ -141,7 +161,7 @@ class _MyArticlesState extends State<MyArticles> {
                           offset: Offset(0, 4))
                     ]),
                 child: TextField(
-                  controller: controller.body,
+                  controller: body,
                   maxLines: null,
                   decoration: InputDecoration(
                     label: Text("Body"),
@@ -153,13 +173,16 @@ class _MyArticlesState extends State<MyArticles> {
               SizedBox(
                 width: double.infinity,
                 child: FloatingActionButton.extended(
-                  onPressed: (() {
+                  onPressed: (() async {
                     final article = ArticlesModel(
-                      title: controller.title.text.trim(),
-                      date: controller.date.text.trim(),
-                      body: controller.body.text.trim(),
+                      title: title.text.trim(),
+                      date: date.text.trim(),
+                      body: body.text.trim(),
                     );
-                    ArticlesController.instance.addArticles(article);
+                    await ArticleRepository.instance.addArticles(article);
+
+                    // ignore: use_build_context_synchronously
+                    Navigator.pop(context);
                   }),
                   label: Text(
                     "Send",

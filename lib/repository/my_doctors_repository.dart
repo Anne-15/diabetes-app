@@ -12,12 +12,12 @@ class MyDoctorsRepository extends GetxController {
 
   createDoctorUser(MyDoctorsModel doctor) async {
     await _db
-        .collection("My Doctors")
+        .collection("MyDoctors")
         .add(doctor.toJson())
         .whenComplete(
           () => Get.snackbar(
             "Success",
-            "Your account has been created.",
+            "Your details have been added successfully.",
             snackPosition: SnackPosition.TOP,
             backgroundColor: Styles.c10.withOpacity(0.1),
             colorText: Colors.green,
@@ -39,7 +39,7 @@ class MyDoctorsRepository extends GetxController {
   //fetch the data from the database
   Future<MyDoctorsModel> getMyDoctorDetails(String fullname) async {
     final snapshot = await _db
-        .collection("My Doctors")
+        .collection("MyDoctors")
         .where("FullName", isEqualTo: fullname)
         .get();
     final data =
@@ -48,7 +48,7 @@ class MyDoctorsRepository extends GetxController {
   }
 
   Future<List<MyDoctorsModel>> allMyDoctors() async {
-    final snapshot = await _db.collection("My Doctors").get();
+    final snapshot = await _db.collection("MyDoctors").get();
     final data =
         snapshot.docs.map((e) => MyDoctorsModel.fromFirestore(e)).toList();
     return data;
