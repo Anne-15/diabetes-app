@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 
 import '../../../controllers/my_doctors_controllers.dart';
 import '../../../models/my_doctors.dart';
-import '../../../models/usermodel.dart';
-import 'single_chart.dart';
 
 class FavoriteContacts extends StatelessWidget {
   final List<MyDoctorsModel> users;

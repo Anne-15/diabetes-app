@@ -5,7 +5,6 @@ import 'package:android_testing/screens/doctors%20view/chats/doctor_category.dar
 import 'package:android_testing/screens/doctors%20view/chats/individual_chat.dart';
 import 'package:flutter/material.dart';
 
-import '../../../repository/doctors_chat_repository.dart';
 
 // ignore: must_be_immutable
 class DoctorContacts extends StatelessWidget {

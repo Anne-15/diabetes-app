@@ -9,7 +9,8 @@ class NewMessage extends StatefulWidget {
   final String receipientId;
   const NewMessage({
     super.key,
-    required this.senderId, required this.receipientId,
+    required this.senderId,
+    required this.receipientId,
   });
 
   @override
@@ -17,14 +18,30 @@ class NewMessage extends StatefulWidget {
 }
 
 class _NewMessageState extends State<NewMessage> {
-  final _controller = TextEditingController();
+  // final _controller = TextEditingController();
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _controller = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _controller.dispose();
+    super.dispose();
+  }
 
   String message = '';
   final chats = Get.put(ChatRepository());
 
   getMessages() async {
     FocusScope.of(context).unfocus();
-    await ChatRepository.instance.addMessageToChat(widget.senderId, widget.receipientId, message);
+    await ChatRepository.instance
+        .addMessageToChat(widget.senderId, widget.receipientId, message);
     _controller.clear();
   }
 

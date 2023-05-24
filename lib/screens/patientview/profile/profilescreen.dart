@@ -1,17 +1,22 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/screens/patientview/profile/components/profilemenu.dart';
+import 'package:android_testing/screens/patientview/profile/updateprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class MyProfile extends StatelessWidget {
   const MyProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: Text(
+          "Profile",
+          style: Styles.headerStyle2,
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -58,7 +63,14 @@ class MyProfile extends StatelessWidget {
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
-                  onPressed: () => context.go('/update_profile'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UpdateProfile(),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(backgroundColor: Styles.c6),
                   child: Text(
                     "Edit Profile",

@@ -1,4 +1,3 @@
-import 'package:android_testing/screens/patientview/profile/profilescreen.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,20 +12,11 @@ class UpdateProfile extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return MyProfile();
-                },
-              ),
-            );
-          },
-          icon: Icon(Icons.chevron_left_outlined),
+        title: Text(
+          "Edit Profile",
+          style: Styles.headerStyle2,
         ),
-        title: Text("Edit Profile"),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
           child: Container(

@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../models/usermodel.dart';
+
 class SignupController extends GetxController {
   static SignupController get instance => Get.find();
 
@@ -45,5 +47,10 @@ class SignupController extends GetxController {
       // TODO
       print(e);
     }
+  }
+
+  //get all the list of users
+  Future<List<UserModel>> getAllUsers() async {
+    return await userRepo.allUsers();
   }
 }
