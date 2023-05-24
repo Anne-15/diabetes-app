@@ -1,8 +1,8 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../middleware/auth.dart';
+import '../doctors view/login/logindoctor.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -38,7 +38,7 @@ class WelcomeScreen extends StatelessWidget {
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => AuthPage(),
@@ -57,7 +57,14 @@ class WelcomeScreen extends StatelessWidget {
                 SizedBox(width: 10.0),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () => context.go('/doctor_login'),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DoctorLoginView(),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(),
                       foregroundColor: Styles.c12,
@@ -65,7 +72,7 @@ class WelcomeScreen extends StatelessWidget {
                       // side: BorderSide(color: Colors.white),
                       padding: EdgeInsets.symmetric(vertical: 15.0),
                     ),
-                    child: Text("Doctor/Nurse".toUpperCase()),
+                    child: Text("Doctor".toUpperCase()),
                   ),
                 ),
               ],

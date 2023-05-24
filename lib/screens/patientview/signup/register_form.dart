@@ -178,10 +178,12 @@ class _SignUpFormState extends State<SignUpForm> {
                         final userId = FirebaseAuth.instance.currentUser!.uid;
                         await registerUser
                             .storeUserData(userId, user)
-                            .then((user) => registerNewUser(
-                                  email.text.trim(),
-                                  password.text.trim(),
-                                ))
+                            .then(
+                              (user) => registerNewUser(
+                                email.text.trim(),
+                                password.text.trim(),
+                              ),
+                            )
                             .whenComplete(
                           () {
                             Navigator.pop(context);

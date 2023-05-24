@@ -1,20 +1,49 @@
+import 'package:android_testing/controllers/get_doctors_controllers.dart';
+import 'package:android_testing/screens/doctors%20view/register/registerdoctor.dart';
+import 'package:android_testing/screens/patientview/signin/forgot_password.dart';
+import 'package:android_testing/widgets/navigationbar.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:get/get.dart';
 
 import '../../../components/already_have_an_account.dart';
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 
-class DoctorLoginForm extends StatelessWidget {
+class DoctorLoginForm extends StatefulWidget {
   const DoctorLoginForm({
     super.key,
     required this.size,
   });
-
   final Size size;
 
   @override
+  State<DoctorLoginForm> createState() => _DoctorLoginFormState();
+}
+
+class _DoctorLoginFormState extends State<DoctorLoginForm> {
+  late TextEditingController email;
+  late TextEditingController password;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    email = TextEditingController();
+    password = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Get.put(DoctorSignupController());
     return Form(
         child: Container(
       padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -22,6 +51,12 @@ class DoctorLoginForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
+            controller: email,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) =>
+                value != null && !EmailValidator.validate(value)
+                    ? 'Enter a valid email'
+                    : null,
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.person_outline_outlined,
@@ -34,6 +69,8 @@ class DoctorLoginForm extends StatelessWidget {
           ),
           SizedBox(height: AppLayout.getHeight(10)),
           TextFormField(
+            controller: password,
+            obscureText: true,
             decoration: InputDecoration(
               prefixIcon: Icon(
                 Icons.fingerprint_outlined,
@@ -52,7 +89,14 @@ class DoctorLoginForm extends StatelessWidget {
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ForgotPassword(),
+                  ),
+                );
+              },
               child: Text(
                 "Forgot password?",
                 style: TextStyle(fontWeight: FontWeight.w500),
@@ -63,7 +107,7 @@ class DoctorLoginForm extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: SizedBox(
-              width: size.width * 0.6,
+              width: widget.size.width * 0.6,
               height: AppLayout.getHeight(40.0),
               child: ClipRRect(
                 child: TextButton(
@@ -71,7 +115,18 @@ class DoctorLoginForm extends StatelessWidget {
                     backgroundColor:
                         MaterialStateProperty.all(Styles.primaryColor),
                   ),
-                  onPressed: () => context.go('/doctor_navbar'),
+                  onPressed: () async {
+                    DoctorSignupController.instance.logIn(
+                      email.text.trim(),
+                      password.text.trim(),
+                    );
+                    await Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DoctorNavBar(),
+                      ),
+                    );
+                  },
                   child: Text(
                     "SIGN IN",
                     style: TextStyle(color: Colors.white),
@@ -80,10 +135,17 @@ class DoctorLoginForm extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: size.height * 0.03),
+          SizedBox(height: widget.size.height * 0.03),
           AlreadyHaveAnAccount(
             login: true,
-            press: () => context.go('/doctor_register'),
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RegisterDoctorPage(),
+                ),
+              );
+            },
           ),
         ],
       ),

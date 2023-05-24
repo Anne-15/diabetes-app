@@ -32,16 +32,6 @@ class PatientLogin extends StatelessWidget {
                 ),
                 //login form
                 LoginForm(size: size),
-                // StreamBuilder<User?>(
-                //   stream: FirebaseAuth.instance.authStateChanges(),
-                //   builder: ((context, snapshot) {
-                //     if (snapshot.hasData) {
-                //       return BottomBar();
-                //     } else {
-                //       return LoginForm(size: size);
-                //     }
-                //   }),
-                // ),
               ],
             ),
           ),

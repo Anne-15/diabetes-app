@@ -1,14 +1,17 @@
+import 'package:android_testing/repository/doctor_user_repository.dart';
+import 'package:android_testing/screens/doctors%20view/login/logindoctor.dart';
+import 'package:android_testing/widgets/navigationbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../components/already_have_an_account.dart';
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
-import '../../../controllers/get_doctors_controllers.dart';
 import '../../../models/doctormodel.dart';
+import '../../../repository/authentication_repository.dart';
 
-class RegisterDoctorForm extends StatelessWidget {
+class RegisterDoctorForm extends StatefulWidget {
   const RegisterDoctorForm({
     super.key,
     required this.size,
@@ -17,10 +20,53 @@ class RegisterDoctorForm extends StatelessWidget {
   final Size size;
 
   @override
+  State<RegisterDoctorForm> createState() => _RegisterDoctorFormState();
+}
+
+class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
+  late TextEditingController fullname;
+  late TextEditingController email;
+  late TextEditingController password;
+  late TextEditingController hospitalname;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    fullname = TextEditingController();
+    email = TextEditingController();
+    password = TextEditingController();
+    hospitalname = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    fullname.dispose();
+    email.dispose();
+    password.dispose();
+    hospitalname.dispose();
+    super.dispose();
+  }
+
+  void registerDoctor(String email, String password) {
+    String? error = AuthenticationRepository.instance
+        .createUserWithEmailAndPassword(email, password) as String?;
+    if (error != null) {
+      Get.showSnackbar(
+        GetSnackBar(
+          message: error.toString(),
+        ),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DoctorSignupController());
     // ignore: no_leading_underscores_for_local_identifiers
     final _signupkey = GlobalKey();
+    final registerDoctorUser = DoctorUserRepository();
+
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0),
       child: Form(
@@ -29,7 +75,7 @@ class RegisterDoctorForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
-                controller: controller.fullname,
+                controller: fullname,
                 decoration: InputDecoration(
                   label: Text("Full Name"),
                   prefixIcon: Icon(
@@ -41,7 +87,7 @@ class RegisterDoctorForm extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                controller: controller.email,
+                controller: email,
                 decoration: InputDecoration(
                   label: Text("Email"),
                   prefixIcon: Icon(
@@ -53,7 +99,7 @@ class RegisterDoctorForm extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                controller: controller.password,
+                controller: password,
                 decoration: InputDecoration(
                   label: Text("Password"),
                   prefixIcon: Icon(
@@ -69,7 +115,7 @@ class RegisterDoctorForm extends StatelessWidget {
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                controller: controller.hosptialName,
+                controller: hospitalname,
                 decoration: InputDecoration(
                   label: Text("Hospital Name"),
                   prefixIcon: Icon(
@@ -83,7 +129,7 @@ class RegisterDoctorForm extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: SizedBox(
-                  width: size.width * 0.6,
+                  width: widget.size.width * 0.6,
                   height: AppLayout.getHeight(40.0),
                   child: ClipRRect(
                     child: TextButton(
@@ -94,20 +140,44 @@ class RegisterDoctorForm extends StatelessWidget {
                       onPressed: () async {
                         //add data to the database
                         final doctors = DoctorUserModel(
-                          fullname: controller.fullname.text.trim(),
-                          email: controller.email.text.trim(),
-                          password: controller.password.text.trim(),
-                          hospitalName: controller.hosptialName.text.trim(),
+                          fullname: fullname.text.trim(),
+                          email: email.text.trim(),
+                          password: password.text.trim(),
+                          hospitalName: hospitalname.text.trim(),
+                        );
+                        final userId = FirebaseAuth.instance.currentUser!.uid;
+                        await registerDoctorUser.createDoctorUser(
+                            userId, doctors);
+
+                        registerDoctor(
+                          email.text.trim(),
+                          password.text.trim(),
                         );
 
-                        DoctorSignupController.instance
-                            .createDoctorUser(doctors);
-
-                        //email and password authentication
-                        DoctorSignupController.instance.registerDoctorUser(
-                          controller.email.text.trim(),
-                          controller.password.text.trim(),
+                        // ignore: use_build_context_synchronously
+                        await Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DoctorNavBar(),
+                          ),
                         );
+
+                        //     .then(
+                        //       (user) => registerDoctor(
+                        //         email.text.trim(),
+                        //         password.text.trim(),
+                        //       ),
+                        //     )
+                        //     .whenComplete(
+                        //   () {
+                        //     Navigator.pushReplacement(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //         builder: (context) => DoctorNavBar(),
+                        //       ),
+                        //     );
+                        //   },
+                        // );
                       },
                       child: Text(
                         "SIGN IN",
@@ -117,10 +187,17 @@ class RegisterDoctorForm extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: size.height * 0.03),
+              SizedBox(height: widget.size.height * 0.03),
               AlreadyHaveAnAccount(
                 login: false,
-                press: () => context.go('/doctor_login'),
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DoctorLoginView(),
+                    ),
+                  );
+                },
               ),
             ],
           )),

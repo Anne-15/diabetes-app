@@ -96,7 +96,7 @@ class LoginForm extends StatelessWidget {
                         controller.emailAddress.text.trim(),
                         controller.password.text.trim(),
                       );
-                      await Navigator.push(
+                      await Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => BottomBar(),

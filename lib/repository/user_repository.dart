@@ -18,7 +18,7 @@ class UserRepository extends GetxController {
         .whenComplete(
           () => Get.snackbar(
             "Success",
-            "Your account has been added successfully.",
+            "Your account has been created successfully.",
             snackPosition: SnackPosition.TOP,
             backgroundColor: Styles.c10.withOpacity(0.1),
             colorText: Colors.green,

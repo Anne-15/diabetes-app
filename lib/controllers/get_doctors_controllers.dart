@@ -1,4 +1,5 @@
 import 'package:android_testing/repository/authentication_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/doctormodel.dart';
@@ -26,11 +27,13 @@ class DoctorSignupController extends GetxController {
     }
   }
 
-  void createDoctorUser(DoctorUserModel doctor) async {
-    //add details to the databaase
-    await doctorRepo.createDoctorUser(doctor);
-    //then go to the home screen
-    await Get.toNamed('/doctor_navbar');
+  void logIn(String emailAddress, String password) async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emailAddress, password: password);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
   }
 
   //get all the list of users
