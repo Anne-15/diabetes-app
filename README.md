@@ -1,4 +1,4 @@
-# Diabetes Monitoring and Management Platfor
+# Diabetes Monitoring and Management Platform
 
 A new Flutter project.
 
