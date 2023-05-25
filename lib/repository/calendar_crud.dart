@@ -2,10 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/calendar_event_info.dart';
 
-final CollectionReference mainCollection =
-    FirebaseFirestore.instance.collection('Appointments');
-final DocumentReference documentReference = mainCollection.doc('Events');
-
 final _db = FirebaseFirestore.instance;
 
 class Storage {
@@ -50,20 +46,4 @@ class Storage {
 
     return myClasses;
   }
-
-  // Future<EventInfo> retrieveEvents() async {
-  //   final snapshot = await _db
-  //       .collection("Articles")
-  //       .orderBy("date", descending: true)
-  //       .limit(1)
-  //       .get();
-
-  //   if (snapshot.docs.isNotEmpty) {
-  //     final data =
-  //         snapshot.docs.map((e) => EventInfo.fromMap(e as Map)).single;
-  //     return data;
-  //   } else {
-  //     throw Exception("No articles found");
-  //   }
-  // }
 }

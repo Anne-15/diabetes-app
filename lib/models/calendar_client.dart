@@ -1,9 +1,9 @@
 import 'package:googleapis/calendar/v3.dart';
+import 'package:googleapis_auth/auth_io.dart';
 
 class CalendarClient {
   // For storing the CalendarApi object, this can be used
-  // for performing all the operations
-  static var calendar;
+  // for performing all the operation
 
   // For creating a new calendar event
   Future<Map<String, String>> insert({
@@ -20,6 +20,8 @@ class CalendarClient {
     // If the account has multiple calendars, then select the "primary" one
     String calendarId = "primary";
     Event event = Event();
+    var calendar =
+        CalendarApi(await clientViaApplicationDefaultCredentials(scopes: []));
 
     event.summary = title;
     event.description = description;
@@ -47,32 +49,32 @@ class CalendarClient {
     event.end = end;
 
     try {
-      await calendar.events
-          .insert(
+      Event value = await calendar.events.insert(
         event,
         calendarId,
         conferenceDataVersion: hasConferenceSupport ? 1 : 0,
-      )
-          .then((value) {
-        print("Event Status: ${value.status}");
-        if (value.status == "confirmed") {
-          String joiningLink = '';
-          String eventId;
+      );
 
-          eventId = value.id;
+      print("Event Status: ${value.status}");
+      if (value.status == "confirmed") {
+        String joiningLink =
+            "https://meet.google.com/${value.conferenceData?.conferenceId}";
+        String eventId = '';
 
-          if (hasConferenceSupport) {
-            joiningLink =
-                "https://meet.google.com/${value.conferenceData.conferenceId}";
-          }
+        eventId = value.id!;
 
-          eventData = {'id': eventId, 'link': joiningLink};
-
-          print('Event added to Google Calendar');
-        } else {
-          print("Unable to add event to Google Calendar");
+        if (hasConferenceSupport) {
+          joiningLink =
+              "https://meet.google.com/${value.conferenceData?.conferenceId}";
         }
-      });
+
+        eventData = {'id': eventId, 'link': joiningLink};
+
+        print('Event added to Google Calendar');
+        print('eventData: $eventData');
+      } else {
+        print("Unable to add event to Google Calendar");
+      }
     } catch (e) {
       print('Error creating event $e');
     }
@@ -95,6 +97,8 @@ class CalendarClient {
 
     String calendarId = "primary";
     Event event = Event();
+    var calendar =
+        CalendarApi(await clientViaApplicationDefaultCredentials(scopes: []));
 
     event.summary = title;
     event.description = description;
@@ -123,11 +127,11 @@ class CalendarClient {
         String joiningLink = '';
         String eventId;
 
-        eventId = response.id;
+        eventId = response.id!;
 
         if (hasConferenceSupport) {
           joiningLink =
-              "https://meet.google.com/${response.conferenceData.conferenceId}";
+              "https://meet.google.com/${response.conferenceData?.conferenceId}";
         }
 
         eventData = {'id': eventId, 'link': joiningLink};
@@ -146,6 +150,8 @@ class CalendarClient {
   // For deleting a calendar event
   Future<void> delete(String eventId, bool shouldNotify) async {
     String calendarId = "primary";
+    var calendar =
+        CalendarApi(await clientViaApplicationDefaultCredentials(scopes: []));
 
     try {
       await calendar.events

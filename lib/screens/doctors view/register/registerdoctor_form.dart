@@ -4,6 +4,7 @@ import 'package:android_testing/widgets/navigationbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../components/already_have_an_account.dart';
 import '../../../components/app_layout.dart';
@@ -59,6 +60,20 @@ class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
         ),
       );
     }
+  }
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    return await _auth.signInWithCredential(credential);
   }
 
   @override
@@ -144,16 +159,17 @@ class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
                           email: email.text.trim(),
                           password: password.text.trim(),
                           hospitalName: hospitalname.text.trim(),
+                          photoUrl: '',
                         );
                         final userId = FirebaseAuth.instance.currentUser!.uid;
                         await registerDoctorUser.createDoctorUser(
                             userId, doctors);
 
+                        //register with email and password
                         registerDoctor(
                           email.text.trim(),
                           password.text.trim(),
                         );
-
                         // ignore: use_build_context_synchronously
                         await Navigator.pushReplacement(
                           context,
@@ -161,26 +177,44 @@ class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
                             builder: (context) => DoctorNavBar(),
                           ),
                         );
-
-                        //     .then(
-                        //       (user) => registerDoctor(
-                        //         email.text.trim(),
-                        //         password.text.trim(),
-                        //       ),
-                        //     )
-                        //     .whenComplete(
-                        //   () {
-                        //     Navigator.pushReplacement(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //         builder: (context) => DoctorNavBar(),
-                        //       ),
-                        //     );
-                        //   },
-                        // );
                       },
                       child: Text(
                         "SIGN IN",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 30.0),
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: widget.size.width * 0.6,
+                  height: AppLayout.getHeight(40.0),
+                  child: ClipRRect(
+                    child: TextButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Styles.primaryColor),
+                      ),
+                      onPressed: () async {
+                        //signin with google
+                        final UserCredential doctor = await signInWithGoogle();
+
+                        final User? user = doctor.user;
+                        if (user != null) {
+                          // ignore: use_build_context_synchronously
+                          await Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DoctorNavBar(),
+                            ),
+                          );
+                        }
+                      },
+                      child: Text(
+                        "SIGN IN WITH GOOGLE",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
