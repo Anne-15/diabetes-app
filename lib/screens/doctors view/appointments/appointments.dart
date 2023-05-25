@@ -20,29 +20,31 @@ class DoctorAppointments extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        padding: EdgeInsets.all(30.0),
-        child: Column(
-          children: [
-            Tabs(size: size),
-            SizedBox(height: AppLayout.getHeight(15)),
-            UpcomingAppointment(size: size),
-            SizedBox(height: size.height * 0.05),
-            Align(
-              alignment: Alignment.centerRight,
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CreateAppointment(),
-                    ),
-                  );
-                },
-                child: Icon(Icons.add),
-              ),
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              Tabs(size: size),
+              SizedBox(height: AppLayout.getHeight(15)),
+              UpcomingAppointment(size: size),
+              SizedBox(height: 10.0),
+              Align(
+                alignment: Alignment.centerRight,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreateAppointment(),
+                      ),
+                    );
+                  },
+                  child: Icon(Icons.add),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

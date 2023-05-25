@@ -1,10 +1,15 @@
-# android_testing
+# Diabetes Monitoring and Management Platfor
 
 A new Flutter project.
 
-## Getting Started
+## Introduction
 
-This project is a starting point for a Flutter application.
+This project is a mobile flutter application that is geared towards aiding diabetic patients to navigate life
+with the help of their specialists.
+
+The app focuses on two main things:
+- Mental health of the patients. It can be stressful knowing you have diabetes and don't know what to do and who to talk to.
+- Open communication with a doctor or a specialist for advice or anything really to help with stigma around such events.
 
 A few resources to get you started if this is your first Flutter project:
 

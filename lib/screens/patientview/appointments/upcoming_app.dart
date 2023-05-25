@@ -23,32 +23,31 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 8.0),
-      color: Colors.white,
-      child: StreamBuilder(
-        stream: storage.retrieveEvents(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data!.docs.isNotEmpty) {
-              return ListView.builder(
+    return StreamBuilder(
+      stream: storage.retrieveEvents(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data!.docs.isNotEmpty) {
+            return SizedBox(
+              height: 580.0,
+              child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   Object? eventInfo = snapshot.data!.docs[index].data();
-
+            
                   EventInfo events = EventInfo.fromMap(eventInfo as Map);
-
+            
                   DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
                       events.startTimeInEpoch);
                   DateTime endTime =
                       DateTime.fromMillisecondsSinceEpoch(
                       events.endTimeInEpoch);
-
+            
                   String startTimeString = DateFormat.jm().format(startTime);
                   String endTimeString = DateFormat.jm().format(endTime);
                   String dateString = DateFormat.yMMMMd().format(startTime);
-
+            
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.0),
                     child: InkWell(
@@ -66,7 +65,7 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                               right: 16.0,
                             ),
                             decoration: BoxDecoration(
-                              color: Styles.c6,
+                              color: Styles.c2,
                               borderRadius: BorderRadius.circular(12.0),
                             ),
                             child: Column(
@@ -74,9 +73,8 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                                 Text(
                                   events.name,
                                   style: TextStyle(
-                                    // color: ,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     letterSpacing: 1,
                                   ),
                                 ),
@@ -90,20 +88,20 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                                   style: TextStyle(
                                     color: Colors.black38,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 16,
+                                    fontSize: 14,
                                     letterSpacing: 1,
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 10.0,
+                                  height: 5.0,
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(top: 8.0, bottom: 8.0),
+                                      EdgeInsets.only(top: 5.0, bottom: 5.0),
                                   child: Text(
                                     events.link,
                                     style: TextStyle(
-                                      color: Styles.c1.withOpacity(0.5),
+                                      color: Styles.c1,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
                                       letterSpacing: 0.5,
@@ -119,7 +117,7 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                                     Container(
                                       height: 50,
                                       width: 5,
-                                      color: Colors.green,
+                                      color: Styles.c1,
                                     ),
                                     SizedBox(
                                       width: 10,
@@ -160,29 +158,29 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                     ),
                   );
                 },
-              );
-            } else {
-              return Center(
-                child: Text(
-                  'No Appointments',
-                  style: TextStyle(
-                    color: Colors.black38,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                  ),
+              ),
+            );
+          } else {
+            return Center(
+              child: Text(
+                'No Appointments',
+                style: TextStyle(
+                  color: Colors.black38,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
                 ),
-              );
-            }
+              ),
+            );
           }
-          return Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              valueColor: AlwaysStoppedAnimation<Color>(Styles.c1),
-            ),
-          );
-        },
-      ),
+        }
+        return Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+            valueColor: AlwaysStoppedAnimation<Color>(Styles.c1),
+          ),
+        );
+      },
     );
   }
 }

@@ -55,6 +55,7 @@ dependencies:
   googleapis: ^11.1.0
   googleapis_auth: ^1.4.0
   intl: ^0.18.1
+  url_launcher: ^6.1.11
   
 
 dev_dependencies:

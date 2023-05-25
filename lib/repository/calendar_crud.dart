@@ -43,7 +43,7 @@ class Storage {
   }
 
   Stream<QuerySnapshot> retrieveEvents() {
-    Stream<QuerySnapshot> myClasses = documentReference
+    Stream<QuerySnapshot> myClasses = _db
         .collection('Appointments')
         .orderBy('start')
         .snapshots();
@@ -51,7 +51,7 @@ class Storage {
     return myClasses;
   }
 
-  // Future<ArticlesModel> getLatestArticle() async {
+  // Future<EventInfo> retrieveEvents() async {
   //   final snapshot = await _db
   //       .collection("Articles")
   //       .orderBy("date", descending: true)
@@ -60,7 +60,7 @@ class Storage {
 
   //   if (snapshot.docs.isNotEmpty) {
   //     final data =
-  //         snapshot.docs.map((e) => ArticlesModel.fromFirestore(e)).single;
+  //         snapshot.docs.map((e) => EventInfo.fromMap(e as Map)).single;
   //     return data;
   //   } else {
   //     throw Exception("No articles found");
