@@ -2,7 +2,7 @@ import 'package:android_testing/components/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../../middleware/auth.dart';
-import '../doctors view/login/logindoctor.dart';
+import '../../middleware/doc_auth.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -61,7 +61,7 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DoctorLoginView(),
+                          builder: (context) => DocAuthPage(),
                         ),
                       );
                     },

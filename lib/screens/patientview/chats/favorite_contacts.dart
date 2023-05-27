@@ -52,37 +52,24 @@ class FavoriteContacts extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemCount: snapshot.data!.length,
                       itemBuilder: (i, index) {
-                        // final user = snapshot.data![index];
-                        return GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => SingleChat(
-                            //       user: users,
-                            //     ),
-                            //   ),
-                            // );
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              children: [
-                                CircleAvatar(
-                                  radius: 25.0,
-                                  backgroundImage:
-                                      AssetImage("assets/images/profile.png"),
-                                ),
-                                SizedBox(height: AppLayout.getHeight(6.0)),
-                                Text(
-                                  snapshot.data![index].fullname,
-                                  style: TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                              ],
-                            ),
+                        return Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                radius: 25.0,
+                                backgroundImage:
+                                    AssetImage("assets/images/profile.png"),
+                              ),
+                              SizedBox(height: AppLayout.getHeight(6.0)),
+                              Text(
+                                snapshot.data![index].fullname,
+                                style: TextStyle(
+                                    color: Colors.blueGrey,
+                                    fontSize: 10.0,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
                           ),
                         );
                       },

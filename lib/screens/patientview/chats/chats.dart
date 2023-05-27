@@ -34,26 +34,6 @@ class ChatApp extends StatelessWidget {
                 children: [
                   FavoriteContacts(users: [],),
                   RecentChats(users: [],),
-                  // FloatingActionButton.extended(
-                  //   backgroundColor: Styles.c9,
-                  //   onPressed: () {
-                  //     // context.go("/single_chat");
-                  //     Navigator.push(
-                  //       context,
-                  //       MaterialPageRoute(
-                  //         builder: (_) => AllContacts(),
-                  //       ),
-                  //     );
-                  //   },
-                  //   label: Text(
-                  //     "New chat",
-                  //     style: Styles.headerStyle4.copyWith(color: Colors.white),
-                  //   ),
-                  //   icon: Icon(
-                  //     Icons.add,
-                  //     color: Colors.white,
-                  //   ),
-                  // ),
                 ],
               ),
             ),

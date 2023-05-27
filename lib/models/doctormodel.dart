@@ -6,7 +6,6 @@ class DoctorUserModel {
   final String email;
   final String password;
   final String hospitalName;
-  final String photoUrl;
 
   const DoctorUserModel({
     this.id,
@@ -14,7 +13,6 @@ class DoctorUserModel {
     required this.email,
     required this.password,
     required this.hospitalName,
-    required this.photoUrl,
   });
 
   toJson() {
@@ -23,7 +21,6 @@ class DoctorUserModel {
       "Email": email,
       "Password": password,
       "HospitalName": hospitalName,
-      "PhotoUrl": photoUrl,
     };
   }
 
@@ -38,7 +35,6 @@ class DoctorUserModel {
       email: data["Email"],
       password: data["Password"],
       hospitalName: data["HospitalName"],
-      photoUrl: data["PhotoUrl"],
     );
   }
 }

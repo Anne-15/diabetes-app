@@ -1,3 +1,4 @@
+import 'package:android_testing/screens/patientview/articles/single_article.dart';
 import 'package:android_testing/screens/patientview/articles/writearticle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,50 +49,60 @@ class AllArticles extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (i, index) {
-                          return Card(
-                            elevation: 4,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  10),
-                            ),
-                            child: Column(
-                              children: [
-                                ListTile(
-                                  leading: Image.asset(
-                                    "assets/images/nature.png",
-                                    width: 80,
-                                    height: 80,
-                                  ),
-                                  title: Text(
-                                    snapshot.data![index].title,
-                                    style: Styles.headerStyle2,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        snapshot.data![index].body,
-                                        style: Styles.headerStyle4,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                          "Date: ${snapshot.data![index].date}",
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SingleArticle(
+                                      article: snapshot.data![index]),
                                 ),
-                                SizedBox(height: AppLayout.getHeight(10)),
-                              ],
+                              );
+                            },
+                            child: Card(
+                              elevation: 4,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    leading: Image.asset(
+                                      "assets/images/nature.png",
+                                      width: 80,
+                                      height: 80,
+                                    ),
+                                    title: Text(
+                                      snapshot.data![index].title,
+                                      style: Styles.headerStyle2,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          snapshot.data![index].body,
+                                          style: Styles.headerStyle4,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            "Date: ${snapshot.data![index].date}",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: AppLayout.getHeight(10)),
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -121,7 +132,6 @@ class AllArticles extends StatelessWidget {
                         builder: (context) => MyArticles(),
                       ),
                     );
-                    
                   },
                   child: Icon(Icons.add),
                 ),

@@ -1,56 +1,67 @@
-import 'dart:io';
-
 import 'package:android_testing/components/constants.dart';
-import 'package:android_testing/middleware/secrets.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
-import 'package:android_testing/screens/doctors%20view/register/registerdoctor.dart';
+import 'package:android_testing/screens/welcomescreen/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:googleapis/calendar/v3.dart';
-import 'package:googleapis_auth/auth_io.dart';
 
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (Platform.isAndroid) {
-    await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-  }
+  // if (Platform.isAndroid) {
+  //   await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+  // }
+
+  // if (Platform.isLinux || Platform.isMacOS) {
+  //   // For Linux and macOS
+  //   var homeDir = Platform.environment['HOME'];
+  //   if (homeDir == null) {
+  //     print('Failed to get the user\'s home directory.');
+  //     return;
+  //   }
+  //   Platform.environment['HOME'] = homeDir;
+  // } else if (Platform.isWindows) {
+  //   // For Windows
+  //   var userProfileDir = Platform.environment['USERPROFILE'];
+  //   if (userProfileDir == null) {
+  //     print('Failed to get the user\'s profile directory.');
+  //     return;
+  //   }
+  //   Platform.environment['HOME'] = userProfileDir;
+  // }
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ).then((value) => Get.put(AuthenticationRepository()));
 
-  final GoogleSignIn googleSignIn =
-      GoogleSignIn(scopes: <String>[CalendarApi.calendarScope]);
+  // final GoogleSignIn googleSignIn =
+  //     GoogleSignIn(scopes: <String>[CalendarApi.calendarScope]);
 
-  Future<AuthClient> getAuthenticatedClient() async {
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
+  // Future<AuthClient> getAuthenticatedClient() async {
+  //   final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+  //   final GoogleSignInAuthentication googleAuth =
+  //       await googleUser!.authentication;
 
-    // Prompt user consent and obtain an authorized HTTP client
-    final AuthClient client = await clientViaUserConsent(
-      ClientId(Secret.ANDROID_CLIENT_ID),
-      <String>[CalendarApi.calendarScope],
-      googleAuth.accessToken as PromptUserForConsent,
-    );
+  //   // Prompt user consent and obtain an authorized HTTP client
+  //   final AuthClient client = await clientViaUserConsent(
+  //     ClientId(Secret.ANDROID_CLIENT_ID),
+  //     <String>[CalendarApi.calendarScope],
+  //     googleAuth.accessToken as PromptUserForConsent,
+  //   );
 
-    return client;
-  }
+  //   return client;
+  // }
 
-  void initializeCalendarApi() async {
-    try {
-      final AuthClient client = await getAuthenticatedClient();
-      client.close();
-    } catch (e) {
-      print('Error: $e');
-    }
-  }
+  // void initializeCalendarApi() async {
+  //   try {
+  //     final AuthClient client = await getAuthenticatedClient();
+  //     client.close();
+  //   } catch (e) {
+  //     print('Error: $e');
+  //   }
+  // }
 
   runApp(const MyApp());
 }
@@ -60,7 +71,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'Diplo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -70,7 +81,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       // routerConfig: router,
-      home: RegisterDoctorPage(),
+      home: WelcomeScreen(),
     );
   }
 }

@@ -16,22 +16,24 @@ class BlogPosts extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ArticlesController());
     // Size size = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SingleArticle(),
-          ),
-        );
-      },
-      child: FutureBuilder<ArticlesModel>(
-        future: controller.getLatestArticle(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasData) {
-              final article = snapshot.data!;
-              return Card(
+    return FutureBuilder<ArticlesModel>(
+      future: controller.getLatestArticle(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
+            final article = snapshot.data!;
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SingleArticle(
+                      article: article,
+                    ),
+                  ),
+                );
+              },
+              child: Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -74,21 +76,21 @@ class BlogPosts extends StatelessWidget {
                     SizedBox(height: AppLayout.getHeight(10)),
                   ],
                 ),
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text(snapshot.error.toString()),
-              );
-            } else {
-              return const Center(
-                child: Text("Nothing to show for now"),
-              );
-            }
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: Text("Nothing to show for now"),
+            );
           }
-        },
-      ),
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

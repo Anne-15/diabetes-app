@@ -4,6 +4,8 @@ import 'package:android_testing/screens/patientview/profile/updateprofile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../welcomescreen/welcome_screen.dart';
+
 class MyProfile extends StatelessWidget {
   const MyProfile({super.key});
 
@@ -109,8 +111,13 @@ class MyProfile extends StatelessWidget {
                 icon: Icons.logout_rounded,
                 endIcon: false,
                 // textColor: Styles.c9,
-                onPress: () {
-                  FirebaseAuth.instance.signOut();
+                onPress: () async{
+                  await FirebaseAuth.instance.signOut();
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                    (route) => false,
+                  );
                 },
               ),
             ],
