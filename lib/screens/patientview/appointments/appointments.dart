@@ -38,7 +38,7 @@ class MyAppointments extends StatelessWidget {
                       borderRadius: BorderRadius.horizontal(
                         left: Radius.circular(AppLayout.getHeight(50)),
                       ),
-                      color: Styles.c6,
+                      color: Styles.c2,
                     ),
                     child: const Center(child: Text("Upcoming Appointments")),
                   ),
@@ -51,7 +51,7 @@ class MyAppointments extends StatelessWidget {
                       borderRadius: BorderRadius.horizontal(
                         right: Radius.circular(AppLayout.getHeight(50)),
                       ),
-                      color: Styles.c9,
+                      color: Styles.c1,
                     ),
                     child: const Center(child: Text("History",)),
                   ),

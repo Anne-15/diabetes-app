@@ -1,5 +1,5 @@
 import 'package:android_testing/controllers/articles_controllers.dart';
-import 'package:android_testing/screens/patientview/articles/single_article.dart';
+import 'package:android_testing/screens/articles/single_article.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

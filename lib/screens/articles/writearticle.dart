@@ -2,7 +2,7 @@ import 'package:android_testing/models/addarticles.dart';
 import 'package:android_testing/repository/articles_repository.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/constants.dart';
+import '../../components/constants.dart';
 
 class MyArticles extends StatefulWidget {
   const MyArticles({super.key});

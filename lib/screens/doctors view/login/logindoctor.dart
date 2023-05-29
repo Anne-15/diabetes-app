@@ -11,36 +11,34 @@ class DoctorLoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Styles.c6.withOpacity(0.2),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.all(50.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/login.svg',
-                  height: size.height * 0.3,
-                ),
-                Text(
-                  "Diplo App",
-                  style: Styles.headerStyle1,
-                ),
-                Text(
-                  "Welcome back to the app, enjoy your experience!",
-                  style: Styles.headerStyle3,
-                ),
-                SizedBox(height: AppLayout.getHeight(10.0)),
-                Text(
-                  "For doctors/nurses",
-                  style: Styles.headerStyle4,
-                ),
-                //login form
-                DoctorLoginForm(size: size)
-              ],
-            ),
+    return Scaffold(
+      backgroundColor: Styles.c6.withOpacity(0.2),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(50.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SvgPicture.asset(
+                'assets/icons/login.svg',
+                height: size.height * 0.3,
+              ),
+              Text(
+                "Diplo App",
+                style: Styles.headerStyle1,
+              ),
+              Text(
+                "Welcome back to the app, enjoy your experience!",
+                style: Styles.headerStyle3,
+              ),
+              SizedBox(height: AppLayout.getHeight(10.0)),
+              Text(
+                "For doctors/nurses",
+                style: Styles.headerStyle4,
+              ),
+              //login form
+              DoctorLoginForm(size: size)
+            ],
           ),
         ),
       ),

@@ -1,12 +1,12 @@
-import 'package:android_testing/screens/patientview/articles/single_article.dart';
-import 'package:android_testing/screens/patientview/articles/writearticle.dart';
+import 'package:android_testing/screens/articles/single_article.dart';
+import 'package:android_testing/screens/articles/writearticle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../components/app_layout.dart';
-import '../../../components/constants.dart';
-import '../../../controllers/articles_controllers.dart';
-import '../../../models/addarticles.dart';
+import '../../components/app_layout.dart';
+import '../../components/constants.dart';
+import '../../controllers/articles_controllers.dart';
+import '../../models/addarticles.dart';
 
 class AllArticles extends StatelessWidget {
   const AllArticles({super.key});

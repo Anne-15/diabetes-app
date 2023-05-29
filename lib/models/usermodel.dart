@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  final String? id;
+  final String? uid;
   final String fullname;
   final String email;
   final String password;
@@ -10,7 +10,7 @@ class UserModel {
   final String type;
 
   const UserModel({
-    this.id,
+    this.uid,
     required this.fullname,
     required this.email,
     required this.password,
@@ -19,9 +19,9 @@ class UserModel {
     required this.type,
   });
 
-  Map<String, dynamic> toJson() {
+  toJson() {
     return {
-      "id": id,
+      "id": uid,
       "FullName": fullname,
       "Email": email,
       "Password": password,
@@ -37,7 +37,7 @@ class UserModel {
   ) {
     final data = snapshot.data()!;
     return UserModel(
-      id: snapshot.id,
+      uid: data["id"],
       fullname: data["FullName"],
       email: data["Email"],
       password: data["Password"],

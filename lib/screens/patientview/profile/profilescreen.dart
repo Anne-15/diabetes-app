@@ -1,17 +1,25 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/screens/patientview/profile/components/profilemenu.dart';
 import 'package:android_testing/screens/patientview/profile/updateprofile.dart';
+import 'package:android_testing/screens/welcomescreen/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../welcomescreen/welcome_screen.dart';
+import '../../../models/usermodel.dart';
+import '../../../repository/user_repository.dart';
 
-class MyProfile extends StatelessWidget {
+class MyProfile extends StatefulWidget {
   const MyProfile({super.key});
 
   @override
+  State<MyProfile> createState() => _MyProfileState();
+}
+
+class _MyProfileState extends State<MyProfile> {
+  final users = Get.put(UserRepository());
+  @override
   Widget build(BuildContext context) {
-    // final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -57,11 +65,30 @@ class MyProfile extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Text("Name"),
-              Text("Email"),
-              SizedBox(
-                height: 20,
+              FutureBuilder<UserModel>(
+                future: users.getUserDetails(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      final UserModel userData = snapshot.data!;
+                      return Column(
+                        children: [
+                          Text(userData.fullname, style: Styles.headerStyle2),
+                          SizedBox(height: 5),
+                          Text(userData.email, style: Styles.headerStyle3),
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    } else {
+                      return Text('Nothing to show here...');
+                    }
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
               ),
+              SizedBox(height: 10),
               SizedBox(
                 width: 200,
                 child: ElevatedButton(
@@ -105,20 +132,34 @@ class MyProfile extends StatelessWidget {
                 height: 20,
               ),
               ProfileMenu(
-                  title: "About Us", icon: Icons.info_outline, onPress: () {}),
-              ProfileMenu(
-                title: "Logout",
-                icon: Icons.logout_rounded,
-                endIcon: false,
-                // textColor: Styles.c9,
-                onPress: () async{
-                  await FirebaseAuth.instance.signOut();
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => WelcomeScreen()),
-                    (route) => false,
-                  );
-                },
+                title: "About Us",
+                icon: Icons.info_outline,
+                onPress: () {},
+              ),
+              SizedBox(
+                height: 60,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WelcomeScreen(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Styles.c1,
+                  ),
+                  child: Text(
+                    "Log out",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ],
           ),

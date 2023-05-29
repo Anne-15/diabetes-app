@@ -5,7 +5,7 @@ import '../screens/doctors view/appointments/appointments.dart';
 import '../screens/doctors view/chats/all_chats.dart';
 import '../screens/doctors view/home/homedoctor.dart';
 import '../screens/doctors view/profile/doctor_profile.dart';
-import '../screens/patientview/articles/allarticlesview.dart';
+import '../screens/articles/allarticlesview.dart';
 
 class DoctorNavBar extends StatefulWidget {
   const DoctorNavBar({super.key});

@@ -5,9 +5,14 @@ import 'package:flutter_svg/svg.dart';
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 
-class RegisterDoctorPage extends StatelessWidget {
+class RegisterDoctorPage extends StatefulWidget {
   const RegisterDoctorPage({super.key});
 
+  @override
+  State<RegisterDoctorPage> createState() => _RegisterDoctorPageState();
+}
+
+class _RegisterDoctorPageState extends State<RegisterDoctorPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

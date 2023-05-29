@@ -1,5 +1,6 @@
 import 'package:android_testing/models/usermodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,11 +11,10 @@ class UserRepository extends GetxController {
 
   final _db = FirebaseFirestore.instance;
   //add details to the database
-  storeUserData(String id, UserModel user) async {
+  Future storeUserData(UserModel user) async {
     await _db
         .collection("Users")
-        .doc(id)
-        .set(user.toJson())
+        .add(user.toJson())
         .whenComplete(
           () => Get.snackbar(
             "Success",
@@ -38,13 +38,22 @@ class UserRepository extends GetxController {
   }
 
   //fetch all the data
-  Future<UserModel> getUserDetails(String fullname) async {
-    final snapshot = await _db
-        .collection("Users")
-        .where("FullName", isEqualTo: fullname)
-        .get();
-    final data = snapshot.docs.map((e) => UserModel.fromFirestore(e)).single;
-    return data;
+  Future<UserModel> getUserDetails() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final email = currentUser?.email;
+    if (email != null) {
+      final snapshot =
+          await _db.collection("Users").where("Email", isEqualTo: email).get();
+      if (snapshot.docs.isNotEmpty) {
+        final data =
+            snapshot.docs.map((e) => UserModel.fromFirestore(e)).single;
+        return data;
+      } else {
+        throw Exception('User data not found');
+      }
+    } else {
+      throw Exception('No logged user found');
+    }
   }
 
   Future<List<UserModel>> allUsers() async {

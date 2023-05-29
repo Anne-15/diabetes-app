@@ -30,16 +30,6 @@ class SignupController extends GetxController {
     }
   }
 
-  void signIn(String emailAddress, String password) async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: emailAddress, password: password);
-    } on FirebaseAuthException catch (e) {
-      // TODO
-      print(e);
-    }
-  }
-
   void resetPassword(String emailAddress) async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: emailAddress);

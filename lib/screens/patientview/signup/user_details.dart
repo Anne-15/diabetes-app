@@ -1,29 +1,25 @@
-import 'package:android_testing/screens/patientview/signin/login.dart';
-import 'package:android_testing/widgets/bottomnav.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../components/already_have_an_account.dart';
 import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 import '../../../models/usermodel.dart';
-import '../../../repository/authentication_repository.dart';
 import '../../../repository/user_repository.dart';
+import '../../../widgets/bottomnav.dart';
 
-class SignUpForm extends StatefulWidget {
-  const SignUpForm({
-    super.key,
-  });
+class UserDetails extends StatefulWidget {
+  const UserDetails({super.key, required this.email, required this.password});
+
+  final String email;
+  final String password;
 
   @override
-  State<SignUpForm> createState() => _SignUpFormState();
+  State<UserDetails> createState() => _UserDetailsState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
+class _UserDetailsState extends State<UserDetails> {
   late TextEditingController fullname;
-  late TextEditingController email;
-  late TextEditingController password;
   late TextEditingController age;
   late TextEditingController gender;
   late TextEditingController type;
@@ -32,8 +28,6 @@ class _SignUpFormState extends State<SignUpForm> {
   void initState() {
     // TODO: implement initState
     fullname = TextEditingController();
-    email = TextEditingController();
-    password = TextEditingController();
     age = TextEditingController();
     gender = TextEditingController();
     type = TextEditingController();
@@ -45,22 +39,10 @@ class _SignUpFormState extends State<SignUpForm> {
   void dispose() {
     // TODO: implement dispose
     fullname.dispose();
-    email.dispose();
     age.dispose();
     gender.dispose();
     type.dispose();
     super.dispose();
-  }
-
-  Future registerNewUser(String email, String password) async {
-    Get.put(AuthenticationRepository());
-    String? error = await AuthenticationRepository.instance
-        .createUserWithEmailAndPassword(email, password) as String?;
-    if (error != null) {
-      Get.showSnackbar(GetSnackBar(
-        message: error.toString(),
-      ));
-    }
   }
 
   @override
@@ -71,7 +53,6 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
               controller: fullname,
@@ -82,39 +63,6 @@ class _SignUpFormState extends State<SignUpForm> {
                   color: Styles.c1,
                 ),
                 border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 15.0),
-            TextFormField(
-              controller: email,
-              validator: (value) =>
-                  value != null && !EmailValidator.validate(value)
-                      ? 'Enter a valid email'
-                      : null,
-              decoration: InputDecoration(
-                label: Text("Email"),
-                prefixIcon: Icon(
-                  Icons.email_rounded,
-                  color: Styles.c1,
-                ),
-                border: OutlineInputBorder(),
-              ),
-            ),
-            SizedBox(height: 15.0),
-            TextFormField(
-              controller: password,
-              obscureText: true,
-              decoration: InputDecoration(
-                label: Text("Password"),
-                prefixIcon: Icon(
-                  Icons.fingerprint_rounded,
-                  color: Styles.c1,
-                ),
-                border: OutlineInputBorder(),
-                suffixIcon: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.remove_red_eye_sharp),
-                ),
               ),
             ),
             SizedBox(height: 15.0),
@@ -166,27 +114,25 @@ class _SignUpFormState extends State<SignUpForm> {
                           MaterialStateProperty.all(Styles.primaryColor),
                     ),
                     onPressed: () async {
-                      // final userid = FirebaseAuth.instance.currentUser!;
+                      final userid = FirebaseAuth.instance.currentUser;
+                      //add data to the database
                       final user = UserModel(
-                        // uid: userid.uid,
+                        uid: userid!.uid,
                         fullname: fullname.text.trim(),
-                        email: email.text.trim(),
-                        password: password.text.trim(),
+                        email: widget.email,
+                        password: widget.password,
                         age: age.text.trim(),
                         gender: gender.text.trim(),
                         type: type.text.trim(),
                       );
-                      await registerUser.storeUserData(user)
-                      .then((value) => registerNewUser(
-                              email.text.trim(), password.text.trim()))
-                      .whenComplete(
-                            () => Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BottomBar(),
-                              ),
-                            ),
-                          );
+                      await registerUser.storeUserData(user);
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => BottomBar(),
+                        ),
+                      );
                     },
                     child: Text(
                       "SIGN IN",
@@ -195,18 +141,6 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: size.height * 0.03),
-            AlreadyHaveAnAccount(
-              login: false,
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PatientLogin(),
-                  ),
-                );
-              },
             ),
           ],
         ),

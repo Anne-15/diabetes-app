@@ -5,7 +5,7 @@ import '../../../components/app_layout.dart';
 import '../../../components/constants.dart';
 import '../../../controllers/articles_controllers.dart';
 import '../../../models/addarticles.dart';
-import '../../patientview/articles/single_article.dart';
+import '../../articles/single_article.dart';
 
 class ArticlesWidget extends StatelessWidget {
   const ArticlesWidget({

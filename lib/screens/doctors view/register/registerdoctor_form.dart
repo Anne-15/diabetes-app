@@ -1,6 +1,7 @@
 import 'package:android_testing/repository/doctor_user_repository.dart';
 import 'package:android_testing/screens/doctors%20view/login/logindoctor.dart';
 import 'package:android_testing/widgets/navigationbar.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -61,20 +62,6 @@ class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
     }
   }
 
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
-  // final GoogleSignIn _googleSignIn = GoogleSignIn();
-
-  // Future<UserCredential> signInWithGoogle() async {
-  //   final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-  //   final GoogleSignInAuthentication googleAuth =
-  //       await googleUser!.authentication;
-  //   final AuthCredential credential = GoogleAuthProvider.credential(
-  //     accessToken: googleAuth.accessToken,
-  //     idToken: googleAuth.idToken,
-  //   );
-  //   return await _auth.signInWithCredential(credential);
-  // }
-
   @override
   Widget build(BuildContext context) {
     // ignore: no_leading_underscores_for_local_identifiers
@@ -102,6 +89,11 @@ class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
               SizedBox(height: 15.0),
               TextFormField(
                 controller: email,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value) =>
+                    value != null && !EmailValidator.validate(value)
+                        ? 'Enter a valid email'
+                        : null,
                 decoration: InputDecoration(
                   label: Text("Email"),
                   prefixIcon: Icon(
@@ -114,6 +106,7 @@ class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
               SizedBox(height: 15.0),
               TextFormField(
                 controller: password,
+                obscureText: true,
                 decoration: InputDecoration(
                   label: Text("Password"),
                   prefixIcon: Icon(
@@ -184,41 +177,6 @@ class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
                   ),
                 ),
               ),
-              // SizedBox(height: 30.0),
-              // Align(
-              //   alignment: Alignment.center,
-              //   child: SizedBox(
-              //     width: widget.size.width * 0.6,
-              //     height: AppLayout.getHeight(40.0),
-              //     child: ClipRRect(
-              //       child: TextButton(
-              //         style: ButtonStyle(
-              //           backgroundColor:
-              //               MaterialStateProperty.all(Styles.primaryColor),
-              //         ),
-              //         onPressed: () async {
-              //           //signin with google
-              //           final UserCredential doctor = await signInWithGoogle();
-
-              //           final User? user = doctor.user;
-              //           if (user != null) {
-              //             // ignore: use_build_context_synchronously
-              //             await Navigator.pushReplacement(
-              //               context,
-              //               MaterialPageRoute(
-              //                 builder: (context) => DoctorNavBar(),
-              //               ),
-              //             );
-              //           }
-              //         },
-              //         child: Text(
-              //           "SIGN IN WITH GOOGLE",
-              //           style: TextStyle(color: Colors.white),
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               SizedBox(height: widget.size.height * 0.03),
               AlreadyHaveAnAccount(
                 login: false,

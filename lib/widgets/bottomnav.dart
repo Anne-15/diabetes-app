@@ -1,6 +1,6 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/screens/patientview/appointments/appointments.dart';
-import 'package:android_testing/screens/patientview/articles/allarticlesview.dart';
+import 'package:android_testing/screens/articles/allarticlesview.dart';
 import 'package:android_testing/screens/patientview/chats/chats.dart';
 import 'package:android_testing/screens/patientview/home/homepage.dart';
 import 'package:android_testing/screens/patientview/profile/profilescreen.dart';

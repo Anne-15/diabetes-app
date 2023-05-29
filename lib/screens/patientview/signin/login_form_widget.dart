@@ -1,6 +1,7 @@
 import 'package:android_testing/screens/patientview/signup/register.dart';
 import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,16 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignupController());
+
+    Future signIn(String emailAddress, String password) async {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: emailAddress, password: password);
+      } on FirebaseAuthException catch (e) {
+        // TODO
+        print(e);
+      }
+    }
 
     return Form(
       child: Container(
@@ -92,16 +103,26 @@ class LoginForm extends StatelessWidget {
                           MaterialStateProperty.all(Styles.primaryColor),
                     ),
                     onPressed: () async {
-                      SignupController.instance.signIn(
-                        controller.emailAddress.text.trim(),
-                        controller.password.text.trim(),
-                      );
-                      await Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BottomBar(),
-                        ),
-                      );
+                      final email = controller.emailAddress.text.trim();
+                      final password = controller.password.text.trim();
+                      if (email.isEmpty || password.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content:
+                                Text('Please provide your email and password'),
+                          ),
+                        );
+                      } else {
+                        await signIn(email, password).whenComplete(
+                          () => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BottomBar(),
+                            ),
+                          ),
+                        );
+                      }
+                      // ignore: use_build_context_synchronously
                     },
                     child: Text(
                       "SIGN IN",

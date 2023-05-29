@@ -17,7 +17,7 @@ class Chats {
       required this.members,
       required this.messages}) {
     _receiver =
-        members.where((element) => element.id != currentUserId).toList();
+        members.where((element) => element.uid != currentUserId).toList();
   }
 
   List<UserModel> receiver() {
