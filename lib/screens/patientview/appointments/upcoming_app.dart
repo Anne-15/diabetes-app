@@ -1,7 +1,5 @@
 import 'package:android_testing/components/constants.dart';
-import 'package:android_testing/models/appointments.dart';
 import 'package:android_testing/repository/appointment_repository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';

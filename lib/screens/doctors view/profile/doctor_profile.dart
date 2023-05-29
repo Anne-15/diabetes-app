@@ -1,6 +1,5 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/models/doctormodel.dart';
-import 'package:android_testing/repository/authentication_repository.dart';
 import 'package:android_testing/repository/doctor_user_repository.dart';
 import 'package:android_testing/screens/doctors%20view/profile/update_prof_screen.dart';
 import 'package:android_testing/screens/patientview/profile/components/profilemenu.dart';

@@ -82,7 +82,7 @@ class RecentChats extends StatelessWidget {
                                                   .width *
                                               0.45,
                                           child: Text(
-                                            snapshot.data![i].hospitalName,
+                                            'Email: ${snapshot.data![i].email}',
                                             style: Styles.textStyle,
                                             overflow: TextOverflow.ellipsis,
                                           ),

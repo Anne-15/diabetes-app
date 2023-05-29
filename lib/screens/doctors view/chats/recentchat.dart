@@ -84,7 +84,7 @@ class RecentChat extends StatelessWidget {
                                                   .width *
                                               0.45,
                                           child: Text(
-                                            'Diabetes Type: ${snapshot.data![i].type}',
+                                            'Email: ${snapshot.data![i].email}',
                                             style: Styles.headerStyle4,
                                             overflow: TextOverflow.ellipsis,
                                           ),
