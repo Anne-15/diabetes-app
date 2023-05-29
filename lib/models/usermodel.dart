@@ -21,7 +21,6 @@ class UserModel {
 
   toJson() {
     return {
-      "id": uid,
       "FullName": fullname,
       "Email": email,
       "Password": password,
@@ -37,7 +36,7 @@ class UserModel {
   ) {
     final data = snapshot.data()!;
     return UserModel(
-      uid: data["id"],
+      uid: snapshot.id,
       fullname: data["FullName"],
       email: data["Email"],
       password: data["Password"],

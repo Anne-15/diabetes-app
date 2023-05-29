@@ -64,14 +64,10 @@ class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: no_leading_underscores_for_local_identifiers
-    final _signupkey = GlobalKey();
     final registerDoctorUser = DoctorUserRepository();
-
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0),
       child: Form(
-          key: _signupkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
