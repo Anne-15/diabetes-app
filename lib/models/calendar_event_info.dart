@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class EventInfo {
   final String? id;
   final String name;
@@ -44,6 +46,23 @@ class EventInfo {
       'start': startTimeInEpoch,
       'end': endTimeInEpoch,
     };
+  }
+
+  factory EventInfo.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+  ) {
+    final data = snapshot.data()!;
+    return EventInfo(
+      id: data["id"],
+      name: data["name"],
+      description: data["desc"],
+      location: data["loc"],
+      link: data["link"],
+      attendeeEmails: data["email"],
+      hasConfereningSupport: data["hasConfereningSupport"],
+      startTimeInEpoch: data["start"],
+      endTimeInEpoch: data["end"],
+    );
   }
 
   

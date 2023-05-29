@@ -1,9 +1,13 @@
 import 'package:android_testing/components/constants.dart';
-import 'package:android_testing/repository/calendar_crud.dart';
+import 'package:android_testing/models/appointments.dart';
+import 'package:android_testing/repository/appointment_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../models/calendar_event_info.dart';
+import '../../../repository/calendar_crud.dart';
 
 class UpcomingAppointment extends StatefulWidget {
   const UpcomingAppointment({
@@ -20,34 +24,34 @@ class UpcomingAppointment extends StatefulWidget {
 
 class _UpcomingAppointmentState extends State<UpcomingAppointment> {
   Storage storage = Storage();
+  final appointment = Get.put(AppointmentsRepository());
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: storage.retrieveEvents(),
+    return FutureBuilder<List<EventInfo>>(
+      future: appointment.getMyAppointments(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          if (snapshot.data!.docs.isNotEmpty) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
             return SizedBox(
               height: 580.0,
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
-                itemCount: snapshot.data!.docs.length,
+                itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  Object? eventInfo = snapshot.data!.docs[index].data();
-            
+                  Object? eventInfo = snapshot.data![index];
+
                   EventInfo events = EventInfo.fromMap(eventInfo as Map);
-            
+
                   DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
                       events.startTimeInEpoch);
-                  DateTime endTime =
-                      DateTime.fromMillisecondsSinceEpoch(
+                  DateTime endTime = DateTime.fromMillisecondsSinceEpoch(
                       events.endTimeInEpoch);
-            
+
                   String startTimeString = DateFormat.jm().format(startTime);
                   String endTimeString = DateFormat.jm().format(endTime);
                   String dateString = DateFormat.yMMMMd().format(startTime);
-            
+
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.0),
                     child: InkWell(

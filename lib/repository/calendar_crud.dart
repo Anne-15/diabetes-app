@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/calendar_event_info.dart';
 
@@ -38,9 +39,11 @@ class Storage {
     print('Event deleted, id: $id');
   }
 
-  Stream<QuerySnapshot> retrieveEvents() {
+  Stream<QuerySnapshot> retrieveMyEvents() {
+    final currentUserEmail = FirebaseAuth.instance.currentUser?.email;
     Stream<QuerySnapshot> myClasses = _db
         .collection('Appointments')
+        .where('email', isEqualTo: currentUserEmail)
         .orderBy('start')
         .snapshots();
 

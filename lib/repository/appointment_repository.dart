@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/appointments.dart';
+import '../models/calendar_event_info.dart';
 
 class AppointmentsRepository extends GetxController {
   static AppointmentsRepository get instance => Get.find();
@@ -49,17 +50,21 @@ class AppointmentsRepository extends GetxController {
     return data;
   }
 
-  // Display Form Contents
-  Future<List<DocumentSnapshot>> getForms() async {
-    // Retrieve the form data from the backend
-    // Example: Retrieve from Firebase Firestore
+  // Get logged user appointment list only
+  Future<List<EventInfo>> getMyAppointments() async {
     final currentUserEmail = FirebaseAuth.instance.currentUser?.email;
     final snapshot = await FirebaseFirestore.instance
         .collection('Appointments')
-        .where('receiverEmail', isEqualTo: currentUserEmail)
+        .where('email', isEqualTo: currentUserEmail)
         .get();
 
-    return snapshot.docs;
+    if (snapshot.docs.isNotEmpty) {
+      final data =
+          snapshot.docs.map((e) => EventInfo.fromFirestore(e)).toList();
+      return data;
+    } else {
+      throw Exception("No Appointments found");
+    }
   }
 }
 
