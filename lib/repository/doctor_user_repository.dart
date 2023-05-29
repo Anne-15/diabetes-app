@@ -1,5 +1,6 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,5 +55,24 @@ class DoctorUserRepository extends GetxController {
     final data =
         snapshot.docs.map((e) => DoctorUserModel.fromFirestore(e)).toList();
     return data;
+  }
+
+  //get logged doctor details
+  Future<DoctorUserModel> getUserDetails() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final email = currentUser?.email;
+    if (email != null) {
+      final snapshot =
+          await _db.collection("Doctors").where("Email", isEqualTo: email).get();
+      if (snapshot.docs.isNotEmpty) {
+        final data =
+            snapshot.docs.map((e) => DoctorUserModel.fromFirestore(e)).single;
+        return data;
+      } else {
+        throw Exception('User data not found');
+      }
+    } else {
+      throw Exception('No logged user found');
+    }
   }
 }

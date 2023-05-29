@@ -1,12 +1,24 @@
 import 'package:android_testing/components/constants.dart';
+import 'package:android_testing/models/doctormodel.dart';
 import 'package:android_testing/repository/authentication_repository.dart';
+import 'package:android_testing/repository/doctor_user_repository.dart';
 import 'package:android_testing/screens/doctors%20view/profile/update_prof_screen.dart';
 import 'package:android_testing/screens/patientview/profile/components/profilemenu.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class DoctorProfile extends StatelessWidget {
+import '../../welcomescreen/welcome_screen.dart';
+
+class DoctorProfile extends StatefulWidget {
   const DoctorProfile({super.key});
 
+  @override
+  State<DoctorProfile> createState() => _DoctorProfileState();
+}
+
+class _DoctorProfileState extends State<DoctorProfile> {
+  final doctors = Get.put(DoctorUserRepository());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +63,32 @@ class DoctorProfile extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
-                height: 10,
+              SizedBox(height: 10),
+              FutureBuilder(
+                future: doctors.getUserDetails(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      final DoctorUserModel userData = snapshot.data!;
+                      return Column(
+                        children: [
+                          Text(userData.fullname, style: Styles.headerStyle2),
+                          SizedBox(height: 5.0),
+                          Text(userData.email, style: Styles.headerStyle3),
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    } else {
+                      return Text("Nothing to show here...");
+                    }
+                  } else {
+                    return CircularProgressIndicator();
+                  }
+                },
               ),
-              Text("Name"),
-              Text("Email"),
+              // Text("Name"),
+              // Text("Email"),
               SizedBox(
                 height: 20,
               ),
@@ -105,14 +138,30 @@ class DoctorProfile extends StatelessWidget {
               ),
               ProfileMenu(
                   title: "About Us", icon: Icons.info_outline, onPress: () {}),
-              ProfileMenu(
-                title: "Logout",
-                icon: Icons.logout_rounded,
-                endIcon: false,
-                // textColor: Styles.c9,
-                onPress: () {
-                  AuthenticationRepository.instance.logout();
-                },
+              SizedBox(
+                height: 60,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WelcomeScreen(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Styles.c1,
+                  ),
+                  child: Text(
+                    "Log out",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ],
           ),
