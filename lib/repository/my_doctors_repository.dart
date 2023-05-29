@@ -1,5 +1,6 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,7 +49,12 @@ class MyDoctorsRepository extends GetxController {
   }
 
   Future<List<MyDoctorsModel>> allMyDoctors() async {
-    final snapshot = await _db.collection("MyDoctors").get();
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final email = currentUser?.email;
+    final snapshot = await _db
+        .collection("MyDoctors")
+        .where("userEmail", isEqualTo: email)
+        .get();
     final data =
         snapshot.docs.map((e) => MyDoctorsModel.fromFirestore(e)).toList();
     return data;
@@ -56,9 +62,12 @@ class MyDoctorsRepository extends GetxController {
 
   //get only one doctor's details
   Future<MyDoctorsModel> getLatestDoctor() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final email = currentUser?.email;
     final snapshot = await _db
         .collection("MyDoctors")
         .orderBy("Hospital", descending: true)
+        .where("userEmail", isEqualTo: email)
         .limit(1)
         .get();
 

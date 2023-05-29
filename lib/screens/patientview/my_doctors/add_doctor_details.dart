@@ -1,4 +1,5 @@
 import 'package:android_testing/models/my_doctors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/constants.dart';
@@ -175,10 +176,12 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
                 width: double.infinity,
                 child: FloatingActionButton.extended(
                   onPressed: (() async {
+                    final currentUser = FirebaseAuth.instance.currentUser!.email;
                     final myDoctor = MyDoctorsModel(
                       fullname: name.text.trim(),
                       hospital: hospital.text.trim(),
                       department: department.text.trim(),
+                      userEmail: currentUser,
                     );
 
                     await MyDoctorsRepository.instance

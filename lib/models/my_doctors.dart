@@ -4,11 +4,13 @@ class MyDoctorsModel {
   final String fullname;
   final String hospital;
   final String department;
+  final String? userEmail;
 
   const MyDoctorsModel({
     required this.fullname,
     required this.hospital,
     required this.department,
+    required this.userEmail,
   });
 
   toJson() {
@@ -16,6 +18,7 @@ class MyDoctorsModel {
       "FullName": fullname,
       "Hospital": hospital,
       "Department": department,
+      "userEmail": userEmail,
     };
   }
 
@@ -28,6 +31,7 @@ class MyDoctorsModel {
       fullname: data["FullName"],
       hospital: data["Hospital"],
       department: data["Department"],
+      userEmail: data['userEmail'],
     );
   }
 }
