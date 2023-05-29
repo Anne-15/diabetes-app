@@ -1,4 +1,5 @@
 import 'package:android_testing/components/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -172,88 +173,6 @@ class _CreateAppointmentState extends State<CreateAppointment> {
     }
 
     return 'Invalid email';
-  }
-
-  saveAppointment() async {
-    setState(() {
-      isErrorTime = false;
-      isDataStorageInProgress = true;
-    });
-
-    // ignore: unnecessary_null_comparison
-    if (_selectedDate != null &&
-        _selectedTimeFrom != null &&
-        _selectedTimeTo != null) {
-      int startTimeInEpoch = DateTime(
-        _selectedDate.year,
-        _selectedDate.month,
-        _selectedDate.day,
-        _selectedTimeFrom!.hour,
-        _selectedTimeFrom!.minute,
-      ).microsecondsSinceEpoch;
-
-      int endTimeInEpoch = DateTime(
-        _selectedDate.year,
-        _selectedDate.month,
-        _selectedDate.day,
-        _selectedTimeTo!.hour,
-        _selectedTimeTo!.minute,
-      ).microsecondsSinceEpoch;
-
-      print('DIFFERENCE: ${endTimeInEpoch - startTimeInEpoch}');
-      print(
-          'Start Time: ${DateTime.fromMillisecondsSinceEpoch(startTimeInEpoch)}');
-      print('End Time: ${DateTime.fromMillisecondsSinceEpoch(endTimeInEpoch)}');
-
-      
-
-      if (endTimeInEpoch - startTimeInEpoch > 0) {
-        if (validateTitle(currentTitle) == null) {
-          await calendarClient
-              .insert(
-            title: currentTitle,
-            description: currentDesc,
-            location: currentLocation,
-            attendeeEmailList: currentEmail,
-            hasConferenceSupport: hasConferenceSupport,
-            startTime: DateTime.fromMillisecondsSinceEpoch(startTimeInEpoch),
-            endTime: DateTime.fromMillisecondsSinceEpoch(endTimeInEpoch),
-          )
-              .then((eventData) async {
-            String? eventId = eventData['id'];
-            String? eventLink = eventData['link'];
-
-            print('eventId: $eventId'); // Debug print
-            print('eventLink: $eventLink'); // Debug print
-
-            EventInfo eventInfo = EventInfo(
-              id: eventId,
-              name: currentTitle,
-              description: currentDesc,
-              location: currentLocation,
-              link: eventLink ?? '',
-              attendeeEmails: currentEmail,
-              hasConfereningSupport: hasConferenceSupport,
-              startTimeInEpoch: startTimeInEpoch,
-              endTimeInEpoch: endTimeInEpoch,
-            );
-            await storage.storeEventData(eventInfo).whenComplete(() {
-              Navigator.of(context).pop();
-            });
-            setState(() {
-              isDataStorageInProgress = false;
-            });
-          }).catchError((error) {
-            print('Error inserting appointment: $error');
-            setState(() {
-              isDataStorageInProgress = false;
-              // Set an error message to be displayed to the user
-              errorString = 'Error inserting appointment';
-            });
-          });
-        }
-      }
-    }
   }
 
   @override
@@ -496,7 +415,88 @@ class _CreateAppointmentState extends State<CreateAppointment> {
             SizedBox(
               width: double.infinity,
               child: FloatingActionButton.extended(
-                onPressed: isDataStorageInProgress ? null : saveAppointment,
+                onPressed: isDataStorageInProgress
+                    ? null
+                    : () async {
+                        setState(() {
+                          isErrorTime = false;
+                          isDataStorageInProgress = true;
+                        });
+
+                        // ignore: unnecessary_null_comparison
+                        if (_selectedDate != null &&
+                            _selectedTimeFrom != null &&
+                            _selectedTimeTo != null) {
+                          int startTimeInEpoch = DateTime(
+                            _selectedDate.year,
+                            _selectedDate.month,
+                            _selectedDate.day,
+                            _selectedTimeFrom!.hour,
+                            _selectedTimeFrom!.minute,
+                          ).microsecondsSinceEpoch;
+
+                          int endTimeInEpoch = DateTime(
+                            _selectedDate.year,
+                            _selectedDate.month,
+                            _selectedDate.day,
+                            _selectedTimeTo!.hour,
+                            _selectedTimeTo!.minute,
+                          ).microsecondsSinceEpoch;
+
+                          print(
+                              'DIFFERENCE: ${endTimeInEpoch - startTimeInEpoch}');
+
+                          print(
+                              'Start Time: ${DateTime.fromMillisecondsSinceEpoch(startTimeInEpoch)}');
+                          print(
+                              'End Time: ${DateTime.fromMillisecondsSinceEpoch(endTimeInEpoch)}');
+
+                          String? eventId;
+                          String? eventLink;
+
+                          if (endTimeInEpoch - startTimeInEpoch > 0) {
+                            await calendarClient
+                                .insert(
+                              title: currentTitle,
+                              description: currentDesc,
+                              location: currentLocation,
+                              attendeeEmailList: currentEmail,
+                              hasConferenceSupport: hasConferenceSupport,
+                              startTime: DateTime.fromMillisecondsSinceEpoch(
+                                  startTimeInEpoch),
+                              endTime: DateTime.fromMillisecondsSinceEpoch(
+                                  endTimeInEpoch),
+                            )
+                                .then((eventData) async {
+                              eventId = eventData['id'];
+                              eventLink = eventData['link'];
+
+                              final userid = FirebaseAuth.instance.currentUser!.email;
+
+                              EventInfo eventInfo = EventInfo(
+                                id: eventId ?? '',
+                                userEmail: userid,
+                                name: currentTitle,
+                                description: currentDesc,
+                                location: currentLocation,
+                                link: eventLink ?? '',
+                                attendeeEmails: currentEmail,
+                                hasConfereningSupport: hasConferenceSupport,
+                                startTimeInEpoch: startTimeInEpoch,
+                                endTimeInEpoch: endTimeInEpoch,
+                              );
+
+                              await storage
+                                  .storeEventData(eventInfo)
+                                  .whenComplete(
+                                      () => Navigator.of(context).pop());
+                              setState(() {
+                                isDataStorageInProgress = false;
+                              });
+                            });
+                          }
+                        }
+                      },
                 label: Text(
                   "Save",
                   style: Styles.headerStyle4,

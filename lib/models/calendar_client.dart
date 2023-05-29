@@ -4,7 +4,7 @@ import 'package:googleapis_auth/auth_io.dart';
 class CalendarClient {
   // For storing the CalendarApi object, this can be used
   // for performing all the operation
-
+  static var calendar;
   // For creating a new calendar event
   Future<Map<String, String>> insert({
     required String title,
@@ -57,9 +57,8 @@ class CalendarClient {
 
       print("Event Status: ${value.status}");
       if (value.status == "confirmed") {
-        String joiningLink =
-            "https://meet.google.com/${value.conferenceData?.conferenceId}";
-        String eventId = '';
+        String joiningLink = ''; 
+        String eventId;
 
         eventId = value.id!;
 

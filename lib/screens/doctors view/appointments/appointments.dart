@@ -1,10 +1,10 @@
 import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/screens/doctors%20view/appointments/tabs.dart';
-import 'package:android_testing/screens/patientview/appointments/upcoming_app.dart';
 import 'package:flutter/material.dart';
 
 import 'create_appointment.dart';
+import 'upcoming_appointments.dart';
 
 class DoctorAppointments extends StatelessWidget {
   const DoctorAppointments({super.key});
@@ -27,7 +27,7 @@ class DoctorAppointments extends StatelessWidget {
             children: [
               Tabs(size: size),
               SizedBox(height: AppLayout.getHeight(15)),
-              UpcomingAppointment(size: size),
+              UpcomingDoctorAppointment(size: size),
               SizedBox(height: 10.0),
               Align(
                 alignment: Alignment.centerRight,

@@ -66,6 +66,21 @@ class AppointmentsRepository extends GetxController {
       throw Exception("No Appointments found");
     }
   }
+
+  //get appointments only created by the logged user
+  Future<List<EventInfo>> getallMyAppointments() async {
+    final currentUser = FirebaseAuth.instance.currentUser!;
+    final email = currentUser.email;
+    final snapshot = await _db
+        .collection('Appointments')
+        .where('userEmail', isEqualTo: email)
+        .get();
+    if (snapshot.docs.isNotEmpty) {
+      final data =
+          snapshot.docs.map((e) => EventInfo.fromFirestore(e)).toList();
+      return data;
+    } else {
+      throw Exception("No appointments found");
+    }
+  }
 }
-
-

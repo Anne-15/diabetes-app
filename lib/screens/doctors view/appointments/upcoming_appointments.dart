@@ -1,72 +1,188 @@
-import 'package:android_testing/components/app_layout.dart';
 import 'package:android_testing/components/constants.dart';
+import 'package:android_testing/repository/appointment_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-class UpcomingAppointments extends StatelessWidget {
-  const UpcomingAppointments({
+import '../../../models/calendar_event_info.dart';
+import '../../../repository/calendar_crud.dart';
+
+class UpcomingDoctorAppointment extends StatefulWidget {
+  const UpcomingDoctorAppointment({
     super.key,
+    required this.size,
   });
+
+  // ignore: prefer_typing_uninitialized_variables
+  final size;
+
+  @override
+  State<UpcomingDoctorAppointment> createState() => _UpcomingDoctorAppointmentState();
+}
+
+class _UpcomingDoctorAppointmentState extends State<UpcomingDoctorAppointment> {
+  Storage storage = Storage();
+  final appointment = Get.put(AppointmentsRepository());
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(
-            vertical: AppLayout.getHeight(20),
-            horizontal: AppLayout.getHeight(15)),
-        height: AppLayout.getHeight(215),
-        // width: size.width * .44,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Styles.c2,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Dr. Agnes,\nNairobi Hospital",
-              style: Styles.headerStyle2,
-            ),
-            SizedBox(height: AppLayout.getHeight(5)),
-            Text(
-              "Description: Review of the previous checkup",
-              style: Styles.headerStyle4,
-            ),
-            SizedBox(height: AppLayout.getHeight(5)),
-            Text(
-              "Time: 8:00 AM TO 9:00AM",
-              style: Styles.headerStyle4,
-            ),
-            SizedBox(height: AppLayout.getHeight(5)),
-            Text(
-              "Duration: 1 hour",
-              style: Styles.headerStyle4,
-            ),
-            SizedBox(height: AppLayout.getHeight(5)),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () async {
-                  // _handleCameraandMic(Permission.camera);
-                  // _handleCameraandMic(Permission.microphone);
-                  // await Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => JoinVideoCall(),
-                  //   ),
-                  // );
+    return FutureBuilder<List<EventInfo>>(
+      future: appointment.getallMyAppointments(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasData) {
+            return SizedBox(
+              height: 580.0,
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  Object? eventInfo = snapshot.data![index];
+
+                  EventInfo events = EventInfo.fromMap(eventInfo as Map);
+
+                  DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
+                      events.startTimeInEpoch);
+                  DateTime endTime = DateTime.fromMillisecondsSinceEpoch(
+                      events.endTimeInEpoch);
+
+                  String startTimeString = DateFormat.jm().format(startTime);
+                  String endTimeString = DateFormat.jm().format(endTime);
+                  String dateString = DateFormat.yMMMMd().format(startTime);
+
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 16.0),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                              bottom: 16.0,
+                              top: 16.0,
+                              left: 16.0,
+                              right: 16.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Styles.c2,
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  events.name,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                Text(
+                                  events.description,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.black38,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 5.0,
+                                ),
+                                Padding(
+                                  padding:
+                                      EdgeInsets.only(top: 5.0, bottom: 5.0),
+                                  child: Text(
+                                    events.link,
+                                    style: TextStyle(
+                                      color: Styles.c1,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 50,
+                                      width: 5,
+                                      color: Styles.c1,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          dateString,
+                                          style: TextStyle(
+                                            // color: CustomColor.dark_cyan,
+                                            fontFamily: 'OpenSans',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            letterSpacing: 1.5,
+                                          ),
+                                        ),
+                                        Text(
+                                          '$startTimeString - $endTimeString',
+                                          style: TextStyle(
+                                            // color: CustomColor.dark_cyan,
+                                            fontFamily: 'OpenSans',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            letterSpacing: 1.5,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
                 },
-                child: Text(
-                  "Join call",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            );
+          } else {
+            return Center(
+              child: Text(
+                'No Appointments',
+                style: TextStyle(
+                  color: Colors.black38,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
                 ),
               ),
-            ),
-          ],
-        ));
+            );
+          }
+        }
+        return Center(
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+            valueColor: AlwaysStoppedAnimation<Color>(Styles.c1),
+          ),
+        );
+      },
+    );
   }
 }
-
-// void _handleCameraandMic(Permission permission) {
-//   final status = permission.request();
-//   print(status);
-// }
