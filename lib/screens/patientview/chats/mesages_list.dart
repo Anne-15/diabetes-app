@@ -22,24 +22,31 @@ class _MyMessagesState extends State<MyMessages> {
     return StreamBuilder<List<Messages>>(
       stream: myChats.getMessagesForChat(widget.senderId, widget.recipientId),
       builder: (context, snapshot) {
-        final messages = snapshot.data!;
-        return messages.isEmpty
-            ? Center(
-                child: Text('Say hi...'),
-              )
-              
-            : ListView.builder(
-                physics: BouncingScrollPhysics(),
-                reverse: true,
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  final message = messages[index];
-                  return MessagesWidget(
-                    message: message,
-                    isMe: message.senderId == widget.senderId,
-                  );
-                },
-              );
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircleAvatar(),
+          );
+        } else if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        } else {
+          final messages = snapshot.data!;
+          return messages.isEmpty
+              ? Center(
+                  child: Text('Say hi...'),
+                )
+              : ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  reverse: true,
+                  itemCount: messages.length,
+                  itemBuilder: (context, index) {
+                    final message = messages[index];
+                    return MessagesWidget(
+                      message: message,
+                      isMe: message.senderId == widget.senderId,
+                    );
+                  },
+                );
+        }
       },
     );
   }
@@ -73,8 +80,14 @@ class _MessagesWidgetState extends State<MessagesWidget> {
           decoration: BoxDecoration(
             color: widget.isMe ? Styles.c6 : Styles.c2,
             borderRadius: widget.isMe
-                ? BorderRadius.only(topLeft: Radius.circular(16))
-                : BorderRadius.only(topRight: Radius.circular(16)),
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    bottomLeft: Radius.circular(16),
+                    topRight: Radius.circular(16))
+                : BorderRadius.only(
+                    topRight: Radius.circular(16),
+                    bottomRight: Radius.circular(16),
+                    topLeft: Radius.circular(16)),
           ),
           child: Column(
             crossAxisAlignment:

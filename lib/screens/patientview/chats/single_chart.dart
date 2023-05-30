@@ -1,5 +1,4 @@
 import 'package:android_testing/controllers/get_doctors_controllers.dart';
-import 'package:android_testing/screens/patientview/chats/chats.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,15 +26,6 @@ class _SingleChatState extends State<SingleChat> {
     return Scaffold(
       backgroundColor: Styles.c6,
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => ChatApp()));
-          },
-          icon: Icon(Icons.arrow_back_ios_new_outlined),
-          iconSize: 15,
-          color: Colors.black,
-        ),
         backgroundColor: Styles.c6,
         title: Text(
           widget.user.fullname,
@@ -65,11 +55,12 @@ class _SingleChatState extends State<SingleChat> {
                       child: Container(
                         padding: EdgeInsets.all(8.0),
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30.0),
-                              topRight: Radius.circular(30.0),
-                            )),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30.0),
+                            topRight: Radius.circular(30.0),
+                          ),
+                        ),
                         child: MyMessages(
                           senderId: userid,
                           recipientId: widget.user.fullname,
