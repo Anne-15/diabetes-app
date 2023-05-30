@@ -89,130 +89,134 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     emailController.text = userData.email;
                     passwordController.text = userData.password;
                     typeController.text = userData.type;
-                    return Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 3),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 2),
-                          width: size.width * 0.85,
-                          decoration: BoxDecoration(
-                              color: Styles.c12,
-                              borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 4,
-                                    spreadRadius: 0,
-                                    offset: Offset(0, 4))
-                              ]),
-                          child: TextFormField(
-                            controller: fullnameController,
-                            decoration: InputDecoration(
-                                hintText: 'Full name',
-                                icon: Icon(
-                                  Icons.person_2_outlined,
-                                  color: Styles.primaryColor,
-                                ),
-                                border: InputBorder.none),
-                          ),
-                        ),
-                        SizedBox(height: 15.0),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 3),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 2),
-                          width: size.width * 0.85,
-                          decoration: BoxDecoration(
-                              color: Styles.c12,
-                              borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 4,
-                                    spreadRadius: 0,
-                                    offset: Offset(0, 4))
-                              ]),
-                          child: TextFormField(
-                            controller: emailController,
-                            decoration: InputDecoration(
-                                hintText: 'Email',
-                                icon: Icon(
-                                  Icons.mail_outline_outlined,
-                                  color: Styles.primaryColor,
-                                ),
-                                border: InputBorder.none),
-                          ),
-                        ),
-                        SizedBox(height: 15.0),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 3),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 2),
-                          width: size.width * 0.85,
-                          decoration: BoxDecoration(
-                              color: Styles.c12,
-                              borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 4,
-                                    spreadRadius: 0,
-                                    offset: Offset(0, 4))
-                              ]),
-                          child: TextFormField(
-                            controller: passwordController,
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                hintText: 'Password',
-                                icon: Icon(
-                                  Icons.fingerprint_outlined,
-                                  color: Styles.primaryColor,
-                                ),
-                                border: InputBorder.none),
-                          ),
-                        ),
-                        SizedBox(height: 15.0),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 3),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 2),
-                          width: size.width * 0.85,
-                          decoration: BoxDecoration(
-                              color: Styles.c12,
-                              borderRadius: BorderRadius.circular(25),
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black26,
-                                    blurRadius: 4,
-                                    spreadRadius: 0,
-                                    offset: Offset(0, 4))
-                              ]),
-                          child: TextFormField(
-                            controller: typeController,
-                            decoration: InputDecoration(
-                                hintText: 'Diabetes Type',
-                                icon: Icon(
-                                  Icons.notes_outlined,
-                                  color: Styles.primaryColor,
-                                ),
-                                border: InputBorder.none),
-                          ),
-                        ),
-                        SizedBox(height: 40),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Styles.c6),
-                            child: Text(
-                              "Edit Profile",
-                              style: TextStyle(color: Colors.black),
+                    return Builder(
+                      builder: (context) {
+                        return Column(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 3),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 2),
+                              width: size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: Styles.c12,
+                                  borderRadius: BorderRadius.circular(25),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 4,
+                                        spreadRadius: 0,
+                                        offset: Offset(0, 4))
+                                  ]),
+                              child: TextFormField(
+                                controller: fullnameController,
+                                decoration: InputDecoration(
+                                    hintText: 'Full name',
+                                    icon: Icon(
+                                      Icons.person_2_outlined,
+                                      color: Styles.primaryColor,
+                                    ),
+                                    border: InputBorder.none),
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
+                            SizedBox(height: 15.0),
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 3),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 2),
+                              width: size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: Styles.c12,
+                                  borderRadius: BorderRadius.circular(25),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 4,
+                                        spreadRadius: 0,
+                                        offset: Offset(0, 4))
+                                  ]),
+                              child: TextFormField(
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                    hintText: 'Email',
+                                    icon: Icon(
+                                      Icons.mail_outline_outlined,
+                                      color: Styles.primaryColor,
+                                    ),
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            SizedBox(height: 15.0),
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 3),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 2),
+                              width: size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: Styles.c12,
+                                  borderRadius: BorderRadius.circular(25),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 4,
+                                        spreadRadius: 0,
+                                        offset: Offset(0, 4))
+                                  ]),
+                              child: TextFormField(
+                                controller: passwordController,
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                    hintText: 'Password',
+                                    icon: Icon(
+                                      Icons.fingerprint_outlined,
+                                      color: Styles.primaryColor,
+                                    ),
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            SizedBox(height: 15.0),
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 3),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 2),
+                              width: size.width * 0.85,
+                              decoration: BoxDecoration(
+                                  color: Styles.c12,
+                                  borderRadius: BorderRadius.circular(25),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black26,
+                                        blurRadius: 4,
+                                        spreadRadius: 0,
+                                        offset: Offset(0, 4))
+                                  ]),
+                              child: TextFormField(
+                                controller: typeController,
+                                decoration: InputDecoration(
+                                    hintText: 'Diabetes Type',
+                                    icon: Icon(
+                                      Icons.notes_outlined,
+                                      color: Styles.primaryColor,
+                                    ),
+                                    border: InputBorder.none),
+                              ),
+                            ),
+                            SizedBox(height: 40),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Styles.c6),
+                                child: Text(
+                                  "Edit Profile",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     );
                   } else if (snapshot.hasError) {
                     return Text(snapshot.error.toString());

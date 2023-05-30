@@ -35,19 +35,18 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   Object? eventInfo = snapshot.data!.docs[index].data();
-            
+
                   EventInfo events = EventInfo.fromMap(eventInfo as Map);
-            
+
                   DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(
                       events.startTimeInEpoch);
-                  DateTime endTime =
-                      DateTime.fromMillisecondsSinceEpoch(
+                  DateTime endTime = DateTime.fromMillisecondsSinceEpoch(
                       events.endTimeInEpoch);
-            
+
                   String startTimeString = DateFormat.jm().format(startTime);
                   String endTimeString = DateFormat.jm().format(endTime);
                   String dateString = DateFormat.yMMMMd().format(startTime);
-            
+
                   return Padding(
                     padding: EdgeInsets.only(bottom: 16.0),
                     child: InkWell(
@@ -173,13 +172,14 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
               ),
             );
           }
+        } else {
+          return Center(
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(Styles.c1),
+            ),
+          );
         }
-        return Center(
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-            valueColor: AlwaysStoppedAnimation<Color>(Styles.c1),
-          ),
-        );
       },
     );
   }

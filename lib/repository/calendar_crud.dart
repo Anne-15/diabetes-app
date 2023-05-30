@@ -41,11 +41,11 @@ class Storage {
     Stream<QuerySnapshot> myClasses =
         _db.collection('Appointments').orderBy('start').snapshots();
 
-    myClasses.listen((snapshot) {
-      for (var doc in snapshot.docs) {
-        print(doc.data()); // Check the data retrieved from the snapshot
-      }
-    });
+    // myClasses.listen((snapshot) {
+    //   for (var doc in snapshot.docs) {
+    //     print(doc.data()); // Check the data retrieved from the snapshot
+    //   }
+    // });
 
     return myClasses;
   }
