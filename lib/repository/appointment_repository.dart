@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/appointments.dart';
-import '../models/calendar_event_info.dart';
 
 class AppointmentsRepository extends GetxController {
   static AppointmentsRepository get instance => Get.find();
@@ -51,7 +50,7 @@ class AppointmentsRepository extends GetxController {
   }
 
   // Get logged user appointment list only
-  Future<List<EventInfo>> getMyAppointments() async {
+  Future<List<AppointmentsModel>> getMyAppointments() async {
     final currentUserEmail = FirebaseAuth.instance.currentUser?.email;
     final snapshot = await FirebaseFirestore.instance
         .collection('Appointments')
@@ -60,15 +59,15 @@ class AppointmentsRepository extends GetxController {
 
     if (snapshot.docs.isNotEmpty) {
       final data =
-          snapshot.docs.map((e) => EventInfo.fromFirestore(e)).toList();
+          snapshot.docs.map((e) => AppointmentsModel.fromFirestore(e)).toList();
       return data;
     } else {
       throw Exception("No Appointments found");
     }
   }
 
-  //get appointments only created by the logged user
-  Future<List<EventInfo>> getallMyAppointments() async {
+  // //get appointments only created by the logged user
+  Future<List<AppointmentsModel>> getallMyAppointments() async {
     final currentUser = FirebaseAuth.instance.currentUser!;
     final email = currentUser.email;
     final snapshot = await _db
@@ -77,7 +76,7 @@ class AppointmentsRepository extends GetxController {
         .get();
     if (snapshot.docs.isNotEmpty) {
       final data =
-          snapshot.docs.map((e) => EventInfo.fromFirestore(e)).toList();
+          snapshot.docs.map((e) => AppointmentsModel.fromFirestore(e)).toList();
       return data;
     } else {
       throw Exception("No appointments found");

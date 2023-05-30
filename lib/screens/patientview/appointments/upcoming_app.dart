@@ -26,8 +26,8 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<EventInfo>>(
-      future: appointment.getMyAppointments(),
+    return StreamBuilder(
+      stream: storage.retrieveEvents(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
@@ -35,9 +35,9 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
               height: 580.0,
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
-                itemCount: snapshot.data!.length,
+                itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-                  Object? eventInfo = snapshot.data![index];
+                  Object? eventInfo = snapshot.data!.docs[index];
 
                   EventInfo events = EventInfo.fromMap(eventInfo as Map);
 
@@ -162,6 +162,8 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                 },
               ),
             );
+          } else if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
           } else {
             return Center(
               child: Text(

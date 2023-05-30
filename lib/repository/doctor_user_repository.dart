@@ -11,12 +11,10 @@ class DoctorUserRepository extends GetxController {
 
   final _db = FirebaseFirestore.instance;
   //add details to the database
-  createDoctorUser(String id, DoctorUserModel doctor) async {
+  Future createDoctorUser(DoctorUserModel doctor) async {
     await _db
         .collection("Doctors")
-        .doc(id)
-        .set(doctor.toJson())
-        .then((value) => print('User added to database'))
+        .add(doctor.toJson())
         .whenComplete(
           () => Get.snackbar(
             "Success",

@@ -1,5 +1,6 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/repository/appointment_repository.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -26,8 +27,8 @@ class _UpcomingDoctorAppointmentState extends State<UpcomingDoctorAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<EventInfo>>(
-      future: appointment.getallMyAppointments(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: storage.retrieveEvents(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
@@ -35,9 +36,9 @@ class _UpcomingDoctorAppointmentState extends State<UpcomingDoctorAppointment> {
               height: 580.0,
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
-                itemCount: snapshot.data!.length,
+                itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-                  Object? eventInfo = snapshot.data![index];
+                  Object? eventInfo = snapshot.data!.docs[index];
 
                   EventInfo events = EventInfo.fromMap(eventInfo as Map);
 

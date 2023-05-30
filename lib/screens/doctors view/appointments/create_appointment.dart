@@ -1,5 +1,5 @@
 import 'package:android_testing/components/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -471,11 +471,10 @@ class _CreateAppointmentState extends State<CreateAppointment> {
                               eventId = eventData['id'];
                               eventLink = eventData['link'];
 
-                              final userid = FirebaseAuth.instance.currentUser!.email;
+                              // final userid = FirebaseAuth.instance.currentUser!.email;
 
                               EventInfo eventInfo = EventInfo(
                                 id: eventId ?? '',
-                                userEmail: userid,
                                 name: currentTitle,
                                 description: currentDesc,
                                 location: currentLocation,

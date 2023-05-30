@@ -1,5 +1,4 @@
 import 'package:android_testing/screens/patientview/signin/login.dart';
-import 'package:android_testing/widgets/bottomnav.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +9,7 @@ import '../../../components/constants.dart';
 import '../../../models/usermodel.dart';
 import '../../../repository/authentication_repository.dart';
 import '../../../repository/user_repository.dart';
+import '../../../widgets/verify_user_email.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({
@@ -183,7 +183,7 @@ class _SignUpFormState extends State<SignUpForm> {
                             () => Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => BottomBar(),
+                                builder: (context) => VerifyUserEmail(),
                               ),
                             ),
                           );

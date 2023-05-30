@@ -1,5 +1,4 @@
 import 'package:googleapis/calendar/v3.dart';
-import 'package:googleapis_auth/auth_io.dart';
 
 class CalendarClient {
   // For storing the CalendarApi object, this can be used
@@ -20,8 +19,8 @@ class CalendarClient {
     // If the account has multiple calendars, then select the "primary" one
     String calendarId = "primary";
     Event event = Event();
-    var calendar =
-        CalendarApi(await clientViaApplicationDefaultCredentials(scopes: []));
+    // var calendar =
+    //     CalendarApi(await clientViaApplicationDefaultCredentials(scopes: []));
 
     event.summary = title;
     event.description = description;
@@ -96,8 +95,8 @@ class CalendarClient {
 
     String calendarId = "primary";
     Event event = Event();
-    var calendar =
-        CalendarApi(await clientViaApplicationDefaultCredentials(scopes: []));
+    // var calendar =
+    //     CalendarApi(await clientViaApplicationDefaultCredentials(scopes: []));
 
     event.summary = title;
     event.description = description;
@@ -149,8 +148,8 @@ class CalendarClient {
   // For deleting a calendar event
   Future<void> delete(String eventId, bool shouldNotify) async {
     String calendarId = "primary";
-    var calendar =
-        CalendarApi(await clientViaApplicationDefaultCredentials(scopes: []));
+    // var calendar =
+    //     CalendarApi(await clientViaApplicationDefaultCredentials(scopes: []));
 
     try {
       await calendar.events
