@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../models/appointments.dart';
+import '../models/calendar_event_info.dart';
 
 class AppointmentsRepository extends GetxController {
   static AppointmentsRepository get instance => Get.find();
@@ -42,10 +43,10 @@ class AppointmentsRepository extends GetxController {
     return data;
   }
 
-  Future<List<AppointmentsModel>> allAppointments() async {
+  Future<List<EventInfo>> allAppointments() async {
     final snapshot = await _db.collection("Appointments").get();
-    final data =
-        snapshot.docs.map((e) => AppointmentsModel.fromFirestore(e)).toList();
+    final data = snapshot.docs.map((e) => EventInfo.fromFirestore(e)).toList();
+    print(data);
     return data;
   }
 
