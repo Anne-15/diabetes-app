@@ -98,7 +98,7 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
                                   padding:
                                       EdgeInsets.only(top: 5.0, bottom: 5.0),
                                   child: Text(
-                                    events.link,
+                                    'link: https://meet.google.com/wbi-rrso-ybc',
                                     style: TextStyle(
                                       color: Styles.c1,
                                       fontWeight: FontWeight.bold,

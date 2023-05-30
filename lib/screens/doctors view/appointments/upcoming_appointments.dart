@@ -1,6 +1,5 @@
 import 'package:android_testing/components/constants.dart';
 import 'package:android_testing/repository/appointment_repository.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -27,18 +26,18 @@ class _UpcomingDoctorAppointmentState extends State<UpcomingDoctorAppointment> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    return StreamBuilder(
       stream: storage.retrieveEvents(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasData) {
+        if (snapshot.hasData) {
+          if (snapshot.data!.docs.isNotEmpty) {
             return SizedBox(
               height: 580.0,
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-                  Object? eventInfo = snapshot.data!.docs[index];
+                  Object? eventInfo = snapshot.data!.docs[index].data();
 
                   EventInfo events = EventInfo.fromMap(eventInfo as Map);
 
@@ -102,7 +101,7 @@ class _UpcomingDoctorAppointmentState extends State<UpcomingDoctorAppointment> {
                                   padding:
                                       EdgeInsets.only(top: 5.0, bottom: 5.0),
                                   child: Text(
-                                    events.link,
+                                    'link: https://meet.google.com/wbi-rrso-ybc',
                                     style: TextStyle(
                                       color: Styles.c1,
                                       fontWeight: FontWeight.bold,
@@ -176,13 +175,14 @@ class _UpcomingDoctorAppointmentState extends State<UpcomingDoctorAppointment> {
               ),
             );
           }
+        } else {
+          return Center(
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color>(Styles.c1),
+            ),
+          );
         }
-        return Center(
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-            valueColor: AlwaysStoppedAnimation<Color>(Styles.c1),
-          ),
-        );
       },
     );
   }
