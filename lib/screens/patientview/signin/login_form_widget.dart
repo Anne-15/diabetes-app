@@ -11,7 +11,7 @@ import '../../../components/constants.dart';
 import '../../../controllers/signup_controller.dart';
 import 'forgot_password.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({
     super.key,
     required this.size,
@@ -20,19 +20,56 @@ class LoginForm extends StatelessWidget {
   final Size size;
 
   @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  Future<void> signIn(String emailAddress, String password) async {
+    try {
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailAddress,
+        password: password,
+      );
+
+      // Check if the user's email is verified
+      if (userCredential.user != null && userCredential.user!.emailVerified) {
+        // Login successful, navigate to the next screen
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottomBar(),
+          ),
+        );
+      } else {
+        // User's email is not verified
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please verify your email to sign in.'),
+          ),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      // Error occurred during sign-in
+      String errorMessage = 'An error occurred, please try again.';
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found with this email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Incorrect password.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+        ),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final controller = Get.put(SignupController());
-
-    Future signIn(String emailAddress, String password) async {
-      try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: emailAddress, password: password);
-      } on FirebaseAuthException catch (e) {
-        // TODO
-        print(e);
-      }
-    }
-
     return Form(
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -94,7 +131,7 @@ class LoginForm extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: SizedBox(
-                width: size.width * 0.6,
+                width: widget.size.width * 0.6,
                 height: AppLayout.getHeight(40.0),
                 child: ClipRRect(
                   child: TextButton(
@@ -113,14 +150,7 @@ class LoginForm extends StatelessWidget {
                           ),
                         );
                       } else {
-                        await signIn(email, password).whenComplete(
-                          () => Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => BottomBar(),
-                            ),
-                          ),
-                        );
+                        await signIn(email, password);
                       }
                       // ignore: use_build_context_synchronously
                     },
@@ -132,7 +162,7 @@ class LoginForm extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: size.height * 0.03),
+            SizedBox(height: widget.size.height * 0.03),
             AlreadyHaveAnAccount(
               login: true,
               press: () {

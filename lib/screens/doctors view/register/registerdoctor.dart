@@ -25,7 +25,7 @@ class _RegisterDoctorPageState extends State<RegisterDoctorPage> {
             children: [
               SvgPicture.asset(
                 'assets/icons/login.svg',
-                height: size.height * 0.2,
+                height: size.height * 0.3,
               ),
               Text(
                 "Diplo App",

@@ -3,6 +3,7 @@ import 'package:android_testing/screens/doctors%20view/register/registerdoctor.d
 import 'package:android_testing/screens/patientview/signin/forgot_password.dart';
 import 'package:android_testing/widgets/navigationbar.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,6 +40,49 @@ class _DoctorLoginFormState extends State<DoctorLoginForm> {
     email.dispose();
     password.dispose();
     super.dispose();
+  }
+
+  Future<void> signIn(String emailAddress, String password) async {
+    try {
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailAddress,
+        password: password,
+      );
+
+      // Check if the user's email is verified
+      if (userCredential.user != null && userCredential.user!.emailVerified) {
+        // Login successful, navigate to the next screen
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DoctorNavBar(),
+          ),
+        );
+      } else {
+        // User's email is not verified
+        // ignore: use_build_context_synchronously
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Please verify your email to sign in.'),
+          ),
+        );
+      }
+    } on FirebaseAuthException catch (e) {
+      // Error occurred during sign-in
+      String errorMessage = 'An error occurred, please try again.';
+      if (e.code == 'user-not-found') {
+        errorMessage = 'No user found with this email.';
+      } else if (e.code == 'wrong-password') {
+        errorMessage = 'Incorrect password.';
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+        ),
+      );
+    }
   }
 
   @override
@@ -116,16 +160,7 @@ class _DoctorLoginFormState extends State<DoctorLoginForm> {
                         MaterialStateProperty.all(Styles.primaryColor),
                   ),
                   onPressed: () async {
-                    DoctorSignupController.instance.logIn(
-                      email.text.trim(),
-                      password.text.trim(),
-                    );
-                    await Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DoctorNavBar(),
-                      ),
-                    );
+                    await signIn(email.text.trim(), password.text.trim());
                   },
                   child: Text(
                     "SIGN IN",
