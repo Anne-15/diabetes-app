@@ -24,7 +24,7 @@ class _UpcomingAppointmentState extends State<UpcomingAppointment> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: storage.retrieveEvents(),
+      stream: storage.retrieveUserEvents(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data!.docs.isNotEmpty) {

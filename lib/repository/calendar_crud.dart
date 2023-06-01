@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../models/calendar_event_info.dart';
 
 final _db = FirebaseFirestore.instance;
@@ -47,6 +48,16 @@ class Storage {
     //   }
     // });
 
+    return myClasses;
+  }
+
+  Stream<QuerySnapshot> retrieveUserEvents() {
+    final userEmail = FirebaseAuth.instance.currentUser?.email;
+    Stream<QuerySnapshot<Map<String, dynamic>>> myClasses = _db
+        .collection('Appointments')
+        .orderBy('start')
+        .where("email", isEqualTo: userEmail)
+        .snapshots();
     return myClasses;
   }
 }
