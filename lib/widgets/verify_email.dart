@@ -43,6 +43,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
         });
       } else {
         timer?.cancel();
+        navigateToDoctorNavBar();
       }
     }
   }
@@ -64,6 +65,13 @@ class _VerifyEmailState extends State<VerifyEmail> {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  void navigateToDoctorNavBar() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => DoctorNavBar()),
+    );
   }
 
   @override

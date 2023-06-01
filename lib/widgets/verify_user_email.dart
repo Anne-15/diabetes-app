@@ -43,6 +43,7 @@ class _VerifyUserEmailState extends State<VerifyUserEmail> {
         });
       } else {
         timer?.cancel();
+        navigateToBottomBar();
       }
     }
   }
@@ -64,6 +65,13 @@ class _VerifyUserEmailState extends State<VerifyUserEmail> {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  void navigateToBottomBar() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => BottomBar()),
+    );
   }
 
   @override

@@ -42,6 +42,9 @@ class _NewMessageState extends State<NewMessage> {
     FocusScope.of(context).unfocus();
     await ChatRepository.instance
         .addMessageToChat(widget.senderId, widget.receipientId, message);
+    setState(() {
+      message = '';
+    });
     _controller.clear();
   }
 
@@ -80,7 +83,9 @@ class _NewMessageState extends State<NewMessage> {
           ),
           GestureDetector(
             onTap: () {
-              message.trim().isEmpty ? null : getMessages();
+              if (message.trim().isNotEmpty) {
+                getMessages();
+              }
             },
             child: Container(
               padding: EdgeInsets.all(8.0),

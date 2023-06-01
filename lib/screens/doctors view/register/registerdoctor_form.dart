@@ -166,7 +166,7 @@ class _RegisterDoctorFormState extends State<RegisterDoctorForm> {
                         );
                   },
                   child: Text(
-                    "SIGN IN",
+                    "SIGN UP",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

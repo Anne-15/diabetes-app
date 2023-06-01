@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Diplo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        useMaterial3: true,
+        useMaterial3: true, 
         colorScheme: ColorScheme.fromSeed(
           seedColor: Styles.backgroundColor,
         ),
