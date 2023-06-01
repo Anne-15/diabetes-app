@@ -68,9 +68,10 @@ class _VerifyUserEmailState extends State<VerifyUserEmail> {
   }
 
   void navigateToBottomBar() {
-    Navigator.pushReplacement(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => BottomBar()),
+      (route) => false,
     );
   }
 

@@ -68,9 +68,10 @@ class _VerifyEmailState extends State<VerifyEmail> {
   }
 
   void navigateToDoctorNavBar() {
-    Navigator.pushReplacement(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => DoctorNavBar()),
+      (route) => false,
     );
   }
 

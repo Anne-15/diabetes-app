@@ -1,6 +1,8 @@
 import 'package:android_testing/models/my_doctors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 
 import '../../../components/constants.dart';
 import '../../../repository/my_doctors_repository.dart';
@@ -14,6 +16,7 @@ class AddDoctorDetails extends StatefulWidget {
 
 class _AddDoctorDetailsState extends State<AddDoctorDetails> {
   late TextEditingController name;
+  late TextEditingController email;
   late TextEditingController hospital;
   late TextEditingController department;
 
@@ -21,6 +24,7 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
   void initState() {
     // TODO: implement initState
     name = TextEditingController();
+    email = TextEditingController();
     hospital = TextEditingController();
     department = TextEditingController();
     super.initState();
@@ -30,9 +34,30 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
   void dispose() {
     // TODO: implement dispose
     name.dispose();
+    email.dispose();
     hospital.dispose();
     department.dispose();
     super.dispose();
+  }
+
+  Future<void> sendEmailNotification() async {
+    try {
+      var userEmail = email;
+      var systemEmail = 'wariiyuanne@gmail.com';
+      var message = Message();
+      message.subject = "Email Notification";
+      message.text =
+          "Hello,\n\nThis is to inform you that user has added you as their specialist in the Diplo app.\n\nThank you,\nManagement";
+      message.from = Address(systemEmail.toString());
+      message.recipients.add(userEmail);
+      var smtpServer =
+          gmailSaslXoauth2(userEmail as String, "fjvqqwptucqvcfbf");
+      send(message, smtpServer);
+      print("Email has been sent successfully");
+      // SnackBar(content: ,);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -142,6 +167,27 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
                           offset: Offset(0, 4))
                     ]),
                 child: TextField(
+                  controller: email,
+                  decoration: InputDecoration(
+                    label: Text("Email Address"),
+                    border: InputBorder.none,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4,
+                          spreadRadius: 0,
+                          offset: Offset(0, 4))
+                    ]),
+                child: TextField(
                   controller: hospital,
                   decoration: InputDecoration(
                     label: Text("Hospital"),
@@ -176,16 +222,19 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
                 width: double.infinity,
                 child: FloatingActionButton.extended(
                   onPressed: (() async {
-                    final currentUser = FirebaseAuth.instance.currentUser!.email;
+                    final currentUser =
+                        FirebaseAuth.instance.currentUser!.email;
                     final myDoctor = MyDoctorsModel(
                       fullname: name.text.trim(),
+                      email: email.text.trim(),
                       hospital: hospital.text.trim(),
                       department: department.text.trim(),
                       userEmail: currentUser,
                     );
 
                     await MyDoctorsRepository.instance
-                        .createDoctorUser(myDoctor);
+                        .createDoctorUser(myDoctor)
+                        .then((value) => sendEmailNotification());
 
                     // ignore: use_build_context_synchronously
                     Navigator.pop(context);

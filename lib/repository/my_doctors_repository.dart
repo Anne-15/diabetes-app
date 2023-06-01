@@ -11,7 +11,7 @@ class MyDoctorsRepository extends GetxController {
 
   final _db = FirebaseFirestore.instance;
 
-  createDoctorUser(MyDoctorsModel doctor) async {
+  Future createDoctorUser(MyDoctorsModel doctor) async {
     await _db
         .collection("MyDoctors")
         .add(doctor.toJson())
