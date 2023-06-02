@@ -60,6 +60,7 @@ dependencies:
   extension_google_sign_in_as_googleapis_auth: ^2.0.9
   path_provider: ^2.0.15
   mailer: ^6.0.1
+  crypto: ^3.0.3
   
 
 dev_dependencies:

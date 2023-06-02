@@ -42,7 +42,7 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
 
   Future<void> sendEmailNotification() async {
     try {
-      var userEmail = email;
+      var userEmail = email.text;
       var systemEmail = 'wariiyuanne@gmail.com';
       var message = Message();
       message.subject = "Email Notification";
@@ -51,7 +51,7 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
       message.from = Address(systemEmail.toString());
       message.recipients.add(userEmail);
       var smtpServer =
-          gmailSaslXoauth2(userEmail as String, "fjvqqwptucqvcfbf");
+          gmailSaslXoauth2(userEmail, "fjvqqwptucqvcfbf");
       send(message, smtpServer);
       print("Email has been sent successfully");
       // SnackBar(content: ,);

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:android_testing/screens/patientview/signin/login.dart';
+import 'package:crypto/crypto.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,10 +55,18 @@ class _SignUpFormState extends State<SignUpForm> {
     super.dispose();
   }
 
+  String hashPassword(String password) {
+    var bytes = utf8.encode(password);
+    var hashedPassword =
+        sha256.convert(bytes);
+    return hashedPassword.toString();
+  }
+
   Future registerNewUser(String email, String password) async {
     Get.put(AuthenticationRepository());
+    String hashedPassword = hashPassword(password);
     String? error = await AuthenticationRepository.instance
-        .createUserWithEmailAndPassword(email, password) as String?;
+        .createUserWithEmailAndPassword(email, hashedPassword) as String?;
     if (error != null) {
       Get.showSnackbar(GetSnackBar(
         message: error.toString(),
