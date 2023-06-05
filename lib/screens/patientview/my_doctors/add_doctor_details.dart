@@ -1,8 +1,8 @@
 import 'package:android_testing/models/my_doctors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
+// import 'package:mailer/mailer.dart';
+// import 'package:mailer/smtp_server.dart';
 
 import '../../../components/constants.dart';
 import '../../../repository/my_doctors_repository.dart';
@@ -40,25 +40,25 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
     super.dispose();
   }
 
-  Future<void> sendEmailNotification() async {
-    try {
-      var userEmail = email.text;
-      var systemEmail = 'wariiyuanne@gmail.com';
-      var message = Message();
-      message.subject = "Email Notification";
-      message.text =
-          "Hello,\n\nThis is to inform you that user has added you as their specialist in the Diplo app.\n\nThank you,\nManagement";
-      message.from = Address(systemEmail.toString());
-      message.recipients.add(userEmail);
-      var smtpServer =
-          gmailSaslXoauth2(userEmail, "fjvqqwptucqvcfbf");
-      send(message, smtpServer);
-      print("Email has been sent successfully");
-      // SnackBar(content: ,);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
+  // Future<void> sendEmailNotification() async {
+  //   try {
+  //     var userEmail = email.text;
+  //     var systemEmail = 'wariiyuanne@gmail.com';
+  //     var message = Message();
+  //     message.subject = "Email Notification";
+  //     message.text =
+  //         "Hello,\n\nThis is to inform you that user has added you as their specialist in the Diplo app.\n\nThank you,\nManagement";
+  //     message.from = Address(systemEmail.toString());
+  //     message.recipients.add(userEmail);
+  //     var smtpServer =
+  //         gmailSaslXoauth2(userEmail);
+  //     send(message, smtpServer);
+  //     print("Email has been sent successfully");
+  //     // SnackBar(content: ,);
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -233,8 +233,8 @@ class _AddDoctorDetailsState extends State<AddDoctorDetails> {
                     );
 
                     await MyDoctorsRepository.instance
-                        .createDoctorUser(myDoctor)
-                        .then((value) => sendEmailNotification());
+                        .createDoctorUser(myDoctor);
+                    
 
                     // ignore: use_build_context_synchronously
                     Navigator.pop(context);
